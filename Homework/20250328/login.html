@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="https://api-gateway.fullstack.edu.vn/action_page.php" method="post">
+    <table cellspacing="0" border="0" cellpadding="10px" width="325px">
+        <tr>
+            <td><label for="name">Username</label></td>
+            <td><input type="text" id="name" name="name"></td>
+        </tr>
+        <tr>
+            <td><label for="pass">Password</label></td>
+            <td><input type="password" id="pass" name="pass"></td>
+        </tr>
+        <tr>
+            <td><label for="city">City of Employment</label></td>
+            <td><input type="text" id="city" name="city"></td>
+        </tr>
+        <tr>
+            <td><label for="web">Web server:</label></td>
+            <td>
+                <select name="web" id="web">
+                    <option value="choose">--Choose a server--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Please specify your role:</label></td>
+            <td>
+                <div>
+                    <input type="radio" name="role" value="student" id="student">
+                    <label for="student">Student</label>
+                </div>
+                <div>
+                    <input type="radio" name="role" value="engineer" id="engineer">
+                    <label for="engineer">Engineer</label>
+                </div>
+                <div>
+                    <input type="radio" name="role" value="manager" id="manager">
+                    <label for="manager">Manager</label>
+                </div>
+                <div>
+                    <input type="radio" name="role" value="guest" id="guest">
+                    <label for="guest">Guest</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="name">Single Sign-on to the following:</label></td>
+            <td>
+                <div>
+                    <input type="checkbox" value="mail" name="signOn[]" id="mail">
+                    <label for="mail">Mail</label>
+                </div>
+                <div>
+                    <input type="checkbox" value="payroll" name="signOn[]" id="payroll">
+                    <label for="payroll">Payroll</label>
+                </div>
+                <div>
+                    <input type="checkbox" value="self-service" name="signOn[]" id="self-service">
+                    <label for="self-service">Self-service</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button type="submit">Login</button>
+                <button type="reset">Reset</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

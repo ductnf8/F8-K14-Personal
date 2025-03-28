@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Try a free sample</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis ducimus eaque enim fugit inventore neque rerum.
+    Aspernatur beatae doloremque iusto laborum, odio officiis pariatur quaerat quos repudiandae sapiente, ullam velit
+    veritatis. Delectus distinctio error, in minima minus nesciunt nihil quasi quo veniam. Deleniti expedita explicabo
+    minima mollitia, nemo qui ullam.</p>
+<form action="https://api-gateway.fullstack.edu.vn/action_page.php" method="post" enctype="multipart/form-data">
+    <table align="center" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+            <td>
+                <label for="firstName">First name</label> <br>
+                <input id="firstName" name="firstname" type="text" placeholder="John">
+            </td>
+            <td>
+                <label for="lastName">Last name</label> <br>
+                <input id="lastName" name="lastname" type="text" placeholder="Smith">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="email">Email address</label> <br>
+                <input id="email" name="email" type="email" placeholder="John@example.com">
+            </td>
+            <td>
+                <label for="address">Address</label> <br>
+                <input id="address" name="address" type="text" placeholder="Silk St">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="city">City</label> <br>
+                <input id="city" name="city" type="text" placeholder="London">
+            </td>
+            <td>
+                <label for="state">State</label>
+                <label for="state">(optional)</label>
+                <br>
+                <input id="state" name="state" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="zipCode">ZIP Code</label> <br>
+                <input id="zipCode" name="zipCode" type="text" placeholder="EC2Y8DS">
+
+            </td>
+            <td>
+                <label for="country">Country</label> <br>
+                <select id="country" name="country">
+                    <option value="UK">United Kingdom</option>
+                    <option value="Vn">VietNam</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+<!--            <td colspan="2" align="center"><input value="SEND ME FREE COFFEE" type="submit"></td>-->
+        <td colspan="2"><button type="button">Click me</button></td>
+        </tr>
+        <tr>
+            <td><label for="cv">your cv</label>
+            <input type="file" multiple="multiple" id="cv" name="cv" accept="image/*" hidden>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

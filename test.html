@@ -1,67 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<div>
-    <table width="" border="1" cellspacing="0" cellpadding="8">
-        <tr>
-            <td rowspan="2">Day</td>
-            <td colspan="2">Schedule</td>
-            <td rowspan="2">Topic</td>
-            <td rowspan="2">Status</td>
-        </tr>
-        <tr>
-            <td>Begin</td>
-            <td>End</td>
-        </tr>
+<table>
+    <tr>
+        <td><label>Nhap name:</label></td>
+        <td><input id="name" placeholder="name" name="name" type="text"/></td>
+    </tr>
+    <tr>
+        <td><label>Nhap age:</label></td>
+        <td><input id="age" placeholder="age" name="age" type="number"/></td>
+    </tr>
+    <tr>
+        <td>Nhap address:</td>
+        <td><input id="=address" placeholder="address" name="address" type="text"></td>
+    </tr>
+    <tr>
+        <td>Nhap email:</td>
+        <td><input id="=email" placeholder="email" value="tnduc@gmail.com" name="email" disabled></td>
+    </tr>
+    <tr>
+        <td>Nhap gender:</td>
+        <td>
+            <label for="=male">male</label>
+            <input id="=male" name="gender" type="radio" value="male">
+            <label for="=female">female</label>
+            <input id="=female" name="gender" type="radio" value="male">
 
-        <tr>
-            <td rowspan="1">Mon</td>
-            <td>8AM</td>
-            <td>5PM</td>
-            <td>Html</td>
-            <td>OK</td>
-        </tr>
+        </td>
+    </tr>
+    <tr>
+        <td><label>Nhap Language: </label></td>
+        <td>
+            <label for="Vn">Vn</label>
+            <input id="Vn" name="lang[]" value="Vn" type="checkbox">
+            <label for="En">En</label>
+            <input id="En" name="lang[]" value="En" type="checkbox">
+            <label for="Ja">Ja</label>
+            <input id="Ja" name="lang[]" value="Ja" type="checkbox">
+        </td>
+    </tr>
 
-        <tr>
-            <td rowspan="3">Tus</td>
-            <td>8AM</td>
-            <td>9AM</td>
-            <td rowspan="2">Java/backend/php/docker</td>
-            <td>NG</td>
-        </tr>
-        <tr>
-            <td>9AM</td>
-            <td>2PM</td>
-            <td>OK</td>
-        </tr>
-        <tr>
-            <td>2PM</td>
-            <td>5PM</td>
-            <td>JS</td>
-            <td>GOOD</td>
-        </tr>
-
-        <tr>
-            <td>Wed</td>
-            <td colspan="3">OFF</td>
-            <td>OK</td>
-        </tr>
-
-        <tr>
-            <td>Thus</td>
-            <td>8AM</td>
-            <td>5PM</td>
-            <td>Html</td>
-            <td>NG</td>
-        </tr>
-    </table>
-</div>
-</body>
-</html>
+</table>

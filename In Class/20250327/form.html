@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Form</h1>
+<form action="https://api-gateway.fullstack.edu.vn/action_page.php"
+      method="post">
+
+    <!--    Nhập tên - text-->
+    <label for="name">Nhap ho & ten: </label>
+    <input id="name" placeholder="name" name="name" type="text" value="Duc" readonly/>
+    <br>
+
+    <!--    Nhập tuổi-->
+    <label for="age">Nhap tuoi: </label>
+    <input id="age" placeholder="age" name="age" type="number"/>
+    <br>
+
+    <!--    Nập email-->
+    <label for="email">Nhap email: </label>
+    <input id="email" placeholder="email" value="tnduc@gmail.com" name="email" type="email" disabled/>
+    <br>
+
+    <!--    Nhập gender - radio -->
+    <label>Nhap gender: </label>
+    <label for="male">male</label>
+    <input id="male" name="gender" value="male" type="radio" checked="checked"/>
+    <label for="female">female</label>
+    <input id="female" name="gender" value="female" type="radio"/>
+    <br>
+
+    <!--    Nhập ngôn ngữ - checkbox-->
+    <label>Nhap language: </label>
+    <label for="en">En</label>
+    <input id="en" name="language[]" value="English" type="checkbox" checked/>
+    <label for="vi">Vi</label>
+    <input id="vi" name="language[]" value="Vietnam" type="checkbox"/>
+    <label for="ja">Ja</label>
+    <input id="ja" name="language[]" value="Japan" type="checkbox"/>
+    <br>
+
+    <!--    Nhập nơi học- select-->
+    <label>Ban hoc lap trinh o dau</label>
+    <select name="center" id="">
+        <option value="F8">F8</option>
+        <option value="F12">F12</option>
+        <option value="F88">F88</option>
+    </select>
+    <br>
+
+    <!--    Salary- range-->
+    <label>xxx</label>
+    <input type="range" min="1" max="100" value="1" name="range">
+    <br>
+
+    <!--  Textarea  -->
+    <label for="desc">Mô tả bản thân</label>
+    <textarea name="desc" placeholder="description" id="desc" cols="30" rows="5"></textarea>
+    <br>
+
+    <!--    Nút submit-->
+    <input type="submit" value="Submit"/>
+
+</form>
+</body>
+</html>
