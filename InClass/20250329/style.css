@@ -1,0 +1,27 @@
+p {
+    color: blue;
+}
+
+#k14 {
+    color: aquamarine;
+}
+
+.k14 {
+    color: orange;
+}
+
+.ex03 p {
+    color: red;
+}
+
+.ex03 .ex03-1 {
+    color: deeppink;
+}
+
+.ex03 > p {
+    color: orange;
+}
+
+.ex03 > .ex03-01 > p {
+    color: burlywood;
+}
