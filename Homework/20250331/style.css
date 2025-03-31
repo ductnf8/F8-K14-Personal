@@ -1,5 +1,6 @@
 * {
     font-family: monospace, serif;
+    /*color: snow;*/
 }
 
 h1 {
@@ -9,12 +10,25 @@ h1 {
 
 a {
     text-decoration: none;
-    color: blue;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .div {
-    background-color: antiquewhite;
+    width: 70%;
+    /*background-color: antiquewhite;*/
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+
 }
+
+.a1{
+    color: olive;
+    font-size: 20px;
+}
+
 
 #s1 {
     font-size: 15px;
