@@ -1,0 +1,34 @@
+* {
+    font-family: monospace, serif;
+}
+
+h1 {
+    color: deeppink;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+.div {
+    background-color: antiquewhite;
+}
+
+#s1 {
+    font-size: 15px;
+    text-decoration: line-through;
+}
+
+.s > #s2 {
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.muaHang > a {
+    color: royalblue;
+    font-size: 20px;
+}
+
