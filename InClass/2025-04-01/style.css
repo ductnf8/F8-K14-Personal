@@ -1,0 +1,36 @@
+/*!*!*.container > ul > li {*!*!*/
+/*!*!*    color: red;*!*!*/
+/*!*!*}*!*!*/
+
+/*!*ul li {*!*/
+/*!*    color: blue;*!*/
+/*!*}*!*/
+
+/*!*!**!*/
+/*!*    '~'  => Tìm những thẻ con cùng cấp*!*/
+/*!*    '>' => Thẻ con trực tiếp*!*/
+/*!*    ',' => all selector have same css code*!*/
+/*!**!*!*/
+/*ul > span ~ li {*/
+/*    color: red;*/
+/*}*/
+
+/*ul>span ~ li, .footer ul li {*/
+/*    color: green;*/
+/*}*/
+
+/*.footer ul li {*/
+/*    font-weight: 600;*/
+/*}*/
+
+ul >span +li{
+    color: red;
+}
+
+.footer ul li + li{
+    color: green;
+}
+
+input[name="username"]{
+    color: red;
+}

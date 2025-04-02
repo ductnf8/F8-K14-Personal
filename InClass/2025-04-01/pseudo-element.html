@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    h1::before{
+        content: '💖 ';
+    }
+
+    h1::after{
+        content: ' 💕';
+    }
+
+    p::first-letter{
+        font-size: 100px;
+        font-weight: 600;
+        color: red;
+    }
+
+    input::placeholder{
+        color: red;
+
+    }
+
+input::file-selector-button{
+    color: blue;
+}
+
+button::placeholder{
+    color: blue;
+}
+
+</style>
+
+<body>
+<h1>Pseudo Element</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    A at cupiditate distinctio dolorem fuga minus molestiae, nemo nulla omnis perspiciatis!</p>
+<input type="text" placeholder="username" name="username"> <br>
+<input type="button" name="click" value="Click"> <br>
+<button>Click here</button>
+</body>
+</html>

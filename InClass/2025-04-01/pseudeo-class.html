@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+
+    input:focus {
+        color: blue;
+    }
+
+    /*ul li:nth-last-child(2) {*/
+    /*    color: green;*/
+    /*}*/
+
+    /*ul li:nth-of-type(2){*/
+    /*    color: red;*/
+    /*}*/
+
+    /*ul li:first-of-type{*/
+    /*    color: orange;*/
+    /*}*/
+    /*ul li:last-of-type{*/
+    /*    color: red;*/
+    /*}*/
+
+    .ul1 li:nth-of-type(3) {
+        color: blue;
+    }
+
+    /*input[type="checkbox"]:checked ~ span {*/
+    /*    color: orange;*/
+    /*}*/
+
+    /*input[type="radio"]:checked ~ p:first-of-type {*/
+    /*    color: orange;*/
+    /*}*/
+
+    h1:hover {
+        color: red;
+        font-size: 50px;
+    }
+
+
+    .rad1:checked ~ table tr td p:nth-of-type(1) {
+        color: orange;
+    }
+
+    .rad2:checked ~ p:nth-of-type(2) {
+        color: orange;
+    }
+
+    .rad3:checked ~ p:nth-of-type(3) {
+        color: orange;
+    }
+
+    .ra1 {
+        accent-color: red; /* Đổi màu thành đỏ */
+    }
+
+    .ra2 {
+        accent-color: aqua; /* Đổi màu thành đỏ */
+    }
+
+    .ra3 {
+        accent-color: blue; /* Đổi màu thành đỏ */
+    }
+
+
+    .ra1:checked ~ p {
+        color: red;
+    }
+
+    .ra2:checked ~ p {
+        color: aqua;
+    }
+
+    .ra3:checked ~ p {
+        color: blue;
+    }
+
+    button:active{
+        background: pink;
+        color: blue;
+    }
+
+    button:focus{
+        background: pink;
+    }
+
+</style>
+
+<body>
+<h1>Pseudo class</h1>
+<input type="text" name="username" placeholder="username"> <br>
+<ul class="ul1">
+    <span>f</span>
+    <li>html</li>
+    <li>css</li>
+    <span>y</span>
+    <li>js</li>
+    <li>node</li>
+    <li>next</li>
+</ul>
+
+<span>
+    <input type="radio" name="rad" class="ra1" checked>
+    <input type="radio" name="rad" class="ra2">
+    <input type="radio" name="rad" class="ra3">
+
+    <p>p</p>
+
+</span>
+
+<table border="1" cellspacing="0">
+    <tr>
+        <td><input type="radio" name="rad2" class="rad1" checked></td>
+        <td><input type="radio" name="rad2" class="rad2"></td>
+        <td><input type="radio" name="rad2" class="rad3"></td>
+    </tr>
+
+    <tr>
+        <td><p>p1</p></td>
+        <td><p>p2</p></td>
+        <td><p>p3</p></td>
+    </tr>
+</table>
+<br>
+<button>Submit</button>
+</body>
+</html>
