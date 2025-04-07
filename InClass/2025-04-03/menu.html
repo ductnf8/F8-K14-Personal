@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    ul {
+        background: black;
+    }
+
+    .list li {
+        display: inline-block;
+        padding: 10px;
+        color: white;
+        position: relative;
+    }
+
+    .hidden {
+        position: absolute;
+        background: #8EC5FC;
+        display: none;
+    }
+
+    .first:hover .a {
+        display: block;
+    }
+
+    .second:hover .b {
+        display: block;
+    }
+
+    .third:hover .c {
+        display: block;
+    }
+
+</style>
+<body>
+<ul class="list">
+    <li class="first">
+        a
+        <ul class="hidden a">
+            <li>a1</li>
+            <li>a2</li>
+        </ul>
+    </li>
+    <li class="second">
+        b
+        <ul class="hidden b">
+            <li>b1</li>
+            <li>b2</li>
+        </ul>
+    </li>
+    <li class="third">
+        c
+        <ul class="hidden c">
+            <li>c1</li>
+            <li>c2</li>
+        </ul>
+    </li>
+
+</ul>
+</body>
+</html>

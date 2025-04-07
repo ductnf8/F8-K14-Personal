@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .supper{
+        position: relative;
+        height: 250px;
+        width: 250px;
+        border: 5px solid orange;
+    }
+
+    .container {
+        position: relative;
+        background: deepskyblue;
+        color: white;
+        height: 200px;
+        width: 200px;
+        margin: auto;
+    }
+
+    .item {
+        padding: 10px;
+        border: 5px solid yellow;
+    }
+    .item2 {
+        /*position: relative;*/
+        position: absolute;
+        background: blueviolet;
+        bottom: 20px;
+        left: 20px;
+    }
+    .item3 {
+        position: relative;
+        z-index: 2;
+        background: greenyellow;
+    }
+</style>
+<body>
+<div class="supper">
+    <div class="container">
+        <div class="item item1">Item 1</div>
+        <div class="item item2">Item 2</div>
+        <div class="item item3">Item 3</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inline Block Navigation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #f5f5f5;
+            padding: 10px 20px;
+        }
+
+        .container {
+            font-size: 0; /* Loại bỏ khoảng trắng inline-block */
+            white-space: nowrap;
+        }
+
+        .container > * {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 20px;
+            font-size: 16px; /* Đặt lại font chữ */
+        }
+
+        .container img {
+            height: 40px;
+        }
+
+        .category {
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container">
+        <img src="https://rainbowit.net/html/histudy/assets/images/logo/logo.png" alt="logo">
+
+        <span class="category">Category</span>
+
+        <ul>
+            <li>Home</li>
+            <li>Courses</li>
+            <li>Dashboard</li>
+            <li>Pages</li>
+            <li>Elements</li>
+            <li>Blogs</li>
+        </ul>
+
+        <button>Join Now</button>
+    </div>
+</nav>
+
+</body>
+</html>

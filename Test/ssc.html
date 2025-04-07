@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Accordion đơn giản</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            color: white;
+            font-family: sans-serif;
+            padding: 30px;
+            width: 50%;
+        }
+
+        .item {
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            padding: 15px 15px 15px 40px;
+            font-weight: bold;
+            background: #d8582a;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .icons {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icons span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 20px;
+        }
+
+        .icons .minus {
+            opacity: 0;
+        }
+
+        input:checked + label .plus {
+            opacity: 0;
+        }
+
+        input:checked + label .minus {
+            opacity: 1;
+        }
+
+        .content {
+            height: 0;
+            background: #fff;
+            color: #000;
+            padding: 0 15px;
+            line-height: 22px;
+        }
+        ol {
+            margin-left: 20px;
+        }
+
+        input:checked ~ .content {
+            height: auto;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="item">
+    <input type="checkbox" id="q1">
+    <label for="q1">
+        <div class="icons">
+            <span class="plus">+</span>
+            <span class="minus">−</span>
+        </div>
+        How to set random colors?
+    </label>
+    <div class="content">
+        <p>
+            To set random colors:
+        </p>
+        <ol>
+            <li>li 1</li>
+            <li>li 2</li>
+            <li>li 3</li>
+        </ol>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus consectetur cumque vero? Animi beatae commodi
+            et facere illum maxime natus numquam, perferendis quasi soluta totam, vero voluptatum. Aut provident,
+            quisquam.</p>
+    </div>
+</div>
+
+<div class="item">
+    <input type="checkbox" id="q2">
+    <label for="q2">
+        <div class="icons">
+            <span class="plus">+</span>
+            <span class="minus">−</span>
+        </div>
+        How to use theme colors and add new theme color?
+    </label>
+</div>
+
+<div class="item">
+    <input type="checkbox" id="q3">
+    <label for="q3">
+        <div class="icons">
+            <span class="plus">+</span>
+            <span class="minus">−</span>
+        </div>
+        How to change icon?
+    </label>
+</div>
+
+</body>
+</html>
