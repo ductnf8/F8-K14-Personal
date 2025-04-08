@@ -49,6 +49,7 @@
     .menu-item {
         position: relative;
         display: block;
+        padding: 10px 0;
     }
 
     .menu-item > ul > li {
@@ -59,17 +60,74 @@
         cursor: pointer;
     }
 
+    /*menu c1*/
     .hidden {
-        top: 40px;
+        top: 100%;
+        left: 0;
         position: absolute;
         display: none;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         z-index: 1;
+        width: auto;
+        min-width: 80px;
     }
 
-    .menu-item:hover ul {
+    .hidden li , .menu-item ul li ul li {
+        margin-right: 0 !important;
+    }
+
+    .hidden > li:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+    }
+
+    /*menu c2*/
+    .menu-item ul li {
+        position: relative;
+        padding: 5px 10px;
+    }
+
+    .menu-item ul li ul {
+        left: 100%;
+        top: 0;
+        position: absolute;
+        display: none;
+        background: #fff;
+        /*padding: 5px;*/
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        width: auto;
+        min-width: 80px;
+    }
+
+    .menu-item ul li ul li {
+        width: 100%;
+    }
+
+    .menu-item ul li ul li:not(:last-child) {
+        border-bottom: 1px solid #ddd;
+    }
+
+
+    /* Hiển thị menu khi hover */
+    .menu-item:hover > ul {
         display: block;
     }
 
+    .menu-item ul li:hover > ul {
+        display: block;
+    }
+
+    button {
+        color: white;
+        background-color: #21D4FD;
+        background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        margin: 100px;
+        cursor: pointer;
+    }
 
     button {
         color: white;
@@ -100,15 +158,39 @@
         <li class="menu-item">
             Home
             <ul class="hidden">
-                <li>a1</li>
-                <li>a2</li>
+                <li>
+                    a1
+                    <ul>
+                        <li>a1.1</li>
+                        <li>a1.2</li>
+                    </ul>
+                </li>
+                <li>
+                    a2
+                    <ul>
+                        <li>a2.1</li>
+                        <li>a2.2</li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li class="menu-item">
             Courses
             <ul class="hidden">
-                <li>b1</li>
-                <li>b2</li>
+                <li>
+                    b1
+                    <ul>
+                        <li>b1.1</li>
+                        <li>b1.2</li>
+                    </ul>
+                </li>
+                <li>
+                    b2
+                    <ul>
+                        <li>b2.1</li>
+                        <li>b2.2</li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li class="menu-item">
@@ -135,7 +217,18 @@
         <li class="menu-item">
             Blogs
             <ul class="hidden">
-                <li>f1</li>
+                <li>
+                    f1
+                    <ul>
+                        <li>a1.1</li>
+                        <li>a1.2</li>
+                    </ul>
+
+                    <ul>
+                        <li>a2.1</li>
+                        <li>a2.2</li>
+                    </ul>
+                </li>
                 <li>f2</li>
             </ul>
         </li>
