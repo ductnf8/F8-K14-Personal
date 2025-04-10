@@ -6,6 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lobster&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
@@ -14,6 +17,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: "Lato", sans-serif;
     }
 
     body {
@@ -25,119 +29,139 @@
         font-family: Arial, sans-serif;
     }
 
-    /* Giữ nguyên kích thước và phông chữ của h2 */
-    h2 {
-        font-family: sans-serif;
-        font-style: italic;
-        font-size: 36px; /* Thêm kích thước để giống ảnh */
-        margin-bottom: 10px; /* Thêm khoảng cách để giống ảnh */
+    .container {
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
     }
 
-    .container {
-        max-width: 400px; /* Thêm để giới hạn chiều rộng giống ảnh */
-        width: 100%;
-        padding: 20px; /* Thêm padding để giống ảnh */
+    h2 {
+        font-family: "Lobster", sans-serif;
+        font-size: 36px;
+        margin-bottom: 10px;
     }
 
     .container p {
-        font-size: 14px; /* Thêm kích thước chữ để giống ảnh */
-        color: #666; /* Thêm màu chữ để giống ảnh */
-        margin-bottom: 20px; /* Thêm khoảng cách để giống ảnh */
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
     }
 
     .container p span {
-        color: red; /* Giữ nguyên màu đỏ như mã gốc */
-        font-weight: bold; /* Thêm để giống ảnh */
+        color: red;
+        font-weight: bold;
     }
 
     .form-group {
         display: flex;
         position: relative;
         align-items: center;
-        border: 1px solid black; /* Giữ nguyên viền đen như mã gốc */
-        background-color: #f9f9f9; /* Giữ nguyên màu nền */
-        margin-bottom: 10px; /* Thêm khoảng cách giữa các form-group */
-        border-radius: 4px; /* Thêm bo góc để giống ảnh */
+        background-color: #f9f9f9;
+        margin-bottom: 30px;
+        border-radius: 4px;
+    }
+    .form-group:hover{
+        border: 1px solid black;
+    }
+
+    .form-group.textarea-group {
+        align-items: flex-start;
     }
 
     .form-group .icon {
-        width: 40px; /* Giữ nguyên */
+        width: 40px;
         text-align: center;
-        font-size: 18px; /* Giữ nguyên */
-        color: #999; /* Giữ nguyên */
-        background-color: #e5e5e5; /* Giữ nguyên */
-        padding: 10px; /* Giữ nguyên */
-        border-right: 1px solid #ddd; /* Giữ nguyên */
-        border-top-left-radius: 4px; /* Thêm bo góc để giống ảnh */
-        border-bottom-left-radius: 4px; /* Thêm bo góc để giống ảnh */
+        font-size: 18px;
+        color: #999;
+        background-color: #e5e5e5;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .form-group.textarea-group .icon {
+        height: 150px;
+        display: flex;
+        align-items: flex-start;
+        border-bottom-left-radius: 4px;
     }
 
     .form-group .form-input, .form-group .form-textarea, .form-group .form-select {
         flex: 1;
-        padding: 10px; /* Giữ nguyên */
-        border: none; /* Giữ nguyên */
-        outline: none; /* Giữ nguyên */
-        background: transparent; /* Giữ nguyên */
-        font-size: 14px; /* Thêm kích thước chữ để giống ảnh */
-        color: #999; /* Thêm màu chữ để giống ảnh */
+        padding: 10px;
+        border: none;
+        outline: none;
+        background: transparent;
+        font-size: 14px;
+        color: #999;
     }
 
     .form-group .form-textarea {
-        height: 100px; /* Thêm chiều cao cho textarea để giống ảnh */
-        resize: none; /* Không cho phép thay đổi kích thước */
+        height: 100px;
+        resize: none;
     }
 
     .form-group .form-input::placeholder, .form-group .form-textarea::placeholder, .form-group .form-select {
-        color: #999; /* Giữ nguyên */
+        color: #999;
     }
 
     .form-group .mark {
         position: absolute;
-        right: 10px; /* Giữ nguyên */
-        top: 50%; /* Căn giữa theo chiều dọc */
-        transform: translateY(-50%); /* Căn giữa chính xác */
-        font-size: 10px; /* Giữ nguyên */
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 10px;
+    }
+
+    .form-group.textarea-group .mark {
+        top: auto;
+        bottom: 10px;
+        transform: none;
     }
 
     .form-group .mark .before-click {
-        color: #999; /* Giữ nguyên */
+        color: #999;
     }
 
     .form-group .mark .after-click {
-        display: none; /* Giữ nguyên */
-        color: #737272; /* Giữ nguyên */
+        display: none;
+        color: #737272;
     }
 
-    /* Khi focus, đổi màu viền và icon */
     .form-group:focus-within {
-        border-color: #333333; /* Giữ nguyên màu viền khi focus như mã gốc */
+        border-color: #333333;
     }
 
     .form-group:focus-within .icon {
-        background-color: #333333; /* Đổi màu nền của icon khi focus */
+        background-color: #333333;
+    }
+    .form-group:hover {
+        border-color: #333333;
     }
 
-    /* Khi focus, ẩn dấu * và hiện dấu X */
+    .form-group:hover .icon {
+        background-color: #333333;
+    }
+
     .form-group:focus-within .mark .before-click {
-        display: none; /* Giữ nguyên */
+        display: none;
     }
 
     .form-group:focus-within .mark .after-click {
-        display: inline; /* Giữ nguyên */
+        display: inline;
     }
 
-    /* Ẩn phần tử có class hidden mặc định */
     .hidden {
-        display: none; /* Giữ nguyên */
+        display: none;
         position: absolute;
-        top: -30px; /* Điều chỉnh vị trí để giống ảnh */
+        top: 10%;
         left: 0;
-        font-size: 12px; /* Thêm kích thước chữ để giống ảnh */
-        color: #fff; /* Thêm màu chữ để giống ảnh */
-        background-color: #333; /* Thêm màu nền để giống ảnh */
-        padding: 5px 10px; /* Thêm padding để giống ảnh */
-        border-radius: 4px; /* Thêm bo góc để giống ảnh */
-        z-index: 1; /* Đảm bảo tooltip nằm trên các phần tử khác */
+        font-size: 12px;
+        color: white;
+        background-color: #333;
+        padding: 5px 10px;
+        z-index: 1;
     }
 
     .hidden::after {
@@ -151,19 +175,35 @@
         transform: rotate(45deg);
     }
 
-    /* Hiển thị phần tử hidden khi input được focus */
     .form-group:focus-within .hidden {
         display: block;
+        top: -150%;
+        left: 10%;
+        font-size: 14px;
+        padding: 15px;
+        color: white;
+    }
+    .form-group.textarea-group:focus-within .hidden {
+        display: block;
+        top: -65%;
+        left: 10%;
+        font-size: 14px;
+        padding: 15px;
+        color: white;
     }
 
-    /* Định dạng cho select */
+    .form-group:focus-within .hidden::after {
+        bottom: -6px;
+        width: 12px;
+        height: 12px;
+    }
+
     .form-group .form-select {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
     }
 
-    /* Định dạng phần footer */
     .form-footer {
         display: flex;
         justify-content: space-between;
@@ -183,11 +223,10 @@
     }
 
     .form-footer button {
-        background-color: #ff4d4d; /* Sử dụng màu #ff4d4d như mã gốc */
+        background-color: #ff4d4d;
         color: #fff;
         border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
+        padding: 7px 30px;
         font-size: 14px;
         cursor: pointer;
         text-transform: uppercase;
@@ -197,7 +236,8 @@
 <body>
 <div class="container">
     <h2>Hey there</h2>
-    <p><span>We'd like to hear from you.</span> Send us your message or just say hi with our contactly via phone, we love to chat.</p>
+    <p><span>We'd like to hear from you.</span> Send us your message or just say hi with our contactly via phone, we
+        love to chat.</p>
     <form action="">
         <div class="form-group">
             <p class="hidden">Enter your name</p>
@@ -209,6 +249,7 @@
             </span>
         </div>
         <div class="form-group">
+            <p class="hidden">Enter your email</p>
             <label class="icon" for="email"><i class="fa-solid fa-envelope"></i></label>
             <input class="form-input" type="email" id="email" placeholder="your@domain.com" required>
             <span class="mark">
@@ -217,6 +258,7 @@
             </span>
         </div>
         <div class="form-group">
+            <p class="hidden">Enter your phone</p>
             <label class="icon" for="phone"><i class="fa-solid fa-phone"></i></label>
             <input class="form-input" type="tel" id="phone" placeholder="+44 00 0123">
             <span class="mark">
@@ -235,7 +277,8 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </span>
         </div>
-        <div class="form-group">
+        <div class="form-group textarea-group">
+            <p class="hidden">Enter your message</p>
             <label class="icon" for="message"><i class="fa-solid fa-message"></i></label>
             <textarea class="form-textarea" id="message" placeholder="Message"></textarea>
             <span class="mark">

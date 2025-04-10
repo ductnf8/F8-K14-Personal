@@ -1,83 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inline Block Navigation</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav {
-            background-color: #f5f5f5;
-            padding: 10px 20px;
-        }
-
-        .container {
-            font-size: 0; /* Loại bỏ khoảng trắng inline-block */
-            white-space: nowrap;
-        }
-
-        .container > * {
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 20px;
-            font-size: 16px; /* Đặt lại font chữ */
-        }
-
-        .container img {
-            height: 40px;
-        }
-
-        .category {
-            font-weight: bold;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        ul li {
-            display: inline-block;
-            margin: 0 10px;
-        }
-
-        button {
-            padding: 8px 16px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Document</title>
 </head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 500px;
+        width: 100%;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .container h2 {
+        font-size: 36px;
+        font-family: 'Georgia', serif;
+        margin-bottom: 10px;
+    }
+
+    .container p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .container p span {
+        color: #ff4d4d;
+    }
+
+    .form-group {
+        position: relative;
+        margin-bottom: 15px;
+        border: 1px solid #ddd; /* Đặt viền cho form-group để bao quanh cả icon và input */
+        border-radius: 4px;
+        background-color: #f9f9f9;
+    }
+
+    .input-wrapper {
+        display: flex;
+        align-items: center;
+        position: relative; /* Để mark nằm đúng vị trí */
+    }
+
+    .form-group .icon {
+        width: 40px;
+        text-align: center;
+        font-size: 18px;
+        color: #999;
+        background-color: #e5e5e5;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+    }
+
+    .form-group .form-input {
+        flex: 1;
+        border: none; /* Bỏ viền của input để viền của form-group bao quanh */
+        padding: 10px;
+        font-size: 14px;
+        background-color: transparent;
+        outline: none;
+    }
+
+    .form-group .form-input::placeholder {
+        color: #999;
+    }
+
+    .form-group .mark {
+        position: absolute;
+        right: 10px;
+        top: 50%; /* Căn giữa theo chiều dọc */
+        transform: translateY(-50%); /* Căn giữa chính xác */
+        font-size: 16px;
+    }
+
+    /* Mặc định hiển thị dấu * và ẩn dấu ✗ */
+    .form-group .mark .before-click {
+        color: #999;
+    }
+
+    .form-group .mark .after-click {
+        display: none;
+        color: #ff4d4d;
+    }
+
+    /* Khi input được focus, đổi màu viền của form-group */
+    /* Vì không dùng :focus-within, tôi sẽ dùng một mẹo với before */
+    .form-group {
+        position: relative;
+    }
+
+    .form-group::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
+        bottom: -1px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        pointer-events: none; /* Đảm bảo không cản trở tương tác */
+    }
+
+    .form-group .form-input:focus ~ .input-wrapper::before {
+        border-color: #ff4d4d; /* Đổi màu viền của form-group khi input được focus */
+    }
+
+    /* Khi focus, ẩn dấu * và hiện dấu ✗ */
+    .form-group .form-input:focus ~ .mark .before-click {
+        display: none;
+    }
+
+    .form-group .form-input:focus ~ .mark .after-click {
+        display: inline;
+    }
+
+    /* Ẩn phần tử có class hidden mặc định */
+    .hidden {
+        display: none;
+        position: absolute;
+        top: -25px;
+        left: 0;
+        font-size: 12px;
+        color: #666;
+        background-color: #f9f9f9;
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+
+    /* Hiển thị phần tử hidden khi input được focus */
+    .form-group .form-input:focus ~ .hidden {
+        display: block;
+    }
+</style>
+
 <body>
-
-<nav>
-    <div class="container">
-        <img src="https://rainbowit.net/html/histudy/assets/images/logo/logo.png" alt="logo">
-
-        <span class="category">Category</span>
-
-        <ul>
-            <li>Home</li>
-            <li>Courses</li>
-            <li>Dashboard</li>
-            <li>Pages</li>
-            <li>Elements</li>
-            <li>Blogs</li>
-        </ul>
-
-        <button>Join Now</button>
-    </div>
-</nav>
-
+<div class="container">
+    <h2>Hey there</h2>
+    <p><span>We'd like to hear from you.</span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+        adipisci atque quis reprehenderit, sunt voluptatem.</p>
+    <form action="">
+        <div class="form-group">
+            <p class="hidden">Enter your name</p>
+            <div class="input-wrapper">
+                <label class="icon" for="name"><i class="fa-solid fa-user"></i></label>
+                <input class="form-input" type="text" id="name" placeholder="Your name" required>
+            </div>
+            <span class="mark">
+                <i class="before-click fa-solid fa-asterisk"></i>
+                <i class="after-click fa-solid fa-times"></i>
+            </span>
+        </div>
+    </form>
+</div>
 </body>
 </html>

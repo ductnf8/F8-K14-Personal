@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Ha Noi Melody Residences</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Asap", sans-serif;
+        color: #3f3424;
+    }
+
+    .banner {
+        position: relative;
+        background-image: url("https://cdn.houseviet.vn/images/project/23042023/ha-noi-melody-residences-cover.jpg");
+        width: 100%;
+        max-width: 1440px;
+        height: 450px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .info {
+        position: absolute;
+        padding: 30px 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+        width: 550px;
+        max-width: 90%;
+        top: 29%; /* Tùy chỉnh theo banner */
+        left: 14%; /* Tùy chỉnh theo banner */
+    }
+
+    .info p {
+        font-weight: 400;
+        letter-spacing: 1px;
+        line-height: 18px;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .location {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .location img {
+        margin-right: 5px;
+    }
+
+    .price {
+        position: absolute;
+        background: #dc5d57;
+        color: white;
+        padding: 20px 20px 16px 20px;
+        font-size: 20px;
+        border-radius: 5px;
+        top: 80%;
+        left: 72%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+    }
+
+    h2 {
+        color: #bf4240;
+    }
+</style>
+<body>
+<div class="banner">
+    <div class="info">
+        <h2>Ha Noi Melody Residences</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequuntur, deserunt dignissimos
+            dolor dolore eius enim iste magnam maiores minima nobis repudiandae similique tenetur vero?</p>
+        <div class="location">
+            <img src="maps-and-flags.png" alt="address" width="15px">
+            <span>Quận Hoàng Mai, Hà Nội</span>
+        </div>
+        <div class="price">3,2 TỶ/CĂN</div> <!-- Đưa .price vào trong .info -->
+    </div>
+</div>
+</body>
+</html>
