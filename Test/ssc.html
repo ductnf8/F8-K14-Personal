@@ -3,253 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .mdi {
+            font-size: 18px;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        label {
+            margin: 0 8px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        label[for="edit"] {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        label[for="edit"]:hover {
+            background-color: #e0a800;
+        }
+
+        label[for="delete"] {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        label[for="delete"]:hover {
+            background-color: #c82333;
+        }
+
+        /*input[type="checkbox"] {*/
+        /*    display: none;*/
+        /*}*/
+
+    </style>
 </head>
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f5f5f5;
-        font-family: Arial, sans-serif;
-    }
-
-    /* Giữ nguyên kích thước và phông chữ của h2 */
-    h2 {
-        font-family: sans-serif;
-        font-style: italic;
-        font-size: 36px; /* Thêm kích thước để giống ảnh */
-        margin-bottom: 10px; /* Thêm khoảng cách để giống ảnh */
-    }
-
-    .container {
-        max-width: 400px; /* Thêm để giới hạn chiều rộng giống ảnh */
-        width: 100%;
-        padding: 20px; /* Thêm padding để giống ảnh */
-    }
-
-    .container p {
-        font-size: 14px; /* Thêm kích thước chữ để giống ảnh */
-        color: #666; /* Thêm màu chữ để giống ảnh */
-        margin-bottom: 20px; /* Thêm khoảng cách để giống ảnh */
-    }
-
-    .container p span {
-        color: red; /* Giữ nguyên màu đỏ như mã gốc */
-        font-weight: bold; /* Thêm để giống ảnh */
-    }
-
-    .form-group {
-        display: flex;
-        position: relative;
-        align-items: center;
-        border: 1px solid black; /* Giữ nguyên viền đen như mã gốc */
-        background-color: #f9f9f9; /* Giữ nguyên màu nền */
-        margin-bottom: 10px; /* Thêm khoảng cách giữa các form-group */
-        border-radius: 4px; /* Thêm bo góc để giống ảnh */
-    }
-
-    .form-group .icon {
-        width: 40px; /* Giữ nguyên */
-        text-align: center;
-        font-size: 18px; /* Giữ nguyên */
-        color: #999; /* Giữ nguyên */
-        background-color: #e5e5e5; /* Giữ nguyên */
-        padding: 10px; /* Giữ nguyên */
-        border-right: 1px solid #ddd; /* Giữ nguyên */
-        border-top-left-radius: 4px; /* Thêm bo góc để giống ảnh */
-        border-bottom-left-radius: 4px; /* Thêm bo góc để giống ảnh */
-    }
-
-    .form-group .form-input, .form-group .form-textarea, .form-group .form-select {
-        flex: 1;
-        padding: 10px; /* Giữ nguyên */
-        border: none; /* Giữ nguyên */
-        outline: none; /* Giữ nguyên */
-        background: transparent; /* Giữ nguyên */
-        font-size: 14px; /* Thêm kích thước chữ để giống ảnh */
-        color: #999; /* Thêm màu chữ để giống ảnh */
-    }
-
-    .form-group .form-textarea {
-        height: 100px; /* Thêm chiều cao cho textarea để giống ảnh */
-        resize: none; /* Không cho phép thay đổi kích thước */
-    }
-
-    .form-group .form-input::placeholder, .form-group .form-textarea::placeholder, .form-group .form-select {
-        color: #999; /* Giữ nguyên */
-    }
-
-    .form-group .mark {
-        position: absolute;
-        right: 10px; /* Giữ nguyên */
-        top: 50%; /* Căn giữa theo chiều dọc */
-        transform: translateY(-50%); /* Căn giữa chính xác */
-        font-size: 10px; /* Giữ nguyên */
-    }
-
-    .form-group .mark .before-click {
-        color: #999; /* Giữ nguyên */
-    }
-
-    .form-group .mark .after-click {
-        display: none; /* Giữ nguyên */
-        color: #737272; /* Giữ nguyên */
-    }
-
-    /* Khi focus, đổi màu viền và icon */
-    .form-group:focus-within {
-        border-color: #333333; /* Giữ nguyên màu viền khi focus như mã gốc */
-    }
-
-    .form-group:focus-within .icon {
-        background-color: #333333; /* Đổi màu nền của icon khi focus */
-    }
-
-    /* Khi focus, ẩn dấu * và hiện dấu X */
-    .form-group:focus-within .mark .before-click {
-        display: none; /* Giữ nguyên */
-    }
-
-    .form-group:focus-within .mark .after-click {
-        display: inline; /* Giữ nguyên */
-    }
-
-    /* Ẩn phần tử có class hidden mặc định */
-    .hidden {
-        display: none; /* Giữ nguyên */
-        position: absolute;
-        top: -30px; /* Điều chỉnh vị trí để giống ảnh */
-        left: 0;
-        font-size: 12px; /* Thêm kích thước chữ để giống ảnh */
-        color: #fff; /* Thêm màu chữ để giống ảnh */
-        background-color: #333; /* Thêm màu nền để giống ảnh */
-        padding: 5px 10px; /* Thêm padding để giống ảnh */
-        border-radius: 4px; /* Thêm bo góc để giống ảnh */
-        z-index: 1; /* Đảm bảo tooltip nằm trên các phần tử khác */
-    }
-
-    .hidden::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 10px;
-        width: 10px;
-        height: 10px;
-        background-color: #333;
-        transform: rotate(45deg);
-    }
-
-    /* Hiển thị phần tử hidden khi input được focus */
-    .form-group:focus-within .hidden {
-        display: block;
-    }
-
-    /* Định dạng cho select */
-    .form-group .form-select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-    }
-
-    /* Định dạng phần footer */
-    .form-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 20px;
-    }
-
-    .form-footer label {
-        font-size: 14px;
-        color: #666;
-        display: flex;
-        align-items: center;
-    }
-
-    .form-footer input[type="checkbox"] {
-        margin-right: 5px;
-    }
-
-    .form-footer button {
-        background-color: #ff4d4d; /* Sử dụng màu #ff4d4d như mã gốc */
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        font-size: 14px;
-        cursor: pointer;
-        text-transform: uppercase;
-    }
-</style>
-
 <body>
 <div class="container">
-    <h2>Hey there</h2>
-    <p><span>We'd like to hear from you.</span> Send us your message or just say hi with our contactly via phone, we love to chat.</p>
-    <form action="">
-        <div class="form-group">
-            <p class="hidden">Enter your name</p>
-            <label class="icon" for="name"><i class="fa-solid fa-user"></i></label>
-            <input class="form-input" type="text" id="name" placeholder="Your name" required>
-            <span class="mark">
-                <i class="before-click fa-solid fa-asterisk"></i>
-                <i class="after-click fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div class="form-group">
-            <label class="icon" for="email"><i class="fa-solid fa-envelope"></i></label>
-            <input class="form-input" type="email" id="email" placeholder="your@domain.com" required>
-            <span class="mark">
-                <i class="before-click fa-solid fa-asterisk"></i>
-                <i class="after-click fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div class="form-group">
-            <label class="icon" for="phone"><i class="fa-solid fa-phone"></i></label>
-            <input class="form-input" type="tel" id="phone" placeholder="+44 00 0123">
-            <span class="mark">
-                <i class="before-click fa-solid fa-asterisk"></i>
-                <i class="after-click fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div class="form-group">
-            <label class="icon" for="subject"><i class="fa-solid fa-file"></i></label>
-            <select class="form-select" id="subject">
-                <option value="" disabled selected>Subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="support">Support</option>
-            </select>
-            <span class="mark">
-                <i class="fa-solid fa-chevron-down"></i>
-            </span>
-        </div>
-        <div class="form-group">
-            <label class="icon" for="message"><i class="fa-solid fa-message"></i></label>
-            <textarea class="form-textarea" id="message" placeholder="Message"></textarea>
-            <span class="mark">
-                <i class="before-click fa-solid fa-asterisk"></i>
-                <i class="after-click fa-solid fa-times"></i>
-            </span>
-        </div>
-        <div class="form-footer">
-            <label>
-                <input type="checkbox" checked> Send me a copy of this message
-            </label>
-            <button type="submit">SEND</button>
-        </div>
-    </form>
+    <div class="menu">
+        <!-- Sidebar nếu cần -->
+    </div>
 </div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Mail</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Tran Van A</td>
+        <td>a@test.com</td>
+        <td>
+            <label for="edit"><i class="mdi mdi-pencil"></i>Edit</label>
+            <input type="checkbox" name="edit" id="edit" hidden>
+            <label for="delete"><i class="mdi mdi-delete-forever-outline"></i>Delete</label>
+            <input type="checkbox" name="delete" id="delete" hidden>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

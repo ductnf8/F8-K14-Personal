@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    body {
+        width: 700px;
+        margin: auto;
+        border: 1px solid red;
+    }
+
+    .container {
+        padding: 0 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 15px;
+    }
+
+    .line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .input-wrapper {
+        position: relative;
+        flex: 1;
+        flex-basis: 300px;
+    }
+
+    .line input, .line select, .line textarea {
+        width: 100%;
+        padding: 20px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .line select{
+        font-size: 16px;
+        padding: 18px 10px;
+        color: #9ca3ae;
+    }
+
+    .line label {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: #9ca3ae;
+        cursor: text;
+    }
+
+    .line:last-of-type label {
+        top: 12%;
+    }
+
+    .line input:focus + label,
+    .line input:not(:placeholder-shown) + label{
+        top:30%;
+        font-size: 12px;
+        border-color: blue;
+    }
+
+    .line textarea:focus + label,
+    .line textarea:focus + label {
+        top:10%;
+        font-size: 12px;
+        border-color: blue;
+    }
+    .line input:focus, .line textarea:focus {
+        border-color: blue;
+    }
+
+    button {
+        display: block;
+        margin: auto;
+        padding: 12px 15px;
+        border-radius: 20px;
+        background: #5079d7;
+        color: white;
+        cursor: pointer;
+        border: none;
+    }
+
+</style>
+<body>
+<div class="container">
+    <form action="">
+        <h1>Drop Us a Line</h1>
+        <p>Reach out to us from our contact form and we will get back to you shortly.</p>
+        <div class="line">
+            <div class="input-wrapper">
+                <input type="text" id="firstName" placeholder=" " required>
+                <label for="firstName">First Name *</label>
+            </div>
+            <div class="input-wrapper">
+                <input type="text" id="lastName" placeholder=" " required>
+                <label for="lastName">Last Name *</label>
+            </div>
+        </div>
+        <div class="line">
+            <div class="input-wrapper">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email *</label>
+            </div>
+            <div class="input-wrapper">
+                <select id="department">
+                    <option value="" disabled >Select a department</option>
+                    <option value="Sales" selected>Sales</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="customerSupport">Customer Support</option>
+                </select>
+            </div>
+        </div>
+        <div class="line">
+            <div class="input-wrapper">
+                <textarea id="message" cols="20" rows="7" placeholder=" " required></textarea>
+                <label for="message">Message *</label>
+            </div>
+        </div>
+        <button>Send Message</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    body {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 1300px;
+        margin-top: 50px;
+        align-items: center;
+        justify-content: space-around;
+        /*border: 1px solid blue;*/
+    }
+
+    .item {
+        display: flex;
+        flex-basis: 400px;
+        height: 300px;
+        border: 2px solid #ccc;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        transition: background 0.4s ease, color 0.4s ease; /* Hiệu ứng mượt mà cho background và màu */
+
+    }
+
+    .item:hover {
+        background-image: url("https://thumb.photo-ac.com/79/79aeb85f5bf990e394d0040b90f1ab9f_t.jpeg");
+        background-color: #ab6239;
+        background-blend-mode: overlay; /* Kết hợp ảnh và màu */
+        background-size: cover; /* Đảm bảo ảnh phủ toàn bộ */
+        background-position: center; /* Căn giữa ảnh */
+        color: white;
+    }
+
+    .item:hover .wrapper {
+        border: 2px solid white;
+    }
+
+    .item:hover .hidden {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 12px;
+        transform: translateY(-10px);
+        transition: transform 0.4s ease, opacity 0.4s ease; /* Hiệu ứng mượt mà */
+        margin-top: 60px;
+    }
+
+    .item:hover .hidden:hover .arrow-circle i {
+        color: black;
+    }
+
+    .item:hover .icon {
+        display: none;
+    }
+
+    .item:hover h3 {
+        /*margin-top: -5px;*/
+        transform: translateY(-10px); /* Dịch chuyển lên */
+        transition: transform 0.4s ease; /* Hiệu ứng mượt mà */
+    }
+
+    .item:hover .desc {
+        transform: translateY(-10px); /* Dịch chuyển lên */
+        transition: transform 0.4s ease; /* Hiệu ứng mượt mà */
+    }
+
+    .wrapper {
+        padding: 30px;
+        margin: 15px;
+        /*border: 1px solid gray;*/
+        width: 100%;
+        transition: border 0.4s ease;
+    }
+
+    .icon {
+        color: #a16f5b;
+        font-size: 50px;
+        transition: border 0.4s ease;
+    }
+
+    .wrapper h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        transition: border 0.4s ease;
+    }
+
+    .desc {
+        font-size: 12px;
+        opacity: 0.6;
+        transition: transform 0.4s ease, opacity 0.4s ease, display 0.4s ease; /* Thêm transition cho hidden */
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .arrow-circle {
+        position: relative;
+        background: transparent;
+        width: 25px;
+        height: 25px;
+        border: 1px solid white;
+        border-radius: 50%;
+        transition: background 0.4s ease;
+    }
+
+    .arrow-circle i {
+        color: white;
+        font-size: 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: color 0.4s ease;
+    }
+
+    .hidden:hover .arrow-circle {
+        background: white;
+    }
+
+
+</style>
+<body>
+<div class="container">
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food-apple"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food-drumstick"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food-hot-dog"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food-croissant"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="item">
+        <div class="wrapper">
+            <div class="icon mdi mdi-food-fork-drink"></div>
+            <h3>This is war, and in war the only crime is to lose</h3>
+            <p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, laborum.</p>
+            <span class="hidden">
+                <span style="font-weight: 600">Learn More</span>
+                <div class="arrow-circle">
+                    <i class="mdi mdi-arrow-right"></i>
+                </div>
+            </span>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
