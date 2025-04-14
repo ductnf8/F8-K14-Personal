@@ -2,195 +2,362 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Member Table with Pure CSS Form</title>
-    <link href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f0f0f0;
-            padding: 50px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            margin-bottom: 30px;
-        }
-        th, td {
-            padding: 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        .member-table th {
-            background: #1c2233;
-            color: white;
-        }
-        label {
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        /* overlay */
-        /*#toggle-form {*/
-        /*    display: none;*/
-        /*}*/
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            display: none;
-            z-index: 9;
-        }
-        #toggle-form:checked ~ .overlay {
-            display: block;
-        }
-
-        /* popup */
-        .add {
-            width: 350px;
-            background: white;
-            border-radius: 5px;
-            overflow: hidden;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            display: none;
-            z-index: 10;
-        }
-        #toggle-form:checked ~ .add {
-            display: block;
-        }
-
-        .header {
-            background: #1c2233;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header p {
-            margin: 0;
-            font-size: 20px;
-            font-weight: 600;
-        }
-        .icon-close {
-            font-size: 20px;
-            cursor: pointer;
-        }
-        form {
-            padding: 20px;
-        }
-        form select,
-        form input {
-            width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 2px;
-            font-size: 14px;
-            outline: none;
-        }
-        form select:focus,
-        form input:focus {
-            border-color: #3498db;
-        }
-        .button-group {
-            display: flex;
-        }
-        .button-group .btn {
-            flex: 1;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 16px;
-            cursor: pointer;
-            color: white;
-        }
-        .close-btn {
-            background: red;
-        }
-        .save-btn {
-            background: green;
-            border: none;
-        }
-        .button-group .btn:hover {
-            opacity: 0.9;
-        }
-    </style>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <title>Document</title>
 </head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+    }
+
+    ul, li {
+        list-style: none;
+    }
+
+    /* sidebar */
+    .sidebar {
+        background: #323742;
+        color: white;
+        width: 15%;
+        padding: 20px;
+        height: 100%;
+    }
+
+    .sidebar h2 {
+        font-size: 22px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .menu-title {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .menu-list {
+        list-style: none;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .menu-item i {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .menu-item:hover {
+        color: #ddd;
+    }
+
+    .menu-item {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .menu-item label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .sub-menu {
+        display: none;
+        padding-left: 20px;
+        margin-top: 5px;
+    }
+
+    .sub-menu li {
+        cursor: pointer;
+        padding: 10px 5px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sub-menu li:last-of-type {
+        border: none;
+    }
+
+    .menu-item input[type="checkbox"]:checked + label + .sub-menu {
+        display: block;
+    }
+
+    /* table */
+    .member {
+        flex: 1;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .member h2 {
+        margin-bottom: 20px;
+        font-size: 26px;
+    }
+
+    .member-table {
+        width: 40%;
+        border-collapse: collapse;
+    }
+
+    .member-table td, .member-table th {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 2px solid #ddd;
+        font-size: 12px;
+    }
+
+    .member-table th {
+        font-size: 20px;
+    }
+
+    tr:hover {
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+
+    td label {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px 5px;
+        margin-right: 5px;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: background-color 0.2s;
+        color: white;
+        box-shadow: 3px 2px 0px rgba(0, 0, 0, 0.5);
+    }
+
+    td label:first-of-type {
+        background: #017f12;
+    }
+
+    td label:nth-of-type(2) {
+        background: #fd020f;
+    }
+
+    label i {
+        margin-right: 3px;
+        font-size: 14px;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 9;
+    }
+
+    #toggle-form:checked ~ .overlay {
+        display: block;
+    }
+
+    .add {
+        width: 500px;
+        background: white;
+        border-radius: 5px;
+        overflow: hidden;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 10;
+    }
+
+    #toggle-form:checked ~ .add {
+        display: block;
+    }
+
+    .header {
+        background: #1c2233;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header p {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .icon-close {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    form select,
+    form input {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    form select:focus,
+    form input:focus {
+        border-color: #3498db;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .button-group .btn {
+        flex: 1;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 12px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .close-btn {
+        background: red;
+    }
+
+    .save-btn {
+        background: green;
+    }
+
+    .button-group .btn:hover {
+        opacity: 0.9;
+    }
+</style>
+
 <body>
 
-<input type="checkbox" id="toggle-form" hidden>
-
-<!-- overlay -->
-<div class="overlay"></div>
-
-<!-- popup form -->
-<div class="add">
-    <div class="header">
-        <p>New member</p>
-        <label for="toggle-form" class="icon-close">×</label>
-    </div>
-    <form>
-        <select>
-            <option value="" disabled selected>Skill</option>
-            <option>Skill 1</option>
-            <option>Skill 2</option>
-            <option>Skill 3</option>
-        </select>
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-        <div class="button-group">
-            <label for="toggle-form" class="btn close-btn">Close</label>
-            <button type="submit" class="btn save-btn">Save</button>
-        </div>
-    </form>
+<div class="sidebar">
+    <h2><i class="mdi mdi-microsoft-windows"></i>F8 Admin</h2>
+    <div class="menu-title">Menu</div>
+    <ul class="menu-list">
+        <li class="menu-item">
+            <span><i class="mdi mdi-account"></i> Quản Lý Đơn Hàng</span>
+        </li>
+        <li class="menu-item">
+            <input type="checkbox" id="toggle-car" hidden>
+            <label for="toggle-car">
+                <span><i class="mdi mdi-account"></i> Quản Lý Xe</span>
+                <i class="mdi mdi-chevron-down" style="margin-left: 50px;"></i>
+            </label>
+            <div class="sub-menu">
+                <ul>
+                    <li>a1</li>
+                    <li>a2</li>
+                    <li>a3</li>
+                </ul>
+            </div>
+        </li>
+        <li class="menu-item">
+            <span><i class="mdi mdi-account"></i> Quản Lý Dịch Vụ</span>
+        </li>
+        <li class="menu-item">
+            <span><i class="mdi mdi-account"></i> Cài Đặt Khác</span>
+        </li>
+    </ul>
 </div>
+<div class="member">
+    <h2>Member</h2>
 
-<!-- bảng -->
-<table class="member-table">
-    <thead>
-    <tr>
+    <!--hidden-->
+    <input type="checkbox" id="toggle-form" hidden>
+
+    <div class="overlay">
+        <label for="toggle-form" style="width: 100%; height: 100%; display: block;"></label>
+    </div>
+
+    <div class="add">
+        <div class="header">
+            <p>New member</p>
+            <label for="toggle-form" class="icon-close">×</label>
+        </div>
+        <form>
+            <select>
+                <option value="" disabled selected>Skill</option>
+                <option>Skill 1</option>
+                <option>Skill 2</option>
+                <option>Skill 3</option>
+            </select>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <div class="button-group">
+                <label for="toggle-form" class="btn close-btn">Close</label>
+                <button type="submit" class="btn save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <table class="member-table">
+        <thead>
         <th>Id</th>
         <th>Name</th>
         <th>Mail</th>
         <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td>Tran Van A</td>
-        <td>a@test.com</td>
-        <td>
-            <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
-        </td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Nguyen Van B</td>
-        <td>b@test.com</td>
-        <td>
-            <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
-        </td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Le Van C</td>
-        <td>c@test.com</td>
-        <td>
-            <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Tran Van A</td>
+            <td>a@test.com</td>
+            <td>
+                <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
+                <label><i class="mdi mdi-delete-forever-outline"></i>Delete</label>
+            </td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Tran Van A</td>
+            <td>a@test.com</td>
+            <td>
+                <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
+                <label><i class="mdi mdi-delete-forever-outline"></i>Delete</label>
+            </td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Tran Van A</td>
+            <td>a@test.com</td>
+            <td>
+                <label for="toggle-form"><i class="mdi mdi-pencil"></i> Edit</label>
+                <label><i class="mdi mdi-delete-forever-outline"></i>Delete</label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

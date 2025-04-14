@@ -25,6 +25,10 @@
     ul, li {
         list-style: none;
     }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
 
     /*    sidebar*/
     .sidebar {
@@ -53,12 +57,13 @@
     }
 
     .menu-item {
-        display: flex;
+        /*display: flex;*/
         align-items: center;
         padding: 10px 5px;
         margin-bottom: 10px;
         cursor: pointer;
         transition: background-color 0.2s, color 0.2s;
+        display: block;
     }
 
     .menu-item i {
@@ -68,11 +73,6 @@
 
     .menu-item:hover {
         color: #ddd;
-    }
-
-    .menu-item {
-        margin-bottom: 10px;
-        display: block;
     }
 
     .menu-item label {
@@ -133,7 +133,6 @@
 
     tr:hover {
         background-color: #f0f0f0;
-        cursor: pointer;
     }
 
     td label {
@@ -265,27 +264,27 @@
     <div class="menu-title">Menu</div>
     <ul class="menu-list">
         <li class="menu-item">
-            <span><i class="mdi mdi-account"></i> Quản Lý Đơn Hàng</span>
+            <span><i class="mdi mdi-account"></i><a href="#">Quản Lý Đơn Hàng</a></span>
         </li>
         <li class="menu-item">
             <input type="checkbox" id="toggle-car" hidden>
             <label for="toggle-car">
-                <span><i class="mdi mdi-account"></i> Quản Lý Xe</span>
-                <i class="mdi mdi-chevron-down" style="margin-left: 50px;"></i>
+                <span><i class="mdi mdi-account"></i><a href="#"> Quản Lý Xe</a></span>
+                <i class="rotate mdi mdi-chevron-down" style="margin-left: 50px;"></i>
             </label>
             <div class="sub-menu">
                 <ul>
-                    <li>a1</li>
-                    <li>a2</li>
-                    <li>a3</li>
+                    <li><a href="#">a1</a></li>
+                    <li><a href="#">a2</a></li>
+                    <li><a href="#">a3</a></li>
                 </ul>
             </div>
         </li>
         <li class="menu-item">
-            <span><i class="mdi mdi-account"></i> Quản Lý Dịch Vụ</span>
+            <span><i class="mdi mdi-account"></i><a href="#"> Quản Lý Dịch Vụ</a></span>
         </li>
         <li class="menu-item">
-            <span><i class="mdi mdi-account"></i> Cài Đặt Khác</span>
+            <span><i class="mdi mdi-account"></i><a href="#"> Cài Đặt Khác</a></span>
         </li>
     </ul>
 </div>
@@ -295,14 +294,16 @@
     <!--hidden-->
     <input type="checkbox" id="toggle-form" hidden>
 
-    <div class="overlay"></div>
+    <div class="overlay">
+        <label for="toggle-form" style="width: 100%; height: 100%; display: block;"></label>
+    </div>
 
     <div class="add">
         <div class="header">
             <p>New member</p>
             <label for="toggle-form" class="icon-close">×</label>
         </div>
-        <form>
+        <form action="#">
             <select>
                 <option value="" disabled selected>Skill</option>
                 <option>Skill 1</option>
