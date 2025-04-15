@@ -307,7 +307,7 @@
         z-index: 10;
     }
 
-    .mdi-menu{
+    .mdi-menu {
         font-size: 30px;
         padding: 10px;
         border: 2px solid #323742;
@@ -329,9 +329,14 @@
     }
 
     @media (max-width: 768px) {
+        .member-table {
+            width: 50%;
+        }
+
         .menu-icon {
             display: block;
         }
+
         .sidebar {
             position: fixed;
             left: -250px;
@@ -342,6 +347,7 @@
             transition: left 0.3s;
             z-index: 998;
         }
+
         #toggle-sidebar:checked ~ .sidebar {
             left: 0;
         }
