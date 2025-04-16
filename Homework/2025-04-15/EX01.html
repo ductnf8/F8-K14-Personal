@@ -71,7 +71,12 @@
 
     .item__left h3 {
         font-family: "Space Grotesk", sans-serif;
+        font-size: 22px;
+    }
 
+    .item__left p{
+        font-size: 12px;
+        opacity: 0.6;
     }
 
 
@@ -88,6 +93,11 @@
         background: #a16f5b;
         transition: all 0.2s;
         transform: scale(1.1);
+    }
+
+    .item:hover .item__center .circle-inner {
+        background: white;
+        box-shadow: 0 0 0 8px rgba(26, 188, 156, 0.9);
     }
 
     .item__center {
@@ -107,9 +117,9 @@
     }
 
     .line {
-        width: 2px; /* Đường thẳng mỏng */
-        height: 150px; /* Chiều dài đường thẳng */
-        background-color: #ccc; /* Màu đường thẳng */
+        width: 2px;
+        height: 150px;
+        background-color: #ccc;
     }
 
     .item__right {
@@ -131,13 +141,12 @@
     }
 
     .image-container img {
-        border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .image1 {
         display: block;
-        max-width: 300px;
+        max-width: 500px;
         height: auto;
         position: relative;
         z-index: 1;
@@ -158,7 +167,7 @@
 
     .image2 {
         display: block;
-        max-width: 200px;
+        max-width: 500px;
         height: auto;
     }
 
