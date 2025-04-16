@@ -53,12 +53,7 @@
         margin-bottom: 20px;
     }
 
-    .menu-list {
-        list-style: none;
-    }
-
     .menu-item {
-        /*display: flex;*/
         align-items: center;
         padding: 10px 5px;
         margin-bottom: 10px;
@@ -173,7 +168,7 @@
         margin-right: 3px;
         font-size: 14px;
     }
-
+    /*  Ẩn hiện overlay */
     .overlay {
         position: fixed;
         inset: 0;
@@ -191,6 +186,8 @@
     #toggle-form:checked ~ .overlay {
         display: block;
     }
+
+    /*========*/
 
     .dialog {
         width: 500px;
@@ -245,6 +242,7 @@
 
     form {
         padding: 20px;
+        min-height: 250px;
     }
 
     form select,

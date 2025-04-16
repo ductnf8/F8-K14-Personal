@@ -1,0 +1,41 @@
+.banner {
+    background-image: url("../image/banner-destop.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    /*background-position: center;*/
+    height: 615px;
+    position: relative;
+}
+
+
+.invitation{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #000;
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+@media screen and (max-width: 991px) {
+    .banner {
+        background-image: url("../image/banner-tab.jpg");
+    }
+
+    .invitation{
+        left: 0;
+        top: 0;
+        width: 100%;
+        transform: initial;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .banner {
+        background-image: url("/InClass/2025-04-15/image/banner-mobile.jpg");
+    }
+}

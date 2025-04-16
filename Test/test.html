@@ -8,143 +8,63 @@
     <title>Document</title>
 </head>
 <style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #f0f0f0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 50px;
+    .image-container {
+        position: relative;
+        width: fit-content;
     }
 
-    .add {
-        width: 350px;
-        background: white;
-        border-radius: 5px;
-        overflow: hidden;
-        display: none;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-
-    #toggle-form:checked ~ .add {
+    .image1 {
         display: block;
+        max-width: 300px;
+        height: auto;
+        position: relative;
+        z-index: 1;
+        left: 30%;
     }
 
-    .header {
-        background: #1c2233;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    /* Bọc ảnh 2 và ảnh 3 */
+    .image2-wrapper {
+        position: absolute;
+        top: 20px;
+        left: -60px;
+        z-index: 2;
     }
 
-    .header p {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 600;
+    .image2-container {
+        position: relative; /* để ảnh 3 absolute theo container này */
+        display: inline-block;
     }
 
-    .icon-close {
-        font-size: 20px;
-        cursor: pointer;
+    /* Ảnh 2 */
+    .image2 {
+        display: block;
+        max-width: 200px;
+        height: auto;
     }
 
-    form {
-        padding: 20px;
-    }
-
-    form select,
-    form input {
-        width: 100%;
-        padding: 10px 12px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        font-size: 14px;
-        outline: none;
-    }
-
-    form select:focus,
-    form input:focus {
-        border-color: #3498db;
-    }
-
-    .button-group {
-        display: flex;
-    }
-
-    .button-group .btn {
-        flex: 1;
-        padding: 10px 0;
-        text-align: center;
-        font-size: 16px;
-        cursor: pointer;
-        color: white;
-    }
-
-    .close-btn {
-        background: red;
-    }
-
-    .save-btn {
-        background: green;
-        border: none;
-    }
-
-    .button-group .btn:hover {
-        opacity: 0.9;
-    }
-
-    .open-form {
-        margin-top: 20px;
-        padding: 12px 25px;
-        background: #3498db;
-        color: white;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .open-form:hover {
-        background: #2980b9;
+    /* Ảnh 3 nằm chính giữa ảnh 2 */
+    .image3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 150px;
+        height: auto;
+        transform: translate(-50%, -50%);
+        z-index: 3;
     }
 
 </style>
 <body>
-<input type="checkbox" id="toggle-form" hidden>
+<div class="image-container">
+    <img src="https://picsum.photos/300/200" alt="Image 1" class="image1">
 
-<div class="add">
-    <div class="header">
-        <p>New member</p>
-        <label for="toggle-form" class="icon-close">×</label>
-    </div>
-
-    <form>
-        <select>
-            <option value="" disabled selected>Skill</option>
-            <option>Skill 1</option>
-            <option>Skill 2</option>
-            <option>Skill 3</option>
-        </select>
-
-        <input type="text" placeholder="Name">
-        <input type="email" placeholder="Email">
-
-        <div class="button-group">
-            <label for="toggle-form" class="btn close-btn">Close</label>
-            <button type="submit" class="btn save-btn">Save</button>
+    <div class="image2-wrapper">
+        <div class="image2-container">
+            <img src="https://picsum.photos/200/150" alt="Image 2" class="image2">
+            <img src="https://picsum.photos/150/100" alt="Image 3" class="image3">
         </div>
-    </form>
+    </div>
 </div>
-
-<label for="toggle-form" class="open-form">+ Add New</label>
-
 
 </body>
 </html>
