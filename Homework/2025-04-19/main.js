@@ -152,11 +152,11 @@ else console.log(`${a2} k la so hoan hao`)
  */
 
 console.log('Bài 3:')
-let a = 5, sum = 0;
+let a = 5, sum3 = 0;
 for (let i = 1; i <= a; i++) {
-    sum += i * (i + 1);
+    sum3 += i * (i + 1);
 }
-console.log(`Tong S = ${sum}`)
+console.log(`Tong S = ${sum3}`)
 
 
 /*
