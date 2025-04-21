@@ -100,7 +100,7 @@ else console.log('no hoan hao')
 
 // so nguyen to
 
-let n = 97
+let n = 9
 // let dem = 1
  a=''
 for (let i = 1; i <= n**(1/2); i++) {
