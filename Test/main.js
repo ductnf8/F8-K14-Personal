@@ -189,3 +189,17 @@ function fibonacci(n) {
 
 console.log(fibonacci(10))
 console.log('=======')
+
+
+function fibonacciBinet(n) {
+    let sqrt5 = Math.sqrt(5);                  // Tính căn bậc hai của 5
+    let phi = (1 + sqrt5) / 2;                 // Tính φ
+    let psi = (1 - sqrt5) / 2;                 // Tính ψ
+
+    let fn = (Math.pow(phi, n) - Math.pow(psi, n)) / sqrt5;  // Áp dụng công thức Binet
+
+    return Math.round(fn);                     // Làm tròn vì tính toán số thực có thể bị lệch
+}
+
+console.log(fibonacciBinet(10)); // Kết quả: 55
+

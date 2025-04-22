@@ -61,7 +61,7 @@ Bài 1:
 let a1 = 15, cuoc = 0
 if (a1 < 0) console.log('so km khong hop le')
 else {
-    if (a1 <= 1) cuoc = a1 * 15000
+    if (a1 <= 1) cuoc =  15000
     else if (a1 <= 5) cuoc = 15000 + (a1 - 1) * 13500
     else cuoc = 15000 + 13500 * 4 + (a1 - 5) * 11000
 }
@@ -307,9 +307,9 @@ Bài 5:
 
  */
 console.log('Bài 5:')
-for (let i = 1; i <= 9; i++) {
+for (let i = 1; i <= 10; i++) {
     console.log(`========== Bảng ${i} ==========`)
-    for (let j = 1; j <= 9; j++) {
+    for (let j = 1; j <= 10; j++) {
         console.log(`${i} x ${j} = ${i * j}`)
     }
 }
