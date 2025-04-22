@@ -102,9 +102,9 @@ else console.log('no hoan hao')
 
 let n = 9
 // let dem = 1
- a=''
-for (let i = 1; i <= n**(1/2); i++) {
-    if (n % i === 0) a='k nguyen to'
+a = ''
+for (let i = 1; i <= n ** (1 / 2); i++) {
+    if (n % i === 0) a = 'k nguyen to'
     else a = 'nguyen to'
 }
 
@@ -132,3 +132,32 @@ for (let i = 0; i >= -10; i--) {
 }
 console.log(tong)
 
+
+/**
+ * Expected
+ * sumPrime(5) // output: 10;
+ * sumPrime(10) // output: 17;
+ */
+let sum8 = 0
+
+function isPrime(n) {
+    if (n <= 1) return false
+    for (let i = 2; i <= n ** 0.5; i++) {
+        if (n % i === 0) {
+            return false
+        }
+    }
+    return true
+}
+
+function sumPrime(n) {
+    for (let i = 1; i <= n; i++) {
+        if (isPrime(i)) {
+            sum8 += i
+        }
+    }
+    return sum8;
+}
+
+console.log('------')
+console.log(sumPrime(5))

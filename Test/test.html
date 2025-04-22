@@ -7,64 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<style>
-    .image-container {
-        position: relative;
-        width: fit-content;
-    }
-
-    .image1 {
-        display: block;
-        max-width: 300px;
-        height: auto;
-        position: relative;
-        z-index: 1;
-        left: 30%;
-    }
-
-    /* Bọc ảnh 2 và ảnh 3 */
-    .image2-wrapper {
-        position: absolute;
-        top: 20px;
-        left: -60px;
-        z-index: 2;
-    }
-
-    .image2-container {
-        position: relative; /* để ảnh 3 absolute theo container này */
-        display: inline-block;
-    }
-
-    /* Ảnh 2 */
-    .image2 {
-        display: block;
-        max-width: 200px;
-        height: auto;
-    }
-
-    /* Ảnh 3 nằm chính giữa ảnh 2 */
-    .image3 {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        max-width: 150px;
-        height: auto;
-        transform: translate(-50%, -50%);
-        z-index: 3;
-    }
-
-</style>
 <body>
-<div class="image-container">
-    <img src="https://picsum.photos/300/200" alt="Image 1" class="image1">
 
-    <div class="image2-wrapper">
-        <div class="image2-container">
-            <img src="https://picsum.photos/200/150" alt="Image 2" class="image2">
-            <img src="https://picsum.photos/150/100" alt="Image 3" class="image3">
-        </div>
-    </div>
-</div>
+<script src="main.js">
 
+</script>
 </body>
 </html>

@@ -286,3 +286,42 @@ for (let i = 1; i <= 9; i++) {
         console.log(`${i} x ${j} = ${i * j}`)
     }
 }
+
+
+/*
+Bài 6:
+
+    ┌─────────┐
+    │x=number │
+    └────┬────┘
+         │
+         │
+         │
+    ┌────▼────┐
+    │y=x**0.5 │
+    └────┬────┘
+         │
+         │
+         │
+    ┌────▼────┐
+    │kiem tra │          ┌────────────┐
+    │y co phai│          │x la so     │
+    │so nguyen┼───yes────►chinh phuong│
+    │y%1===0  │          └────────────┘
+    └─────┬───┘
+          │
+          │no
+          │
+          │
+    ┌─────▼─────────┐
+    │x khong la     │
+    │so chinh phuong│
+    └───────────────┘
+
+
+ */
+let x6 = 9
+let y6 = x6 ** (1 / 2)
+console.log('Bài 6:')
+if (y6 % 1 === 0) console.log(`${x6} la so chinh phuong`)
+else console.log(`${x6} khong la so chinh phuong`)
