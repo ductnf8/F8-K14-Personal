@@ -202,4 +202,26 @@ function fibonacciBinet(n) {
 }
 
 console.log(fibonacciBinet(10)); // Kết quả: 55
+console.log('=======')
+
+
+
+function fibonacci2(n) {
+    let arr = []
+
+    for (let count = 0; count < n; count++) {
+        if (count === 0 || count === 1) {
+            arr[count] = count
+        } else {
+            arr[count] = arr[count-1] + arr[count-2]
+        }
+    }
+
+    return arr
+}
+
+console.log(fibonacci2(10))
+
+
+
 
