@@ -85,8 +85,8 @@ const sortedFlowers = [...flowers].sort((a, b) => a.colorId - b.colorId);
 
 // Step 2: Merge join
 const merged = [];
-let i = 0; // pointer for flowers
-let j = 0; // pointer for colors
+let i = 0;
+let j = 0;
 
 while (i < sortedFlowers.length && j < colors.length) {
     if (sortedFlowers[i].colorId === colors[j].id) {
