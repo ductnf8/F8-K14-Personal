@@ -62,23 +62,25 @@ Bài 1:
 
 console.log('Bài 1:')
 const colors = [
-    { id: 1, name: 'Red' },
-    { id: 2, name: 'Blue' },
-    { id: 3, name: 'Yellow' },
-    { id: 4, name: 'White' },
-    { id: 5, name: 'Pink' },
+    {id: 1, name: 'Red'},
+    {id: 2, name: 'Blue'},
+    {id: 3, name: 'Yellow'},
+    {id: 4, name: 'White'},
+    {id: 5, name: 'Pink'},
 ];
 
 const flowers = [
-    { id: 1, name: 'Rose', colorId: 1 },
-    { id: 2, name: 'Tulip', colorId: 2 },
-    { id: 3, name: 'Carnation', colorId: 1 },
-    { id: 4, name: 'Sunflower', colorId: 3 },
-    { id: 5, name: 'Daisy', colorId: 4 },
-    { id: 6, name: 'Lily', colorId: 4 },
-    { id: 7, name: 'Peony', colorId: 5 },
-    { id: 8, name: 'Orchid', colorId: 5 },
+    {id: 1, name: 'Rose', colorId: 1},
+    {id: 2, name: 'Tulip', colorId: 2},
+    {id: 3, name: 'Carnation', colorId: 1},
+    {id: 4, name: 'Sunflower', colorId: 3},
+    {id: 5, name: 'Daisy', colorId: 4},
+    {id: 6, name: 'Lily', colorId: 4},
+    {id: 7, name: 'Peony', colorId: 5},
+    {id: 8, name: 'Orchid', colorId: 5},
 ];
+
+console.time('do st')
 
 // Step 1: Sort flowers by colorId
 const sortedFlowers = [...flowers].sort((a, b) => a.colorId - b.colorId);
@@ -104,6 +106,7 @@ while (i < sortedFlowers.length && j < colors.length) {
 
 console.log(merged);
 
+console.timeEnd('do st')
 
 /*
 bài 2:
@@ -183,6 +186,7 @@ bài 2:
 
  */
 console.log('Bài 2:')
+
 function binarySearch(arr, target) {
     let left = 0;
     let right = arr.length - 1;
@@ -200,7 +204,7 @@ function binarySearch(arr, target) {
     return -1;
 }
 
-const arr=[1, 3, 5, 7, 9, 11, 13]
+const arr = [1, 3, 5, 7, 9, 11, 13]
 const index = 7
 const result = binarySearch(arr, index);
 
