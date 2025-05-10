@@ -1,227 +1,59 @@
-function reverse(str) {
-    let reverse = ''
-    for (let i = str.length - 1; i >= 0; i--) {
-        reverse += str[i]
+// const tom = {
+//     name: 'Tom',
+//     hp: 1000,
+//     atk: 100,
+//     def: 30,
+//     attatk(target) {
+//         const dmg = this.atk - target.def
+//         target.hp -= dmg > 0 ? dmg : 0
+//         console.log(`${this.name} phang ${target.name} gay ${this.atk} máu, ${target.name} còn ${target.hp} máu`)
+//     },
+//     isAlive() {
+//         return this.hp > 0
+//     }
+// }
+// const jerry = {
+//     name: 'Jerry',
+//     hp: 350,
+//     atk: 50,
+//     def: 10,
+//     attatk(target) {
+//         const dmg = this.atk - target.def
+//         target.hp -= dmg > 0 ? dmg : 0
+//         console.log(`${this.name} phang ${target.name} gay ${this.atk} máu, ${target.name} còn ${target.hp} máu`)
+//     },
+//     isAlive() {
+//         return this.hp > 0
+//     }
+// }
+//
+// //Tom phang jerry
+// let round = 1
+// while (tom.isAlive() && jerry.isAlive()) {
+//     console.log(`Round ${round}`)
+//     if (round % 2 !== 0) jerry.attatk(tom)
+//     else tom.attatk(jerry)
+//     round++
+// }
+//
+// if (tom.isAlive()) console.log('tom win')
+// else console.log('tom lose')
+
+
+function Character(name, hp, atk, def) {
+    this.name = name
+    this.hp = hp
+    this.atk = atk
+    this.def = def
+    this.attack = function (target) {
+        const dmg = this.atk - target.def
+        target.hp -= dmg > 0 ? dmg : 0
+        console.log(`${this.name} phang ${target.name} gay ${this.atk} máu, ${target.name} còn ${target.hp} máu`)
     }
-    return reverse
-}
-
-console.log(reverse("John Smith"));
-console.log('=======')
-
-function reverseStr(str) {
-    return str.split('').reverse().join('')
-}
-
-console.log(reverseStr("John Smith"));
-console.log('=======')
-
-
-function findMax(a) {
-    let max = a[0];
-    for (let i = 1; i <= a.length; i++) {
-        if (a[i] > max) max = a[i];
-    }
-    return max
-}
-
-console.log(findMax([1, 3, 5, 7]));
-console.log('=======')
-
-
-function listEvenNumbers(a, b) {
-    for (let i = a; i <= b; i++) {
-        if (i % 2 === 0) {
-            console.log(i)
-        }
+    this.isAlive = function () {
+        return this.hp > 0
     }
 }
 
-console.log(listEvenNumbers(1, 9))
-console.log('=======')
-
-function sumOddNumbers(a) {
-    let sum = 0
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] % 2 !== 0) {
-            sum += a[i]
-        }
-    }
-    return sum
-}
-
-console.log(sumOddNumbers([1, 2, 3, 4, 5, 6]))
-
-
-function findMin(a) {
-    let min = a[0]
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] < min) min = a[i]
-    }
-    return min
-}
-
-console.log(findMin([8, 0, 7, 1, 2, 3, 4, 5, 6]))
-console.log('=======')
-
-
-function countPositiveNumbers(a) {
-    let count = 0
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] > 0) {
-            count++
-        }
-    }
-    return count
-}
-
-
-console.log(countPositiveNumbers([1, -2, 3, -4, 5, 6]))
-console.log('=======')
-
-
-function sumArray(a) {
-    let sum = 0
-    for (let i = 0; i < a.length; i++) {
-        sum += a[i]
-    }
-    return sum
-}
-
-console.log(sumArray([1, 2, 3, 4, 5, 6]))
-console.log('=======')
-
-
-function calculateAverage(a) {
-    let sum = 0
-    for (let i = 0; i < a.length; i++) {
-        sum += a[i]
-    }
-    // return sum / a.length
-    return a.length > 0 ? sum / a.length : 0
-}
-
-console.log(calculateAverage([2, 4, 6]))
-console.log('=======')
-
-
-
-function isAscending(a){
-    if(a.length<=1) return false
-    for (let i = 0; i < a.length; i++) {
-        if(a[i]>a[i+1]) return false
-    }
-    return true
-}
-
-console.log(isAscending([1, 2, 3,7, 4, 5, 6]))
-console.log('=======')
-
-
-function isPrime(n){
-    if(n<=1) return false
-    for(let i=2;i<=n**0.5;i++){
-        if(n%i===0) return false
-    }
-    return true
-}
-
-
-console.log(isPrime(29))
-console.log('=======')
-
-
-function sumPrimes(a,b){
-    if(a>b) [a,b] = [b,a]
-    let sum = 0
-    for (let i = a; i <= b; i++) {
-        if(isPrime(i)){
-            sum += i
-        }
-    }
-    return sum
-}
-
-console.log(sumPrimes(20,10))
-console.log('=======')
-
-
-function repeatChar(char,n){
-    let a=''
-    for(let i = 1;i<= n;i++){
-        a+= char
-    }
-    return a
-}
-
-console.log(repeatChar('*',10))
-console.log('=======')
-
-
-function linearSearch(arr,n){
-    for(let i=0;i<arr.length;i++){
-        if(arr[i]===n){
-            return i
-        }
-    }
-    return -1
-}
-
-console.log(linearSearch([1,2,3,4,5,6],4))
-console.log('=======')
-
-
-function fibonacci(n) {
-    if (n <= 0) return []
-    if (n === 1) return [0]
-    if (n === 2) return [0, 1]
-
-    let fib = []        // Khai báo mảng
-    fib[0] = 0          // Phần tử đầu tiên
-    fib[1] = 1          // Phần tử thứ hai
-
-    for (let i = 2; i < n; i++) {
-        fib[i] = fib[i-1] + fib[i-2]
-    }
-
-    return fib
-}
-
-console.log(fibonacci(10))
-console.log('=======')
-
-
-function fibonacciBinet(n) {
-    let sqrt5 = Math.sqrt(5);                  // Tính căn bậc hai của 5
-    let phi = (1 + sqrt5) / 2;                 // Tính φ
-    let psi = (1 - sqrt5) / 2;                 // Tính ψ
-
-    let fn = (Math.pow(phi, n) - Math.pow(psi, n)) / sqrt5;  // Áp dụng công thức Binet
-
-    return Math.round(fn);                     // Làm tròn vì tính toán số thực có thể bị lệch
-}
-
-console.log(fibonacciBinet(10)); // Kết quả: 55
-console.log('=======')
-
-
-
-function fibonacci2(n) {
-    let arr = []
-
-    for (let count = 0; count < n; count++) {
-        if (count === 0 || count === 1) {
-            arr[count] = count
-        } else {
-            arr[count] = arr[count-1] + arr[count-2]
-        }
-    }
-
-    return arr
-}
-
-console.log(fibonacci2(10))
-
-
-
-
+const tom = new Character('Tom', 1000, 50, 5)
+const jerry = new Character('Jerry', 1000, 50, 5)
