@@ -163,25 +163,40 @@ console.log(result7a)
 
 Bai 8:
 Tim ra san pham ban co doanh thu nhat cua moi nhan vien
+*/
 
+console.log('Bai 8:')
+
+
+
+/*
 
 Bai 9:
 Gia su nhan vien se nhan duoc hoa hong la 3%
 -> tim hoa hong cho moi nhan vien
 */
-// const group9 = []
-// employees.forEach(employee => {
-//     const a = group7.find(g => g.i === employee.productId)
-//     group9.push({
-//         ...employee,
-//         sum:
-//     })
-// });
-// console.log(group9)
+console.log('Bai 9:')
+const group9 = []
+employees.forEach(employee => {
+    const a = group7.find(g => g.employeeId === employee.id)
+    group9.push({
+        ...employee,
+        rose: a.sum *0.03
+    })
+});
+console.log(group9)
 /*
 
 Bai 10:
 Sap xep nhan vien theo thu tu giam dan theo doanh thu
+*/
+
+console.log('Bai 10:')
+const group10 = grouped7.sort((a, b) => b.sum - a.sum)
+console.log(group10)
+
+/*
+
 * */
 
 
