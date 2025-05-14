@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table class="table" border="1" cellspacing="0"></table>
+
+<script>
+
+
+    const header = ['id', 'name', 'address', 'age'];
+
+    const employee = [
+        {id: 1, name: 'Duc', address: 'thai binh', age: '22'},
+        {id: 2, name: 'Hoang', address: 'thai binh', age: '22'},
+        {id: 3, name: 'Hung', address: 'thai binh', age: '22'},
+    ]
+
+    const table = document.getElementsByTagName('table')[0];
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+
+    header.forEach(h => {
+        const th = document.createElement('th');
+         headRow.appendChild(th);
+    })
+
+    thead.appendChild(headRow)
+    table.appendChild(thead)
+
+    // tbody
+    const tbody = document.createElement('tbody');
+    employee.forEach(e => {
+        const row = document.createElement('tr');
+
+        header.forEach(h => {
+            const td = document.createElement('td');
+            td.textContent = e[h]
+            row.appendChild(td);
+        })
+        tbody.appendChild(row);
+    })
+    table.appendChild(tbody)
+
+</script>
+</body>
+</html>

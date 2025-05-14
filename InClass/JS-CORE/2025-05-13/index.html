@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>My header</h1>
+
+
+<h2>My header</h2>
+<h2>My header 2</h2>
+
+<a href="#" class="link">1</a>
+<a href="#" class="link">2</a>
+<a href="#" class="link">3</a>
+<a href="#" id="link1">3</a>
+
+<div class="container">
+    <h2 class="link">2a</h2>
+    <h2 class="link">2b</h2>
+    <div class="container2">
+        <a href="#" class="link">2</a>
+    </div>
+</div>
+<script>
+
+
+    console.log(document.getElementsByTagName('h1'))
+    console.log(document.getElementsByClassName('link'))
+    console.log(document.getElementsByTagName('a'))
+    console.log(document.querySelector('.container .link:nth-of-type(2)'))
+    console.log(document.querySelectorAll('.container .link:nth-of-type(2)'))
+
+    const test = document.querySelector('.container .link:nth-of-type(2)')
+    // test.innerHTML ='<span>Test</span>'
+    // test.outerHTML = '<span>Test</span>'
+
+    test.setAttribute('name', 'hihi')
+    test.setAttribute('class', 'link2')
+    test.addEventListener('mouseover', function () {
+        test.style.color = 'red'
+    })
+
+    test.addEventListener('mouseout', function () {
+        test.style.color = ''
+    })
+
+    // test.style.color = 'blue'
+
+
+    const pE= document.createElement('p')
+    pE.innerHTML ='test'
+    document.body.querySelector('.container').appendChild(pE)
+
+    document.getElementsByTagName('h1')[0].onclick =  () => {
+        console.log('click vao day')
+    }
+    test.onclick =() =>{
+        console.log('click vao day')
+    }
+</script>
+</body>
+</html>

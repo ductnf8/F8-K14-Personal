@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1" cellspacing="0">
+
+</table>
+
+<script>
+    /*
+
+
+    ┌──────────┐
+    │fullData[]│
+    └──────┬───┘
+           │
+           │
+           │
+           │
+           │
+    ┌──────▼─────────────────┐
+    │fullData[datas,position]│
+    └─────────────┬──────────┘
+                  │
+                  │
+                  │
+                  │
+    ┌─────────────▼──────────────────┐
+    │header = Object.keys(fullData[0]│
+    └─────────────┬──────────────────┘
+                  │
+                  │
+                  │
+                  │
+                  │
+    ┌─────────────▼──────────┐
+    │tạo table,thead,headRow │
+    └───────┬────────────────┘
+            │
+            │
+            │
+            │
+            │
+    ┌───────▼───────┐    ┌───────────────────────┐    ┌──────────────────────────┐
+    │header.forEach ┼────► th.textContent = h    ┼────►thead.appendChild(headRow)│
+    └───┬───────────┘    │ headRow.appendChild(th│    │table.appendChild(thead); │
+        │                └───────────────────────┘    └──────────────────────────┘
+        │
+        │
+        │
+    ┌───▼──┐         ┌────────────────┐    ┌───────────────┐    ┌────────────────────────┐
+    │tbody ┼────────►│fullData.forEach┼───►│ header.forEach┼────►td.textContent = data[h]│
+    └────┬─┘         └────────────────┘    └───────────────┘    │tr.appendChild(td);     │
+         │                                                      └────────────────────────┘
+         │
+         │
+         │
+    ┌────▼─────────────────┐
+    │tbody.appendChild(tr) │
+    └──────────┬───────────┘
+               │
+               │
+               │
+   ┌───────────▼──────────────┐
+   │ table.appendChild(tbody);│
+   └──────────────────────────┘
+
+     */
+    const datas = [
+        {id: 1, name: 'Nguyễn Văn A', age: 22, email: 'a@example.com'},
+        {id: 2, name: 'Trần Thị B', age: 21, email: 'b@example.com'},
+        {id: 3, name: 'Lê Văn C', age: 23, email: 'c@example.com'}
+    ];
+
+    const positions = [
+        {id: 1, position: 'Giám đốc'},
+        {id: 2, position: 'Nhân viên'},
+        {id: 3, position: 'Quản lý'}
+    ];
+
+    const fullData = []
+    for (const data of datas) {
+        const did = data.id;
+        const position = positions.find(p => p.id === did)
+        fullData.push({
+            ...data,
+            position: position.position
+        })
+    }
+
+    const header = Object.keys(fullData[0])
+
+
+    const table = document.getElementsByTagName('table')[0];
+
+    // thead
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    headRow.style.textAlign = 'left'
+
+    header.forEach(h => {
+        const th = document.createElement('th');
+        th.textContent = h
+        headRow.appendChild(th);
+    })
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    // tbody
+
+    const tbody = document.createElement('tbody');
+    fullData.forEach(data => {
+        const tr = document.createElement('tr');
+
+        header.forEach(h => {
+            const td = document.createElement('td');
+            td.textContent = data[h]
+            tr.appendChild(td);
+        })
+        tbody.appendChild(tr);
+    })
+    table.appendChild(tbody);
+
+</script>
+</body>
+</html>

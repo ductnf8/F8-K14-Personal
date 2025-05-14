@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="changeTextBtn">Đổi nội dung tất cả P</button>
+<p>Đoạn 1</p>
+<p>Đoạn 2</p>
+<p>Đoạn 3</p>
+
+
+<script>
+
+    /*
+
+ ┌─────────────────────┐
+ │button=getElementById│
+ └──────────┬──────────┘
+            │
+ ┌──────────▼─────────────┐
+ │button.addEventListener │
+ └───────────┬────────────┘
+             │
+             │
+ ┌───────────▼───────┐
+ │querySelectorAll(p)│
+ └────────┬──────────┘
+          │
+          │
+ ┌────────▼─────────┐
+ │.textContent='...'│
+ └──────────────────┘
+
+     */
+    const button = document.getElementById("changeTextBtn")
+    button.addEventListener('click', () => {
+        const para = document.querySelectorAll('p')
+        para.forEach((p, index) => {
+            p.textContent = `Đã đổi nội dung ${index + 1}`
+        })
+    })
+
+
+    // // Kết quả đầu ra
+    // <p>Đã đổi nội dung  1</p>
+    // <p>Đã đổi nội dung 2</p>
+    // // <p>Đã đổi nội dung3</p>
+</script>
+</body>
+</html>
