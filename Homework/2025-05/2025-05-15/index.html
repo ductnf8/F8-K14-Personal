@@ -31,7 +31,6 @@
     .container input {
         padding: 12px;
         width: 300px;
-        /*margin-bottom: 50px;*/
         border: 1px solid #ccc;
         border-radius: 8px;
     }
@@ -68,7 +67,6 @@
         padding: 20px;
         border-radius: 10px;
         width: 350px;
-        /*box-shadow: 0 0 10px rgba(0,0,0,0.3);*/
         top: 50%;
         left: 50%;
         transform: translateY(-50%);
@@ -230,7 +228,8 @@
                         overlay3.style.display = 'flex'
                         currentDeleteId = employee.id
                         const delMes = document.querySelector('.delMessenger')
-                        delMes.innerHTML = `Are you sure to delete employee  ${employee.id}`
+                        const name = employee.name
+                        delMes.innerHTML = `Are you sure to delete employee <strong> ${name} </strong>?`
                     })
 
 
@@ -468,7 +467,7 @@
             │                         │
             │            ┌────────────▼──────────────────────┐
             │            │delete.innerHTML                   │
-            │            │="Are you sure delete employee${id}│
+            │            │="Are you sure delete employee Name│
             │            └───────────────────────────────────┘
     ┌───────▼──────────────┐
     │employees.findIndex(id│
