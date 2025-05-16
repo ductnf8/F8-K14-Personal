@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+</head>
+<!--style-->
+<style>
+    tr, td {
+        padding: 8px;
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .text-align-left {
+        text-align: left;
+    }
+
+    .container {
+        /*width: 600px;*/
+        margin: auto;
+    }
+
+    .container input {
+        padding: 12px;
+        width: 300px;
+        margin-bottom: 50px;
+    }
+
+    .container button {
+        padding: 12px;
+        width: 100px;
+    }
+
+</style>
+
+
+<!--body-->
+<body>
+<div class="container">
+
+    <input placeholder="search" name="search">
+    <button name="search">Search</button>
+    <table width="100%" border="1" cellspacing="0">
+        <thead>
+        <tr>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<!--script-->
+<script>
+    // const headers = [
+    //   'id', 'name', 'address', 'age'
+    // ]
+    const headers = [
+        {name: 'id', text: 'Id'},
+        {name: 'name', text: 'Ten'},
+        {name: 'address', text: 'Dia Chi'},
+        {name: 'age', text: 'Tuoi', align: 'right'},
+        {name: 'action', text: 'Action'},
+    ]
+
+    const employees = [
+        {id: 1, name: 'Pham Cong Tin', address: 'Hoai Duc - Ha Noi', age: 27},
+        {id: 2, name: 'Nguyen Nam Tao', address: 'Co Nhue - Ha Noi', age: 27},
+        {id: 3, name: 'Pham Xuan Bac', address: 'Soc Son - Ha Noi', age: 27},
+    ]
+
+    const renderTable = (employees) => {
+        const tableHeaderE = document.querySelector('table thead tr')
+        tableHeaderE.innerHTML = ''
+        headers.forEach(header => {
+            const cell = document.createElement('th')
+            cell.innerText = header.text
+            tableHeaderE.append(cell)
+        })
+
+        const tableBodyE = document.querySelector('table tbody')
+        tableBodyE.innerHTML = ''
+
+        employees.forEach(employee => {
+            const row = document.createElement('tr')
+            headers.forEach(header => {
+                const cell = document.createElement('td')
+
+                if (header.align) {
+                    cell.setAttribute('class', `text-align-${header.align}`)
+                }
+                if (header.name === 'action') {
+                    const editBtn = document.createElement('span')
+                    const delBtn = document.createElement('span')
+
+                    editBtn.setAttribute('class', 'mdi mdi-pencil')
+                    delBtn.setAttribute('class', 'mdi mdi-delete')
+                    cell.appendChild(editBtn)
+                    cell.appendChild(delBtn)
+                } else {
+                    cell.innerText = employee[header.name]
+                }
+                row.append(cell)
+            })
+            tableBodyE.append(row)
+        })
+    }
+
+    const inputE = document.querySelector('input[name="search"]')
+    const buttonE = document.querySelector('button')
+
+
+    inputE.addEventListener('input', (e) => {
+        const filteredEmployees = employees.filter(emp => emp.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        renderTable(filteredEmployees)
+    })
+
+    renderTable(employees)
+    // buttonE.addEventListener('click', () => {
+    //     tableHeaderE.innerHTML = ''
+    //     const searchValue = inputE.value.toLowerCase().trim()
+    //     // console.log(searchValue)
+    //
+    //     const result = employees.filter(e =>{
+    //         const values = Object.values(e)
+    //         for(let value of values){
+    //             if(String(value).toLowerCase().includes(searchValue)){
+    //                 return true
+    //             }
+    //         }
+    //         return false
+    //     })
+    //     console.log(result)
+    // })
+
+</script>
+</body>
+</html>

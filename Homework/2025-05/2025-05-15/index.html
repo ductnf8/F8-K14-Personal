@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+</head>
+<!--style-->
+<style>
+    button:hover {
+        cursor: pointer;
+    }
+
+    tr, td {
+        padding: 8px;
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .text-align-left {
+        text-align: left;
+    }
+
+    .container {
+        width: 600px;
+        margin: auto;
+    }
+
+    .container input {
+        padding: 12px;
+        width: 300px;
+        /*margin-bottom: 50px;*/
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    table {
+        margin-top: 50px;
+    }
+
+    .container > button {
+        padding: 12px;
+        width: 100px;
+        border: none;
+        background: green;
+        color: white;
+        margin-left: 20px;
+        border-radius: 10px;
+    }
+
+    .overlay, .overlay2, .overlay3 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .addForm, .editForm, .deleteForm {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 350px;
+        /*box-shadow: 0 0 10px rgba(0,0,0,0.3);*/
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%);
+    }
+
+    .addForm > p:first-of-type,
+    .editForm > p:first-of-type,
+    .deleteForm > p:first-of-type {
+        padding: 10px;
+        background: green;
+        color: white;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .addForm input, .editForm input {
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .buttonForm {
+        display: flex;
+        justify-content: left;
+        padding: 12px;
+        gap: 100px
+    }
+
+    .buttonForm button {
+        width: 100px;
+    }
+
+</style>
+
+
+<!--body-->
+<body>
+<div class="container">
+    <input placeholder="search" name="search">
+    <button name="search">Search</button>
+    <button class="btnAdd">Add new</button>
+
+    <div class="overlay" style="display: none;">
+        <div class="addForm">
+            <p>Add new employee</p>
+            <input type="text" placeholder="name" name="name" required>
+            <input type="text" placeholder="address" name="address" required>
+            <input type="number" placeholder="age" name="age" required>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay2" style="display: none;">
+        <div class="editForm">
+            <p>Edit employee</p>
+            <input type="text" name="id" readonly>
+            <input type="text" placeholder="name" name="name" required>
+            <input type="text" placeholder="address" name="address" required>
+            <input type="number" placeholder="age" name="age" required>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnEdit">Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay3" style="display: none;">
+        <div class="deleteForm">
+            <p>Delete employee</p>
+            <p class="delMessenger"></p>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <table width="100%" border="1" cellspacing="0">
+        <thead>
+        <tr>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<!--script-->
+
+
+<script>
+    // const headers = [
+    //   'id', 'name', 'address', 'age'
+    // ]
+
+
+    const headers = [
+        {name: 'id', text: 'Id'},
+        {name: 'name', text: 'Ten'},
+        {name: 'address', text: 'Dia Chi'},
+        {name: 'age', text: 'Tuoi', align: 'right'},
+        {name: 'action', text: 'Action'},
+    ]
+
+    const employees = [
+        {id: 1, name: 'Pham Cong Tin', address: 'Hoai Duc - Ha Noi', age: 27},
+        {id: 2, name: 'Nguyen Nam Tao', address: 'Co Nhue - Ha Noi', age: 27},
+        {id: 3, name: 'Pham Xuan Bac', address: 'Soc Son - Ha Noi', age: 27},
+    ]
+
+    let currentEditId, currentDeleteId;
+    const renderTable = (employees) => {
+        const tableHeaderE = document.querySelector('table thead tr')
+        tableHeaderE.innerHTML = ''
+        headers.forEach(header => {
+            const cell = document.createElement('th')
+            cell.innerText = header.text
+            tableHeaderE.append(cell)
+        })
+
+        const tableBodyE = document.querySelector('table tbody')
+        tableBodyE.innerHTML = ''
+
+        employees.forEach(employee => {
+            const row = document.createElement('tr')
+            headers.forEach(header => {
+                const cell = document.createElement('td')
+
+                if (header.align) {
+                    cell.setAttribute('class', `text-align-${header.align}`)
+                }
+                if (header.name === 'action') {
+                    const editBtn = document.createElement('span')
+                    const delBtn = document.createElement('span')
+                    editBtn.setAttribute('class', 'mdi mdi-pencil')
+                    delBtn.setAttribute('class', 'mdi mdi-delete')
+                    cell.appendChild(editBtn)
+                    cell.appendChild(delBtn)
+
+                    editBtn.addEventListener('click', () => {
+                        overlay2.style.display = 'flex'
+
+                        document.querySelector('.overlay2 input[name="id"]').value = employee.id
+                        document.querySelector('.overlay2 input[name="name"]').value = employee.name
+                        document.querySelector('.overlay2 input[name="address"]').value = employee.address
+                        document.querySelector('.overlay2 input[name="age"]').value = employee.age
+
+                        currentEditId = employee.id
+                    })
+
+
+                    delBtn.addEventListener('click', () => {
+                        overlay3.style.display = 'flex'
+                        currentDeleteId = employee.id
+                        const delMes = document.querySelector('.delMessenger')
+                        delMes.innerHTML = `Are you sure to delete employee  ${employee.id}`
+                    })
+
+
+                } else {
+                    cell.innerText = employee[header.name]
+                }
+                row.append(cell)
+            })
+            tableBodyE.append(row)
+        })
+    }
+
+    const inputE = document.querySelector('input[name="search"]')
+    const buttonE = document.querySelector('button')
+
+
+    inputE.addEventListener('input', (e) => {
+        const filteredEmployees = employees.filter(emp => emp.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        renderTable(filteredEmployees)
+    })
+
+    renderTable(employees)
+
+
+    const btnAdd = document.querySelector('.btnAdd')
+    const overlay = document.querySelector('.overlay')
+    const overlay2 = document.querySelector('.overlay2')
+    const overlay3 = document.querySelector('.overlay3')
+
+    btnAdd.addEventListener('click', () => {
+        overlay.style.display = 'flex'
+    })
+
+    const btnCancel = document.querySelectorAll('.btnCancel')
+    btnCancel.forEach(btn => {
+        btn.addEventListener('click', () => {
+            overlay.style.display = 'none'
+            overlay2.style.display = 'none'
+            overlay3.style.display = 'none'
+        })
+    })
+
+
+    // Button Save
+    /*
+    Create
+
+
+   ┌─────────────────────┐
+   │tạo overlay chứa     │
+   │addForm gồm các input│
+   │và button            │
+   └──────┬──────────────┘
+          │
+          │
+          │
+          │
+          │
+   ┌──────▼─────┐           ┌──────────────────────┐          ┌──────────────────────┐
+   │click btnAdd┼───────────►overlay.style.display │──────────►kiểm tra null hay     │
+   └─────┬──────┘           │=flex                 │          │ không                │
+         │                  └──────────────────────┘          └──────────────────────┘
+         │
+         │
+         │
+   ┌─────▼────────┐
+   │điền thông tin│
+   └──────┬───────┘
+          │
+          │
+          │
+          │
+          │
+   ┌──────▼─────┐       ┌──────────────┐      ┌──────────────────────────────┐
+   │click button┼───────► lấy ra value ┼──────► newId=employees[emp.length-1]│
+   │save        │       │ 3 ô input    │      │ .id +1                       │
+   └────────────┘       └──────────────┘      └──────────────┬───────────────┘
+                                                             │
+                                                             │
+                                                             │
+                                                             │
+                                               ┌─────────────▼──────────────┐
+                                               │push newId và 3 value       │
+                                               │từ các ô input vào employees│
+                                               └───────────┬────────────────┘
+                                                           │
+                                                           │
+                                                           │
+                                                           │
+                                               ┌───────────▼─────────┐
+                                               │gọi hàm renderTable  │
+                                               └───────────┬─────────┘
+                                                           │
+                                                           │
+                                                           │
+                                                           │
+                                               ┌───────────▼────────┐
+                                               │overlay và các input│
+                                               │=''(rỗng)           │
+                                               └────────────────────┘
+
+                                                                                 
+     */
+    const inputNameE = document.querySelector('input[name="name"]')
+    const inputAddressE = document.querySelector('input[name="address"]')
+    const inputAgeE = document.querySelector('input[name="age"]')
+
+    const btnSave = document.querySelector('.btnSave')
+    btnSave.addEventListener('click', () => {
+        const name = inputNameE.value
+        const address = inputAddressE.value
+        const age = Number(inputAgeE.value)
+        if(!name || !address || !age) {
+            alert('Please enter all fields')
+            return
+        }
+
+        let newId
+        if (employees.length > 0) {
+            newId = employees[employees.length - 1].id + 1
+        }
+
+        employees.push({
+            id: newId,
+            name: name,
+            address: address,
+            age: age
+        })
+
+        renderTable(employees)
+        overlay.style.display = 'none'
+        inputNameE.value = ''
+        inputAddressE.value = ''
+        inputAgeE.value = ''
+
+    })
+
+    // edit button
+    /*
+    Edit
+
+  ┌────────────────┐
+  │tạo overlay chứa│
+  │editForm        │
+  └───────┬────────┘
+          │
+          │
+ ┌────────▼────────┐  ┌─────────────────┐
+ │ click icon edit ┼──►overlay.style    │
+ └─────────┬───────┘  │.display = flex  │
+           │          └─────────────────┘
+           │
+           │
+ ┌─────────▼───────────────────┐
+ │ querySelector               │
+ │ (input[name=...]            │
+ │ .value =employee. ...       │
+ │ currentEditId = employee.id │
+ └────────────┬────────────────┘
+              │
+              │
+ ┌────────────▼────────────┐
+ │ name,address,age        │          ┌───────────────────────┐
+ │ =querySelector          ┼──────────►kiểm tra null hay không│
+ │ (input[name="...").value│          └───────────┬───────────┘
+ └─────────────────────────┘                      │
+                                                  │
+                                                  │
+ ┌──────────────────────────────────┐             │
+ │ employees.find(id =currentEditId)◄─────────────┘
+ └────────────┬─────────────────────┘
+              │
+              │
+              │
+  ┌───────────▼────────┐
+  │employee.name =name,│
+  │.....               │
+  └──────────┬─────────┘
+             │
+             │
+             │
+  ┌──────────▼───────────┐
+  │đặt lại currentEditId │
+  │ẩn overlay            │
+  └─────────┬────────────┘
+            │
+            │
+            │
+  ┌─────────▼─────────┐
+  │gọi hàm renderTable│
+  └───────────────────┘
+
+
+     */
+    const btnEdit = document.querySelector('.btnEdit')
+    btnEdit.addEventListener('click', () => {
+        const name = document.querySelector('.overlay2 input[name="name"]').value
+        const address = document.querySelector('.overlay2 input[name="address"]').value
+        const age = document.querySelector('.overlay2 input[name="age"]').value
+
+        if(!name || !address || !age || !address) {
+            alert('Please enter all fields')
+            return
+        }
+        const employee = employees.find(e => e.id === currentEditId)
+        if (employee) {
+            employee.name = name
+            employee.address = address
+            employee.age = age
+        }
+        currentEditId = null
+        overlay2.style.display = 'none'
+        renderTable(employees)
+    })
+
+    // delete button
+    /*
+
+
+
+
+    ┌────────────────┐
+    │tạo overlay chứa│
+    │deleteForm      │
+    └───────┬────────┘
+            │
+            │
+            │
+    ┌───────▼───┐        ┌─────────────────────┐
+    │click icon ┼────────►overlay.display=flex │
+    │delete     │        └────────────┬────────┘
+    └───────┬───┘                     │
+            │                         │
+            │                         │
+            │                         │
+            │            ┌────────────▼──────────────────────┐
+            │            │delete.innerHTML                   │
+            │            │="Are you sure delete employee${id}│
+            │            └───────────────────────────────────┘
+    ┌───────▼──────────────┐
+    │employees.findIndex(id│
+    │= currentDeleteId)    │
+    └────────┬─────────────┘
+             │
+             │
+             │
+    ┌────────▼─────┐ no   ┌──────┐
+    │employee !==-1┼──────►bỏ qua│
+    └───────┬──────┘      └──────┘
+            │
+            │yes
+            │
+    ┌───────▼─────────┐
+    │splice(employee,1│
+    └────────┬────────┘
+             │
+             │
+             │
+    ┌────────▼───────────┐
+    │gọi hàm renderTable │
+    └──────────┬─────────┘
+               │
+               │
+               │
+    ┌──────────▼─────────────┐
+    │đặt lại currentDeleteId │
+    └───────┬────────────────┘
+            │
+            │
+            │
+    ┌───────▼──┐
+    │ẩn overlay│
+    └──────────┘
+
+
+     */
+    const btnDelete = document.querySelector('.btnDelete')
+    btnDelete.addEventListener('click', () => {
+        const employee = employees.findIndex(e => e.id === currentDeleteId)
+        if (employee !== -1) {
+            employees.splice(employee, 1)
+            renderTable(employees)
+        }
+        currentDeleteId = null
+        overlay3.style.display = 'none'
+    })
+</script>
+</body>
+</html>

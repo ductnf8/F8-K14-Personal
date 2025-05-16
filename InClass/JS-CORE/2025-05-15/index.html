@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    input,button {
+        font-size: 24px;
+        padding: 12px;
+    }
+</style>
+
+
+<body>
+<input placeholder="Enter your name" type="text" name="name"/>
+<button>Submit</button>
+<span></span>
+
+<!--script-->
+<script>
+    const inputE = document.querySelector('input[name="name"]')
+    const buttonE = document.querySelector('button')
+    const spanE = document.querySelector('span')
+
+    buttonE.addEventListener('click', () => {
+        let val = inputE.value.replaceAll("<","&lt;")
+        val = val.replaceAll(">","&gt;")
+        spanE.innerHTML = val
+    })
+
+    // inputE.addEventListener('input' ,(e)=>{
+    //     console.log('inputing',e.target.value)
+    // })
+
+
+
+</script>
+</body>
+</html>
