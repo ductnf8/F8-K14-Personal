@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Ai là triệu phú</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .question-title {
+            border: 1px solid #ccc;
+            padding: 32px;
+        }
+
+        .question-option {
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .check-btn {
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .check-btn:active {
+            background-color: #9ec2bb;
+            user-select: none;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            z-index: 999;
+        }
+
+        .mark {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            width: 50vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding-bottom: 30px;
+        }
+
+        .money-mark {
+            padding: 5px;
+            width: 200px;
+            text-align: right;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .money-mark:nth-of-type(5n-3) {
+            padding: 10px;
+            width: 300px;
+        }
+
+        .mdi-menu {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 50px;
+            cursor: pointer;
+        }
+
+        @keyframes flash-green {
+            0% { background-color: white; }
+            25% { background-color: green; }
+            50% { background-color: white; }
+            75% { background-color: green; }
+            100% { background-color: green; }
+        }
+
+        .flash-green {
+            animation: flash-green 0.6s ease-in-out;
+        }
+
+        .help-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .help-button {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            background-color: #eee;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .lose-popup {
+            position: fixed;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 2px solid #444;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            z-index: 1001;
+        }
+
+        .lose-popup h2 {
+            color: red;
+        }
+
+        .btnOk{
+            padding: 10px 30px 10px 30px;
+            border: none;
+            cursor: pointer;
+            background: greenyellow;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body>
+
+<span class="mdi mdi-menu"></span>
+
+<div class="overlay" style="display: none;">
+    <div class="mark">
+        <p><strong>Mốc tiền thưởng</strong></p>
+    </div>
+</div>
+
+<div id="app">
+    <div class="question">
+        <div class="numberQues"></div>
+        <div class="question-title">Câu hỏi</div>
+        <div class="question-option" value="a"></div>
+        <div class="question-option" value="b"></div>
+        <div class="question-option" value="c"></div>
+        <div class="question-option" value="d"></div>
+    </div>
+
+    <div class="check-btn">Check</div>
+
+    <!-- Trong phần .overlay > .mark -->
+    <div class="helps" style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button id="help-5050">50:50</button>
+        <button id="help-call">📞 Gọi điện</button>
+        <button id="help-audience">👥 Hỏi khán giả</button>
+    </div>
+
+
+    <div id="time">30</div>
+</div>
+
+<div class="lose-popup" id="losePopup">
+    <h2>Đáng tiếc, bạn đã thua!</h2>
+    <p>Bạn nhận được: <span id="safe-money">0</span> VNĐ</p>
+    <button class="btnOk">Ok</button>
+</div>
+
+<script type="module" src="referances.js"></script>
+<script type="module" src="questions.js"></script>
+<script type="module" src="render.js"></script>
+</body>
+</html>
