@@ -1,36 +1,9 @@
-class Person {
-    name;
-    age;
-    girlFriend;
+import {Male} from './male.js'
 
-    constructor(name, age) {
-        this.name = name;
-        this.age = age
-    }
+class BoyStudent extends Male{}
 
-    eat(){
-        console.log('eat')
-    }
-}
+const duc = new BoyStudent('duc', 22,'huyen')
 
-const duc = new Person('duc', 22)
-
-class NewPerson{
-    name;
-    age;
-    gender;
-}
-
-class Male extends Person{
-    constructor(name,age) {
-        super(name,age);
-    }
-
-    eat() {
-        super.eat();
-        console.log('eat at male')
-    }
-}
-
-const male = new Male()
-male.eat()
+duc.setName('viet')
+duc.setGirlFriend('huyen')
+console.log(duc.getGirlFriend())
