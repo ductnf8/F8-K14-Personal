@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Form người dùng</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: center;
+        }
+
+        input, select {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Form thêm người dùng</h2>
+<input type="text" id="username" placeholder="Tên người dùng"/>
+<input type="email" id="email" placeholder="Email"/>
+<select id="role">
+    <option value="">-- Vai trò --</option>
+    <option value="Admin">Admin</option>
+    <option value="Editor">Editor</option>
+    <option value="Viewer">Viewer</option>
+</select>
+<button onclick="handleSubmit()">Submit</button>
+
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody id="userList"></tbody>
+</table>
+<!-- ... phần <head> giữ nguyên như cũ -->
+<script>
+    let users = [
+        {username: "admin01", email: "admin@gmail.com", role: "Admin"},
+        {username: "editor02", email: "edit@gmail.com", role: "Editor"},
+        {username: "viewer03", email: "view@gmail.com", role: "Viewer"}
+    ];
+
+    let editingIndex = -1;
+
+    function handleSubmit() {
+        const username = document.getElementById("username").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const role = document.getElementById("role").value;
+
+        if (!username || !email || !role) {
+            return alert("Vui lòng nhập đầy đủ thông tin!");
+        }
+
+        const user = {username, email, role};
+
+        if (editingIndex === -1) {
+            users.push(user);
+        } else {
+            users[editingIndex] = user;
+            editingIndex = -1;
+        }
+
+        renderUsers();
+        clearForm();
+    }
+
+    function deleteUser(index) {
+        users.splice(index, 1);
+        renderUsers();
+    }
+
+    function editUser(index) {
+        const user = users[index];
+        document.getElementById("username").value = user.username;
+        document.getElementById("email").value = user.email;
+        document.getElementById("role").value = user.role;
+        editingIndex = index;
+    }
+
+    function renderUsers() {
+        const tbody = document.getElementById("userList");
+        tbody.innerHTML = "";
+        users.forEach((u, i) => {
+            tbody.innerHTML += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${u.username}</td>
+          <td>${u.email}</td>
+          <td>${u.role}</td>
+          <td>
+            <button onclick="editUser(${i})">Sửa</button>
+            <button onclick="deleteUser(${i})">Xoá</button>
+          </td>
+        </tr>`;
+        });
+    }
+
+    function clearForm() {
+        document.getElementById("username").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("role").value = "";
+    }
+
+    window.onload = renderUsers;
+</script>
+
+</body>
+</html>

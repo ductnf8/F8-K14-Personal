@@ -355,14 +355,6 @@
             }
         })
     }
-    //
-    // document.addEventListener('click', function (e) {
-    //     if (e.target !== itemProvince && !dropdown.contains(e.target)) {
-    //         dropdown.style.display = 'none'
-    //         cursor = null
-    //     }
-    // });
-
 
     // reset background
     const resetBackground = () => {
@@ -487,12 +479,12 @@
         const province = inputProvinceE.value
         const address = inputAddressE.value
         const age = Number(inputAgeE.value)
-        // if (!name || !address || !age || !province) {
-        //     alert('Please enter all fields')
-        //     return
-        // }
-        const validInput = validateForm(name, province, address, age)
 
+        const validInput = validateForm(name, province, address, age)
+        if (!validInput.isValid) {
+            alert('Please correct the errors: ' + Object.values(validInput.errors).join(', '))
+            return
+        }
         let newId
         if (employees.length > 0) {
             newId = employees[employees.length - 1].id + 1
@@ -572,25 +564,17 @@
         const addressRegex = /^[\wÀ-ỹ\s,.-]{5,100}$/; // Chữ, số, khoảng trắng, dấu câu cơ bản, 5-100 ký tự
         const ageRegex = /^\d{1,3}$/;
 
-        if (!name || nameRegex.test(name)) errorMessage.name = 'Invalid name'
-        if (!province || provinceRegex.test(province)) errorMessage.province = 'Invalid province'
-        if (!address || addressRegex.test(address)) errorMessage.address = 'Invalid address'
-        if (!age || ageRegex.test(age)) errorMessage.age = 'Invalid age'
+        if (!name || !nameRegex.test(name)) errorMessage.name = 'Invalid name'
+        if (!province || !provinceRegex.test(province)) errorMessage.province = 'Invalid province'
+        if (!address || !addressRegex.test(address)) errorMessage.address = 'Invalid address'
+        if (!age || !ageRegex.test(age)) errorMessage.age = 'Invalid age'
         if (parseInt(age) < 1 || parseInt(age) > 100) errorMessage.age = 'Invalid age'
-        if (Object.keys(errorMessage).length === 0) {
-            return {
-                isValid: true,
-                errors: null
-            };
-        } else {
-            return {
-                isValid: false,
-                errors: errorMessage
-            };
-        }
+
+        return {
+            isValid: Object.keys(errorMessage).length === 0,
+            errors: errorMessage
+        };
     }
-
-
 </script>
 </body>
 </html>
