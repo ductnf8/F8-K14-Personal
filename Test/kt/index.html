@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        /*display: none;*/
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        z-index: 999;
+    }
+
+    .addForm {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 350px;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .addForm p {
+        text-align: center;
+        padding: 10px;
+        background: skyblue;
+        color: white;
+        width: 100%;
+    }
+
+    .addForm input {
+        width: 100%;
+        height: 40px;
+        outline: none;
+        padding: 5px;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        align-self: center;
+    }
+
+    .btn button {
+        width: 100px;
+        background: skyblue;
+        color: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+    }
+</style>
+
+<body>
+<div class="overlay">
+    <div class="addForm">
+        <p>Add new employee</p>
+        <input placeholder="name" name="name" type="text">
+        <input placeholder="address" name="address" type="text">
+        <input placeholder="age" name="age" type="number">
+        <div class="btn">
+            <button class="btnCancel">Cancel</button>
+            <button class="btnSave">Save</button>
+        </div>
+    </div>
+</div>
+
+<table border="1" cellspacing="0">
+
+</table>
+
+<script src="main.js"></script>
+</body>
+</html>
