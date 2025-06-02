@@ -183,19 +183,29 @@ fullData.forEach(f => {
     header.forEach(h => {
         const td = document.createElement('td')
         td.style.borderBottom = '1px solid #ccc'
-        td.innerText = f[h]
 
-        tr.appendChild(td)
-        if (f[h] === "Full day") {
-            td.innerHTML = `
-            <span class="mdi mdi-office-building
-            "></span>
-            <span>Full day</span>
-            `
+        // Kiểm tra nếu cột là Mon, Tue, Wed, Thu, Fri
+        if (["Mon", "Tue", "Wed", "Thu", "Fri"].includes(h)) {
+            if (f[h] === "Full day") {
+                td.innerHTML = `
+                    <span class="mdi mdi-office-building"></span>
+                    <span>Full day</span>
+                `
+            } else {
+                td.innerHTML = `
+                    <span class="mdi mdi-calendar-remove"></span>
+                    <span>${f[h]}</span>
+                `
+            }
+        } else {
+            // Cột Name và Team giữ nguyên
+            td.innerText = f[h]
         }
 
+        tr.appendChild(td)
     })
     tbody.appendChild(tr)
 })
+
 
 table.appendChild(tbody)
