@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border-bottom: 1px solid #ccc;
+        padding: 8px;
+    }
+
+
+    .autocomplete {
+        /*width: 350px;*/
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown {
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        overflow-y: scroll;
+        width: 100%;
+        background: white;
+    }
+
+    .dropdown-item:hover {
+        background: #ccc;
+    }
+
+    .autocomplete input, .autocomplete2 input {
+        padding: 12px;
+        /*font-size: 22px;*/
+        /*width: 100%;*/
+        width: 300px;
+        position: relative;
+    }
+
+    .autocomplete .dropdown {
+        font-size: 20px;
+        box-shadow: 0 0 4px #ccc;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .dropdown-item:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .dropdown-item {
+        padding: 8px;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    tr, td {
+        padding: 8px;
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .text-align-left {
+        text-align: left;
+    }
+
+
+    .container {
+        width: 600px;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .container input {
+        padding: 12px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+    table {
+        margin-top: 50px;
+    }
+
+    .container > button {
+        padding: 12px;
+        width: 100px;
+        border: none;
+        background: green;
+        color: white;
+        margin-left: 20px;
+        border-radius: 10px;
+    }
+
+
+    .buttonForm {
+        display: flex;
+        justify-content: left;
+        padding: 12px;
+        gap: 100px
+    }
+
+    .buttonForm button {
+        width: 100px;
+    }
+
+    .mdi-office-building {
+        color: green;
+    }
+
+    .mdi-calendar-remove {
+        color: orange;
+    }
+</style>
+<body>
+<div class="head">
+    <input placeholder="search employees" type="text" name="search">
+    <div class="autocomplete">
+        <input placeholder="Teams" type="text" name="Teams">
+        <div class="dropdown"></div>
+    </div>
+    <button class=btnCreate>Create Schedule</button>
+</div>
+
+
+<table cellspacing="0"></table>
+
+<script src="main.js">
+</script>
+</body>
+</html>

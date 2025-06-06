@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sinh viên</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        td, th {
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        input, select, button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Quản lý sinh viên</h2>
+
+<div>
+    <input type="text" id="name" placeholder="Tên sinh viên">
+    <input type="number" id="age" placeholder="Tuổi">
+    <input type="text" id="className" placeholder="Lớp">
+    <button onclick="addOrUpdateStudent()">Thêm / Cập nhật</button>
+</div>
+
+<div>
+    <input type="text" id="filterClass" placeholder="Lọc theo lớp" oninput="renderTable()">
+    <select id="sortOrder" onchange="renderTable()">
+        <option value="">Sắp xếp tuổi</option>
+        <option value="asc">Tăng dần</option>
+        <option value="desc">Giảm dần</option>
+    </select>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Tuổi</th>
+        <th>Lớp</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody id="studentList"></tbody>
+</table>
+
+<script>
+    let students = [
+        {id: 1, name: "Nguyễn Văn A", age: 20, className: "CTK42"},
+        {id: 2, name: "Trần Thị B", age: 22, className: "CTK41"},
+        {id: 3, name: "Lê Văn C", age: 21, className: "CTK42"}
+    ];
+    let nextId = 4;
+    let editIndex = -1;
+
+    function renderTable() {
+        const tbody = document.getElementById("studentList");
+        const filter = document.getElementById("filterClass").value.trim().toLowerCase();
+        const sort = document.getElementById("sortOrder").value;
+
+        let indexedStudents = students.map((s, i) => ({...s, indexGoc: i}));
+
+        // Lọc
+        if (filter) {
+            indexedStudents = indexedStudents.filter(s => s.className.toLowerCase().includes(filter));
+        }
+
+        // Sắp xếp
+        if (sort === "asc") {
+            indexedStudents.sort((a, b) => a.age - b.age);
+        } else if (sort === "desc") {
+            indexedStudents.sort((a, b) => b.age - a.age);
+        }
+
+        // Render
+        tbody.innerHTML = "";
+        indexedStudents.forEach(s => {
+            const row = `<tr>
+          <td>${s.id}</td>
+          <td>${s.name}</td>
+          <td>${s.age}</td>
+          <td>${s.className}</td>
+          <td>
+            <button onclick="editStudent(${s.indexGoc})">Sửa</button>
+            <button onclick="deleteStudent(${s.indexGoc})">Xoá</button>
+          </td>
+        </tr>`;
+            tbody.innerHTML += row;
+        });
+    }
+
+    function addOrUpdateStudent() {
+        const name = document.getElementById("name").value.trim();
+        const age = parseInt(document.getElementById("age").value);
+        const className = document.getElementById("className").value.trim();
+
+        if (!name || isNaN(age) || !className) {
+            alert("Vui lòng nhập đầy đủ thông tin.");
+            return;
+        }
+
+        if (editIndex === -1) {
+            // Thêm mới
+            students.push({id: nextId++, name, age, className});
+        } else {
+            // Cập nhật
+            students[editIndex] = {...students[editIndex], name, age, className};
+            editIndex = -1;
+        }
+
+        clearForm();
+        renderTable();
+    }
+
+    function editStudent(index) {
+        const s = students[index];
+        document.getElementById("name").value = s.name;
+        document.getElementById("age").value = s.age;
+        document.getElementById("className").value = s.className;
+        editIndex = index;
+    }
+
+    function deleteStudent(index) {
+        if (confirm("Bạn có chắc muốn xoá sinh viên này không?")) {
+            students.splice(index, 1);
+            renderTable();
+        }
+    }
+
+    function clearForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("className").value = "";
+    }
+
+    renderTable(); // Render lần đầu
+</script>
+</body>
+</html>

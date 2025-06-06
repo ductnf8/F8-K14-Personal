@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .autocomplete, .autocomplete2 {
+        margin: auto;
+        position: relative;
+    }
+
+    .dropdown {
+        display: none;
+        z-index: 1000;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        overflow-y: scroll;
+        width: 100%;
+        background: white;
+    }
+
+    .dropdown-item:hover {
+        background: #ccc;
+    }
+
+    .autocomplete input, .autocomplete2 input {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .toggle-icon {
+        position: absolute;
+        right: 10px;
+        top: 38%;
+        transform: translateY(-50%);
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        z-index: 10000;
+    }
+
+    .toggle-icon.rotate {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .autocomplete .dropdown, .autocomplete2 .dropdown {
+        font-size: 20px;
+        box-shadow: 0 0 4px #ccc;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .dropdown-item:not(:last-child) {
+        border-bottom: 1px solid #ccc;
+    }
+
+    .dropdown-item {
+        padding: 8px;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    tr, td {
+        padding: 8px;
+    }
+
+    .text-align-right {
+        text-align: right;
+    }
+
+    .text-align-left {
+        text-align: left;
+    }
+
+    .container {
+        width: 600px;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .container input {
+        padding: 12px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    table {
+        margin-top: 50px;
+    }
+
+    .container > button {
+        padding: 12px;
+        width: 100px;
+        border: none;
+        background: green;
+        color: white;
+        margin-left: 20px;
+        border-radius: 10px;
+    }
+
+    .overlay, .overlay2, .overlay3 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .addForm, .editForm, .deleteForm {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 350px;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%);
+    }
+
+    .addForm > p:first-of-type,
+    .editForm > p:first-of-type,
+    .deleteForm > p:first-of-type {
+        padding: 10px;
+        background: green;
+        color: white;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .addForm input, .editForm input {
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .buttonForm {
+        display: flex;
+        justify-content: left;
+        padding: 12px;
+        gap: 100px
+    }
+
+    .buttonForm button {
+        width: 100px;
+    }
+</style>
+<body>
+<div class="container">
+    <input placeholder="search" name="search">
+    <button name="search">Search</button>
+    <button class="btnAdd">Add new</button>
+
+    <div class="overlay" style="display: none;">
+        <div class="addForm">
+            <p>Add new employee</p>
+            <input type="text" placeholder="name" name="name" required>
+            <div class="autocomplete">
+                <input placeholder="province" name="province" required autocomplete="off"/>
+                <span class="toggle-icon mdi mdi-menu-down"></span>
+                <div class="dropdown">
+                </div>
+            </div>
+            <input type="text" placeholder="address" name="address" required>
+            <input type="number" placeholder="age" name="age" required>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnSave">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay2" style="display: none;">
+        <div class="editForm">
+            <p>Edit employee</p>
+            <input type="text" name="id" readonly>
+            <input type="text" placeholder="name" name="name" required>
+            <div class="autocomplete2">
+                <input placeholder="province" name="province" required autocomplete="off"/>
+                <span class="toggle-icon mdi mdi-menu-down"></span>
+                <div class="dropdown">
+                </div>
+            </div>
+            <input type="text" placeholder="address" name="address" required>
+            <input type="number" placeholder="age" name="age" required>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnEdit">Edit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay3" style="display: none;">
+        <div class="deleteForm">
+            <p>Delete employee</p>
+            <p class="delMessenger"></p>
+            <div class="buttonForm">
+                <button class="btnCancel">Cancel</button>
+                <button class="btnDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <table width="100%" border="1" cellspacing="0">
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const headers = [
+        {name: 'id', text: 'Id'},
+        {name: 'name', text: 'Ten'},
+        {name: 'province', text: 'Tinh/TP'},
+        {name: 'address', text: 'Dia Chi'},
+        {name: 'age', text: 'Tuoi', align: 'right'},
+        {name: 'action', text: 'Action'},
+    ];
+
+    const employees = [
+        {id: 1, name: 'Pham Cong Tin', province: 'Ha Noi', address: 'Hoai Duc - Ha Noi', age: 27},
+        {id: 2, name: 'Nguyen Nam Tao', province: 'Ha Noi', address: 'Co Nhue - Ha Noi', age: 27},
+        {id: 3, name: 'Pham Xuan Bac', province: 'Ha Noi', address: 'Soc Son - Ha Noi', age: 27},
+    ];
+
+    const items = [
+        "Ha Noi",
+        "Ha Nam",
+        "Vinh Phuc",
+        "Phu Tho",
+        "Bac Blinh",
+        "Bac Giang"
+    ];
+
+    const provinceAutocomplete = (autocomplete) => {
+        const autoSelect = document.querySelector(autocomplete);
+        const inputProvince = autoSelect.querySelector('input[name="province"]');
+        const dropdown = autoSelect.querySelector('.dropdown');
+        const toggle = autoSelect.querySelector('.toggle-icon');
+        let cursor = null;
+
+        const renderDropdown = (items) => {
+            dropdown.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'dropdown-item';
+                div.textContent = item;
+                dropdown.appendChild(div);
+
+                div.addEventListener('click', () => {
+                    inputProvince.value = item;
+                    dropdown.style.display = 'none';
+                    cursor = null;
+                    if (toggle) toggle.classList.remove('rotate');
+                });
+            });
+        };
+
+        inputProvince.addEventListener('input', (e) => {
+            cursor = null;
+            dropdown.style.display = 'block';
+            const searchStr = inputProvince.value.toLowerCase();
+            const filteredItems = items.filter(item => item.toLowerCase().includes(searchStr));
+            renderDropdown(filteredItems);
+            if (toggle) toggle.classList.add('rotate');
+        });
+
+        inputProvince.addEventListener('click', (e) => {
+            cursor = null;
+            dropdown.style.display = 'block';
+            const searchStr = inputProvince.value.toLowerCase();
+            const filteredItems = items.filter(item => item.toLowerCase().includes(searchStr));
+            renderDropdown(filteredItems);
+            if (toggle) toggle.classList.add('rotate');
+        });
+
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                cursor = null;
+                const isVisible = dropdown.style.display === 'block';
+                dropdown.style.display = isVisible ? 'none' : 'block';
+                toggle.classList.toggle('rotate', !isVisible);
+                if (!isVisible) {
+                    const searchStr = inputProvince.value.toLowerCase();
+                    const filteredItems = items.filter(item => item.toLowerCase().includes(searchStr));
+                    renderDropdown(filteredItems);
+                }
+            });
+        }
+
+        inputProvince.addEventListener('keydown', (e) => {
+            const itemsE = dropdown.querySelectorAll('.dropdown-item');
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (cursor === null) cursor = 1;
+                else if (cursor >= itemsE.length) cursor = 1;
+                else cursor++;
+                resetBackground(dropdown);
+                const itemSelect = dropdown.querySelector(`.dropdown-item:nth-child(${cursor})`);
+                if (itemSelect) itemSelect.style.background = '#ccc';
+            }
+
+            if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (cursor === null || cursor <= 1) cursor = itemsE.length;
+                else cursor--;
+                resetBackground(dropdown);
+                const itemSelect = dropdown.querySelector(`.dropdown-item:nth-child(${cursor})`);
+                if (itemSelect) itemSelect.style.background = '#ccc';
+            }
+
+            if (e.key === 'Enter') {
+                if (cursor !== null && cursor <= itemsE.length && cursor > 0) {
+                    const itemSelect = dropdown.querySelector(`.dropdown-item:nth-child(${cursor})`);
+                    inputProvince.value = itemSelect.textContent;
+                    dropdown.style.display = 'none';
+                    cursor = null;
+                    if (toggle) toggle.classList.remove('rotate');
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target !== inputProvince && !dropdown.contains(e.target) && (!toggle || e.target !== toggle)) {
+                dropdown.style.display = 'none';
+                cursor = null;
+                if (toggle) toggle.classList.remove('rotate');
+            }
+        });
+    };
+
+    const resetBackground = (dropdown) => {
+        const itemsE = dropdown.querySelectorAll('.dropdown-item');
+        itemsE.forEach(item => {
+            item.style.background = 'white';
+        });
+    };
+
+    const validateForm = (name, province, address, age) => {
+        const errors = {};
+
+        const nameRegex = /^[a-zA-ZÀ-ỹ\s]{2,50}$/;
+        const addressRegex = /^[\wÀ-ỹ\s,.-]{5,100}$/;
+        const ageRegex = /^\d{1,3}$/;
+
+        if (!name || !nameRegex.test(name)) errors.name = 'Tên không hợp lệ (chỉ chứa chữ cái, khoảng trắng, 2-50 ký tự)';
+        if (!province || !items.includes(province)) errors.province = 'Vui lòng chọn tỉnh/thành phố hợp lệ từ danh sách';
+        if (!address || !addressRegex.test(address)) errors.address = 'Địa chỉ không hợp lệ (5-100 ký tự, bao gồm chữ, số, dấu câu cơ bản)';
+        if (isNaN(age) || !ageRegex.test(age) || age < 1 || age > 100) errors.age = 'Tuổi không hợp lệ (phải từ 1 đến 100)';
+
+        return {
+            isValid: Object.keys(errors).length === 0,
+            errors: Object.keys(errors).length > 0 ? errors : null
+        };
+    };
+
+    let currentEditId, currentDeleteId;
+    const renderTable = (employees) => {
+        const tableHeaderE = document.querySelector('table thead tr');
+        tableHeaderE.innerHTML = '';
+        headers.forEach(header => {
+            const cell = document.createElement('th');
+            cell.innerText = header.text;
+            tableHeaderE.append(cell);
+        });
+
+        const tableBodyE = document.querySelector('table tbody');
+        tableBodyE.innerHTML = '';
+
+        employees.forEach(employee => {
+            const row = document.createElement('tr');
+            headers.forEach(header => {
+                const cell = document.createElement('td');
+                if (header.align) {
+                    cell.setAttribute('class', `text-align-${header.align}`);
+                }
+                if (header.name === 'action') {
+                    const editBtn = document.createElement('span');
+                    const delBtn = document.createElement('span');
+                    editBtn.setAttribute('class', 'mdi mdi-spin mdi-pencil');
+                    delBtn.setAttribute('class', 'mdi mdi-spin mdi-delete');
+                    cell.appendChild(editBtn);
+                    cell.appendChild(delBtn);
+
+                    editBtn.addEventListener('click', () => {
+                        overlay2.style.display = 'flex';
+                        document.querySelector('.overlay2 input[name="id"]').value = employee.id;
+                        document.querySelector('.overlay2 input[name="name"]').value = employee.name;
+                        document.querySelector('.overlay2 input[name="province"]').value = employee.province;
+                        document.querySelector('.overlay2 input[name="address"]').value = employee.address;
+                        document.querySelector('.overlay2 input[name="age"]').value = employee.age;
+                        currentEditId = employee.id;
+                    });
+
+                    delBtn.addEventListener('click', () => {
+                        overlay3.style.display = 'flex';
+                        currentDeleteId = employee.id;
+                        const delMes = document.querySelector('.delMessenger');
+                        const name = employee.name;
+                        delMes.innerHTML = `Are you sure to delete employee <strong> ${name} </strong>?`;
+                    });
+                } else {
+                    cell.innerText = employee[header.name];
+                }
+                row.append(cell);
+            });
+            tableBodyE.append(row);
+        });
+    };
+
+    const inputSearch = document.querySelector('input[name="search"]');
+    const createSearchString = (employee) => {
+        return `${employee.id}|${employee.name}|${employee.province}|${employee.address}|${employee.age}`.toLowerCase();
+    };
+
+    inputSearch.addEventListener('input', (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filteredEmployees = employees.filter(emp => createSearchString(emp).includes(keyword));
+        renderTable(filteredEmployees);
+    });
+
+    renderTable(employees);
+
+    const btnAdd = document.querySelector('.btnAdd');
+    const overlay = document.querySelector('.overlay');
+    const overlay2 = document.querySelector('.overlay2');
+    const overlay3 = document.querySelector('.overlay3');
+
+    btnAdd.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+        overlay.querySelector('input[name="name"]').value = '';
+        overlay.querySelector('input[name="province"]').value = '';
+        overlay.querySelector('input[name="address"]').value = '';
+        overlay.querySelector('input[name="age"]').value = '';
+    });
+
+    const btnCancel = document.querySelectorAll('.btnCancel');
+    btnCancel.forEach(btn => {
+        btn.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            overlay2.style.display = 'none';
+            overlay3.style.display = 'none';
+            const toggle = document.querySelector('.toggle-icon');
+            if (toggle) toggle.classList.remove('rotate');
+        });
+    });
+
+    // Sửa lỗi chọn input bằng cách chỉ định rõ trong .overlay
+    const inputNameE = document.querySelector('.overlay input[name="name"]');
+    const inputProvinceE = document.querySelector('.overlay input[name="province"]');
+    const inputAddressE = document.querySelector('.overlay input[name="address"]');
+    const inputAgeE = document.querySelector('.overlay input[name="age"]');
+
+    const btnSave = document.querySelector('.btnSave');
+    btnSave.addEventListener('click', () => {
+        console.log('Save button clicked'); // Debug log
+        const name = inputNameE.value.trim();
+        const province = inputProvinceE.value.trim();
+        const address = inputAddressE.value.trim();
+        const age = Number(inputAgeE.value);
+
+        console.log('Input data:', {name, province, address, age}); // Debug log
+
+        const validation = validateForm(name, province, address, age);
+        if (!validation.isValid) {
+            console.log('Validation errors:', validation.errors); // Debug log
+            const errorMessages = Object.values(validation.errors).join('\n');
+            alert(errorMessages);
+            return;
+        }
+
+        let newId = employees.length > 0 ? employees[employees.length - 1].id + 1 : 1;
+        employees.push({
+            id: newId,
+            name: name,
+            province: province,
+            address: address,
+            age: age
+        });
+
+        console.log('New employee added:', employees[employees.length - 1]); // Debug log
+        renderTable(employees);
+        overlay.style.display = 'none';
+        inputNameE.value = '';
+        inputProvinceE.value = '';
+        inputAddressE.value = '';
+        inputAgeE.value = '';
+        const toggle = document.querySelector('.overlay .toggle-icon');
+        if (toggle) toggle.classList.remove('rotate');
+    });
+
+    const btnEdit = document.querySelector('.btnEdit');
+    btnEdit.addEventListener('click', () => {
+        const name = document.querySelector('.overlay2 input[name="name"]').value.trim();
+        const province = document.querySelector('.overlay2 input[name="province"]').value.trim();
+        const address = document.querySelector('.overlay2 input[name="address"]').value.trim();
+        const age = Number(document.querySelector('.overlay2 input[name="age"]').value);
+
+        const validation = validateForm(name, province, address, age);
+        if (!validation.isValid) {
+            const errorMessages = Object.values(validation.errors).join('\n');
+            alert(errorMessages);
+            return;
+        }
+
+        const employee = employees.find(e => e.id === currentEditId);
+        if (employee) {
+            employee.name = name;
+            employee.province = province;
+            employee.address = address;
+            employee.age = age;
+        }
+        currentEditId = null;
+        overlay2.style.display = 'none';
+        renderTable(employees);
+        const toggle = document.querySelector('.overlay2 .toggle-icon');
+        if (toggle) toggle.classList.remove('rotate');
+    });
+
+    const btnDelete = document.querySelector('.btnDelete');
+    btnDelete.addEventListener('click', () => {
+        const employeeIndex = employees.findIndex(e => e.id === currentDeleteId);
+        if (employeeIndex !== -1) {
+            employees.splice(employeeIndex, 1);
+            renderTable(employees);
+        }
+        currentDeleteId = null;
+        overlay3.style.display = 'none';
+    });
+
+    provinceAutocomplete('.autocomplete');
+    provinceAutocomplete('.autocomplete2');
+</script>
+</body>
+</html>

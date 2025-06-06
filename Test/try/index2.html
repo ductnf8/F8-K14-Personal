@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Quản lý sản phẩm</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        input {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Quản lý sản phẩm</h2>
+<input type="text" id="name" placeholder="Tên sản phẩm"/>
+<input type="number" id="price" placeholder="Giá"/>
+<input type="number" id="quantity" placeholder="Số lượng"/>
+<button onclick="addProduct()">Thêm sản phẩm</button>
+
+<table id="productTable">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Tên</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Thành tiền</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4"><b>Tổng</b></td>
+        <td id="total">0</td>
+        <td></td>
+    </tr>
+    </tfoot>
+</table>
+
+<script>
+    let index = 0;
+
+    function addProduct() {
+        const name = document.getElementById('name').value.trim();
+        const price = parseFloat(document.getElementById('price').value);
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        if (!name || isNaN(price) || isNaN(quantity) || price < 0 || quantity < 0) {
+            return alert('Dữ liệu không hợp lệ!');
+        }
+
+        const table = document.querySelector('#productTable tbody');
+        const row = table.insertRow();
+        row.dataset.index = index++;
+
+        row.innerHTML = `
+        <td>${index}</td>
+        <td>${name}</td>
+        <td>${price}</td>
+        <td>${quantity}</td>
+        <td>${price * quantity}</td>
+        <td>
+          <button onclick="editProduct(this)">Sửa</button>
+          <button onclick="deleteProduct(this)">Xoá</button>
+        </td>
+      `;
+
+        updateTotal();
+        clearForm();
+    }
+
+    function deleteProduct(btn) {
+        btn.closest('tr').remove();
+        updateTotal();
+    }
+
+    function editProduct(btn) {
+        const row = btn.closest('tr');
+        const tds = row.querySelectorAll('td');
+        const name = prompt('Tên sản phẩm mới:', tds[1].textContent);
+        const price = prompt('Giá mới:', tds[2].textContent);
+        const quantity = prompt('Số lượng mới:', tds[3].textContent);
+
+        if (name && !isNaN(price) && !isNaN(quantity)) {
+            tds[1].textContent = name;
+            tds[2].textContent = parseFloat(price);
+            tds[3].textContent = parseInt(quantity);
+            tds[4].textContent = parseFloat(price) * parseInt(quantity);
+            updateTotal();
+        }
+    }
+
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('#productTable tbody tr').forEach(row => {
+            total += parseFloat(row.cells[4].textContent);
+        });
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function clearForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('quantity').value = '';
+    }
+</script>
+</body>
+</html>
