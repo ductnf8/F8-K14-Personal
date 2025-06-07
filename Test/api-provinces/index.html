@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: auto;
+        position: relative;
+    }
+
+    .container {
+        width: 300px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+    }
+
+    .province {
+        padding: 10px;
+        margin: 0 auto;
+        position: relative;
+        width: 300px;
+    }
+
+    .autocomplete {
+        position: absolute;
+        /*border: 1px solid red;*/
+        overflow-y: auto;
+        top: 100%;
+        margin-top: 5px;
+        width: 300px;
+        height: 300px;
+    }
+
+    .province-item {
+        border-bottom: 1px solid #ccc;
+        padding: 5px;
+    }
+</style>
+
+<body>
+<div class="container">
+    <input placeholder="Provinces" type="text" name="province" class="province">
+    <div class="autocomplete">
+        <!--        <div class="province-item">ha noi</div>-->
+    </div>
+    <script src="main.js"></script>
+</div>
+
+</body>
+</html>
