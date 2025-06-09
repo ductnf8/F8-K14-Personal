@@ -32,6 +32,7 @@ function renderTodos(todos) {
 
         const delBtn = document.createElement("button");
         delBtn.className = "del-btn fa-solid fa-trash";
+        delBtn.type = 'button'
 
         // ✅ Xử lý đánh dấu hoàn thành
         checkbox.addEventListener("change", async () => {
@@ -52,6 +53,7 @@ function renderTodos(todos) {
             try {
                 await fetch(`${API_URL}/${todo.id}`, {method: "DELETE"});
                 todoItem.remove();
+                alert('Delete successful!!')
             } catch (err) {
                 console.error("Lỗi khi xóa công việc:", err);
             }
