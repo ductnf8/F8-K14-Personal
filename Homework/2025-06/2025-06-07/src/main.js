@@ -9,7 +9,7 @@ async function fetchTodos() {
         const todos = await response.json();
         renderTodos(todos);
     } catch (error) {
-        console.error("Lỗi khi lấy danh sách todos:", error);
+        console.error("Error:", error);
     }
 }
 
