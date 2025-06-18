@@ -26,34 +26,67 @@ const App = () => {
 
     const [formData, setFormData] = useState({name: '', age: '', address: ''});
 
-    const [editingId, setEditingId] = useState(null);
+    const [editingId, setEditingId] = useState(null)
 
-    const [error, setError] = useState('');
+    const [error, setError] = useState('')
 
     const handleOpenAdd = () => {
-        setFormData({name: '', age: '', address: ''});
+        setFormData({name: '', age: '', address: ''})
         setEditingId(null);
         setError('');
         setIsOpenDialog(true);
-    };
+    }
 
-    const handleSave = () => {
-        const {name, age, address} = formData;
+    const validateForm = (data) => {
+        const name = data.name?.trim();
+        const age = data.age;
+        const address = data.address?.trim();
 
         if (!name || !age || !address) {
             setError('Please enter all fields!');
             return;
         }
 
+        if (name.length < 2) {
+            return 'Tên phải có ít nhất 2 ký tự!';
+        }
+
+        if (address.length < 5) {
+            return 'Địa chỉ phải có ít nhất 5 ký tự!';
+        }
+
+        const parsedAge = parseInt(age);
+        if (isNaN(parsedAge) || parsedAge <= 0) {
+            return 'Tuổi phải là số nguyên dương hợp lệ!';
+        }
+
+        return null;
+    };
+
+
+    const handleSave = () => {
+        // const {name, age, address} = formData;
+        const errorMessage = validateForm(formData);
+        if (errorMessage) {
+            setError(errorMessage);
+            toast.error(errorMessage)
+            return;
+        }
+        const data = {
+            name: formData.name.trim(),
+            address: formData.address.trim(),
+            age: parseInt(formData.age)
+        };
+
         if (editingId !== null) {
             const updated = rows.map(r =>
-                r.id === editingId ? {id: editingId, ...formData} : r
+                r.id === editingId ? {id: editingId, ...data} : r
             );
             setRows(updated);
             toast.success('Edit successfully!')
         } else {
             const newId = rows.length > 0 ? Math.max(...rows.map(r => r.id)) + 1 : 1;
-            setRows([...rows, {id: newId, ...formData}]);
+            setRows([...rows, {id: newId, ...data}]);
             toast.success('Add successfully!')
         }
 
