@@ -45,7 +45,7 @@ const Bai_1 = () => {
             <h2>Bai 1:</h2>
             <div style={{display: 'flex', gap: '1rem', marginBottom: '1rem'}}>
                 <div>
-                    <label>Price</label>
+                    <label style={{padding: '5px', marginRight: '5px'}}>Price</label>
                     <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)}>
                         <option>All</option>
                         <option>Under 500K</option>
@@ -55,7 +55,7 @@ const Bai_1 = () => {
                 </div>
 
                 <div>
-                    <label>Category</label>
+                    <label style={{padding: '5px', marginRight: '5px'}}>Category</label>
                     <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
                         <option>All</option>
                         <option>Áo</option>
@@ -65,8 +65,9 @@ const Bai_1 = () => {
                 </div>
 
                 <div>
-                    <label>Brand</label>
-                    <select value={brandFilter} onChange={(e) => setBrandFilter(e.target.value)}>
+                    <label style={{padding: '5px', marginRight: '5px'}}>Brand</label>
+                    <select value={brandFilter}
+                            onChange={(e) => setBrandFilter(e.target.value)}>
                         <option>All</option>
                         <option>Nike</option>
                         <option>Adidas</option>
@@ -80,7 +81,7 @@ const Bai_1 = () => {
                     filteredProducts.length > 0
                         ? (
                             filteredProducts.map(p => (
-                                <li key={p.id}>
+                                <li key={p.id} style={{padding: '5px', borderBottom: '1px solid #ccc'}}>
                                     {p.name} - {p.price} VND - {p.category} - {p.brand}
                                 </li>
                             ))
@@ -90,7 +91,18 @@ const Bai_1 = () => {
                 }
             </ul>
 
-            <button style={{padding: '10px', cursor: 'pointer', background: 'aqua'}} onClick={onBack}>Come Back</button>
+            <button
+                style={{
+                    padding: '10px',
+                    cursor: 'pointer',
+                    background: 'green',
+                    border: 'none',
+                    borderRadius: '5px',
+                    color: 'white'
+                }}
+                onClick={onBack}>Come
+                Back
+            </button>
         </div>
     );
 };

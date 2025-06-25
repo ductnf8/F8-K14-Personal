@@ -38,7 +38,18 @@ const Index = () => {
                               onRemove={onRemove}/>
                 ))}
             </div>
-            <button style={{padding: '10px', cursor: 'pointer', background: 'aqua'}} onClick={onBack}>Come Back</button>
+            <button
+                style={{
+                    padding: '10px',
+                    cursor: 'pointer',
+                    background: 'green',
+                    border: 'none',
+                    borderRadius: '5px',
+                    color: 'white'
+                }}
+                onClick={onBack}>Come
+                Back
+            </button>
         </div>
     );
 };

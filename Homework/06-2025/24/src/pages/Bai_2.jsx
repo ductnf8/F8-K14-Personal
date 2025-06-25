@@ -43,7 +43,18 @@ const Bai_2 = () => {
                     <UserItem key={user.id} user={user}/>
                 ))}
             </ul>
-            <button style={{padding: '10px', cursor: 'pointer', background: 'aqua'}} onClick={onBack}>Come Back</button>
+            <button
+                style={{
+                    padding: '10px',
+                    cursor: 'pointer',
+                    background: 'green',
+                    border: 'none',
+                    borderRadius: '5px',
+                    color: 'white'
+                }}
+                onClick={onBack}>Come
+                Back
+            </button>
         </div>
     );
 };
