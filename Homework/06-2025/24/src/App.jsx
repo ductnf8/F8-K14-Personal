@@ -11,9 +11,9 @@ const Menu = () => {
         <div style={{padding: '1rem'}}>
             <h2>MENU</h2>
             <div style={{display: 'flex', gap: '1rem'}}>
-                <button onClick={() => navigate('/bai-1')}>Bài 1</button>
-                <button onClick={() => navigate('/bai-2')}>Bài 2</button>
-                <button onClick={() => navigate('/bai-3')}>Bài 3</button>
+                <button style={{padding: '10px'}} onClick={() => navigate('/bai-1')}>Bài 1</button>
+                <button style={{padding: '10px'}} onClick={() => navigate('/bai-2')}>Bài 2</button>
+                <button style={{padding: '10px'}} onClick={() => navigate('/bai-3')}>Bài 3</button>
             </div>
         </div>
     );
