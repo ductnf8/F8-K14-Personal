@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
 import Bai_1 from './pages/Bai_1';
 import Bai_2 from './pages/Bai_2';
-import Bai_3 from './pages/Bai_3';
+import Index from './pages/Bai_3/index.jsx';
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ function App() {
                 <Route path="/" element={<Menu/>}/>
                 <Route path="/bai-1" element={<Bai_1/>}/>
                 <Route path="/bai-2" element={<Bai_2/>}/>
-                <Route path="/bai-3" element={<Bai_3/>}/>
+                <Route path="/bai-3" element={<Index/>}/>
             </Routes>
         </Router>
     );

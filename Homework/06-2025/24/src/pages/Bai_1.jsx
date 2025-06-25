@@ -23,6 +23,7 @@ const Bai_1 = () => {
     const onBack = () => {
         navigate('/')
     }
+
     const [priceFilter, setPriceFilter] = useState('All');
     const [categoryFilter, setCategoryFilter] = useState('All');
     const [brandFilter, setBrandFilter] = useState('All');
