@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {EditableTable} from './components'
+
 
 const columns = [
     {name: 'product'},
@@ -29,7 +31,7 @@ const App = () => {
 
     return (
         <div>
-
+            <EditableTable columns={columns} rows={rows}/>
         </div>
     );
 };
