@@ -2,15 +2,10 @@ import {useContext, useRef} from "react";
 import {TableContext} from "./const.js";
 
 
-export default function ({row, column}) {
+export default function ({row, column, rowIndex, columnIndex}) {
     const injector = useContext(TableContext)
-
     const {cursor, setCursor, rows, columns} = injector
-
     const cellRef = useRef(null);
-
-    const rowIndex = rows.indexOf(row);
-    const columnIndex = columns.indexOf(column);
 
     const Cell = row[column.name]
 

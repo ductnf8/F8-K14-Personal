@@ -1,17 +1,16 @@
-import React, {useState} from 'react';
 import {EditableTable} from './components'
-
+import './App.css'
+import {useState} from "react";
 
 const columns = [
-    {name: 'product'},
-    {name: 'quantity'},
-    {name: 'price'},
-    {name: 'amount'},
-    {name: 'comment'},
+    {name: 'product', width: '30%'},
+    {name: 'quantity', width: '20%'},
+    {name: 'price', width: '10%'},
+    {name: 'amount', width: '10%'},
+    {name: 'comment', width: '30%'},
 ]
 
-const App = () => {
-
+function App() {
     const [rows, setRows] = useState([
         {
             product: 'product-1',
@@ -29,11 +28,17 @@ const App = () => {
         }
     ])
 
-    return (
-        <div>
-            <EditableTable columns={columns} rows={rows}/>
-        </div>
-    );
-};
+    const onInput = ({rowIndex, columnIndex, value}) => {
+        const newData = [...rows]
+        newData[rowIndex][columns[columnIndex]] = value
+        setRows(newData)
+    }
 
-export default App;
+    return (
+        <>
+            <EditableTable columns={columns} rows={rows} onInput={onInput}/>
+        </>
+    )
+}
+
+export default App
