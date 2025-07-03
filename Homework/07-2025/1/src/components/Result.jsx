@@ -1,29 +1,20 @@
-import React, {useContext} from 'react';
+import {useContext} from "react";
 import {QuizContext} from "../store/QuizContext.jsx";
 import {questions} from "../data/questions.js";
-import {Box, Button, Paper, Typography} from "@mui/material";
+import {Button, Typography, Box} from "@mui/material";
 
-const Result = () => {
-    const {state, dispatch} = useContext(QuizContext)
+export default function Result() {
+    const {state, dispatch} = useContext(QuizContext);
+    const {score} = state;
+
     return (
-        <Box>
-            <Paper sx={{padding: 4, textAlign: 'center'}}>
-                <Typography
-                    variant='h3' gutterBottom
-                >YOUR RESULT</Typography>
-
-                <Typography variant='h6' mb={3}>
-                    {state.score}/{questions.length} questions
-                </Typography>
-                <Button
-                    onClick={() => dispatch({type: 'RESTART'})}
-                    variant='contained' color='primary'
-                >
-                    PLAY AGAIN
-                </Button>
-            </Paper>
+        <Box mt={4} textAlign="center">
+            <Typography variant="h4" gutterBottom>
+                Kết quả: {score} / {questions.length} điểm
+            </Typography>
+            <Button variant="contained" onClick={() => dispatch({type: "RESTART"})}>
+                Làm lại bài
+            </Button>
         </Box>
     );
-};
-
-export default Result;
+}

@@ -6,13 +6,20 @@ export const initialState = {
     showAnswer: false,
     score: 0,
     isFinished: false
-}
+};
 
+// --- HANDLERS ---
 function selectAnswer(state, action) {
-    const isCorrect = action.payload === questions[state.currentQuestion].answer;
     return {
         ...state,
-        selectedAnswer: action.payload,
+        selectedAnswer: action.payload
+    };
+}
+
+function confirmAnswer(state) {
+    const isCorrect = state.selectedAnswer === questions[state.currentQuestion].answer;
+    return {
+        ...state,
         showAnswer: true,
         score: isCorrect ? state.score + 1 : state.score
     };
@@ -37,14 +44,12 @@ function restartQuiz() {
 
 const actionMap = {
     SELECT_ANSWER: selectAnswer,
+    CONFIRM_ANSWER: confirmAnswer,
     NEXT_QUESTION: nextQuestion,
     RESTART: restartQuiz
 };
 
 export function quizReducer(state, action) {
     const handler = actionMap[action.type];
-    if (typeof handler === "function") {
-        return handler(state, action);
-    }
-    return state
+    return typeof handler === "function" ? handler(state, action) : state;
 }
