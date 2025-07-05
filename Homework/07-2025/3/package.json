@@ -1,5 +1,5 @@
 {
-  "name": "03",
+  "name": "3",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.8.2",
+    "prop-types": "^15.8.1",
     "react": "^19.1.0",
+    "react-confirm-alert": "^3.0.6",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "redux": "^5.0.1",
