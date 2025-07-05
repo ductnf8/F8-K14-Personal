@@ -24,7 +24,7 @@ const ProductForm = ({product, onClose}) => {
     return (
         <div className="popup">
             <form onSubmit={onSubmit}>
-                <h3>{product ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}</h3>
+                <h3>{product ? 'EDIT PRODUCT' : 'ADD PRODUCT'}</h3>
                 <input name="name" type="text" value={form.name} onChange={onChange} placeholder="Name" required/>
                 <input name="price" type="number" value={form.price} onChange={onChange} placeholder="Price" required/>
                 <input name="quantity" type="number" value={form.quantity} onChange={onChange} placeholder="Quantity"
