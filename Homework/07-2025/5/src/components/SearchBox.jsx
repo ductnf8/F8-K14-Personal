@@ -4,7 +4,7 @@ import {setSearch} from '../store/contactSlice';
 
 const SearchBox = () => {
     const dispatch = useDispatch();
-    const search = useSelector(state => state.search);
+    const search = useSelector(state => state.contacts.search);
 
     return (
         <input

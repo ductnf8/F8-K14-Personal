@@ -8,7 +8,8 @@ const ContactCard = ({contact}) => {
     const [edited, setEdited] = useState({...contact});
 
     const handleUpdate = () => {
-        if (!edited.firstName || !edited.lastName || !edited.email || !edited.phone || !edited.avatar) {
+        const {firstName, lastName, email, phone, avatar} = edited;
+        if (!firstName || !lastName || !email || !phone || !avatar) {
             alert('Không được để trống trường nào!');
             return;
         }
@@ -23,38 +24,108 @@ const ContactCard = ({contact}) => {
     };
 
     return (
-        <div style={{border: '1px solid #ccc', padding: '1rem', borderRadius: '8px'}}>
-            <img src={contact.avatar} alt='avatar' width={100} height={100} style={{borderRadius: '50%'}}/>
+        <div className="card">
+            <div className="card-header">
+                <button className="btn edit" onClick={() => setIsEditing(true)}>✏️ Sửa</button>
+                <button className="btn delete" onClick={handleDelete}>🗑 Xoá</button>
+            </div>
+
+            {/*<img src={contact.avatar} alt="avatar" className="avatar"/>*/}
+            <img
+                src={contact.avatar}
+                alt="avatar"
+                className="avatar"
+                onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/default-avatar.png';
+                }}
+            />
+
             {isEditing ? (
-                <>
-                    <input value={edited.firstName} onChange={e => setEdited({...edited, firstName: e.target.value})}/>
-                    <input value={edited.lastName} onChange={e => setEdited({...edited, lastName: e.target.value})}/>
-                    <input value={edited.email} onChange={e => setEdited({...edited, email: e.target.value})}/>
-                    <input value={edited.phone} onChange={e => setEdited({...edited, phone: e.target.value})}/>
-                    <input value={edited.avatar} onChange={e => setEdited({...edited, avatar: e.target.value})}/>
+                <div className="edit-form">
+                    <input value={edited.firstName} placeholder="First Name"
+                           onChange={e => setEdited({...edited, firstName: e.target.value})}/>
+                    <input value={edited.lastName} placeholder="Last Name"
+                           onChange={e => setEdited({...edited, lastName: e.target.value})}/>
+                    <input value={edited.email} placeholder="Email"
+                           onChange={e => setEdited({...edited, email: e.target.value})}/>
+                    <input value={edited.phone} placeholder="Phone"
+                           onChange={e => setEdited({...edited, phone: e.target.value})}/>
+                    <input value={edited.avatar} placeholder="Avatar URL"
+                           onChange={e => setEdited({...edited, avatar: e.target.value})}/>
                     <button onClick={handleUpdate}>💾 Lưu</button>
                     <button onClick={() => setIsEditing(false)}>❌ Hủy</button>
-                </>
+                </div>
             ) : (
                 <>
                     <h3>{contact.firstName} {contact.lastName}</h3>
-                    <p>📧 {contact.email}</p>
+                    <p className="role">Chief Marketing Officer</p>
+                    <p className="desc">I oversee the planning, development and execution of the company's marketing and
+                        advertising initiatives.</p>
                     <p>📞 {contact.phone}</p>
-                    <button onClick={() => setIsEditing(true)}>✏️ Edit</button>
-                    <button onClick={handleDelete}>🗑 Delete</button>
+                    <p>📧 {contact.email}</p>
+                    <p>🌐 www.cloudtech.com</p>
                 </>
             )}
+
             <style>{`
-                input {
-                    display: block;
-                    margin-bottom: 0.5rem;
-                    padding: 0.3rem;
-                    width: 100%;
+                .card {
+                    background: white;
+                    padding: 1.5rem;
+                    border-radius: 16px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    position: relative;
+                    text-align: center;
                 }
 
-                button {
-                    margin-right: 0.5rem;
+                .card-header {
+                    position: absolute;
+                    right: 1rem;
+                    top: 1rem;
+                }
+
+                .btn {
+                    margin-left: 0.5rem;
+                    padding: 0.3rem 0.6rem;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+                .edit {
+                    background-color: #ffc107;
+                }
+
+                .delete {
+                    background-color: #dc3545;
+                    color: white;
+                }
+
+                .avatar {
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    margin-top: 1rem;
+                }
+
+                .role {
+                    color: #2ba2c4;
                     margin-top: 0.5rem;
+                }
+
+                .desc {
+                    font-size: 0.9rem;
+                    margin: 1rem 0;
+                    color: #555;
+                }
+
+                .edit-form input {
+                    width: 100%;
+                    padding: 0.4rem;
+                    margin: 0.4rem 0;
+                    border-radius: 6px;
+                    border: 1px solid #ccc;
                 }
             `}</style>
         </div>
