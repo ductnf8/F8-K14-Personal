@@ -9,7 +9,6 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // Khi App khởi động, tự động lấy danh bạ
         dispatch(fetchContacts());
     }, [dispatch]);
 

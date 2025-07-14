@@ -27,7 +27,6 @@ export const fetchContacts = createAsyncThunk('contacts/fetchContacts', async ()
         contacts.map(async (c) => {
             let avatar = c.avatar;
 
-            // Nếu không có avatar, tự tạo link robohash
             if (!avatar) {
                 avatar = `https://robohash.org/${c.id}.png`;
             }
