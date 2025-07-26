@@ -5,24 +5,28 @@ import {Button, IconButton, Menu, MenuItem, Avatar} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import Image from 'next/image'
 
-export default function Header() {
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
+interface HeaderProps {
+    toggleSidebar: () => void;
+    isSidebarOpen: boolean;
+}
 
+export default function Header({toggleSidebar, isSidebarOpen}: HeaderProps) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const open = Boolean(anchorEl)
 
     const handleMenuClose = () => {
         setAnchorEl(null)
     }
 
     return (
-        <header className="w-full min-h-[65px] shadow-md px-4 py-2 flex items-center justify-between bg-white relative">
+        <header className="w-full min-h-[65px] px-4 py-2 flex items-center justify-between bg-white relative z-50">
             {/* Left section */}
             <div className="flex items-center gap-2">
                 {/* Menu icon - only visible on mobile */}
                 <IconButton
                     className="md:!hidden"
-                    onClick={() => console.log('Open menu')}
-                    aria-label="Open menu"
+                    onClick={toggleSidebar}
+                    aria-label="Toggle sidebar"
                     disableRipple
                     sx={{
                         '&:hover': {
