@@ -186,12 +186,12 @@ EXPLAIN
 SELECT category, COUNT(*)
 FROM product
 GROUP BY category;
-CREATE INDEX idx_product_category ON product(category);
+CREATE INDEX idx_product_category ON product (category);
 EXPLAIN
 SELECT category, COUNT(*)
 FROM product
 GROUP BY category;
-CREATE INDEX idx_product_category_covering ON product(category) INCLUDE (category);
+CREATE INDEX idx_product_category_covering ON product (category) INCLUDE (category);
 EXPLAIN
 SELECT category, COUNT(*)
 FROM product
@@ -206,7 +206,7 @@ EXPLAIN
 SELECT *
 FROM product
 WHERE price BETWEEN 100 AND 200;
-CREATE INDEX idx_product_price ON product(price);
+CREATE INDEX idx_product_price ON product (price);
 EXPLAIN
 SELECT *
 FROM product
@@ -221,7 +221,7 @@ EXPLAIN
 SELECT *
 FROM customer
 WHERE country = 'Vietnam';
-CREATE INDEX idx_customer_country ON customer(country);
+CREATE INDEX idx_customer_country ON customer (country);
 EXPLAIN
 SELECT *
 FROM customer
@@ -238,10 +238,10 @@ LIMIT 10;
 EXPLAIN ANALYZE
 SELECT c.customer_id, c.first_name, c.last_name, SUM(o.total_amount) as total_spent
 FROM customer c
-         JOIN "order" o.ON c.customer_id = o.customer_id
-    GROUP BY c.customer_id, c.first_name, c.last_name
-    ORDER BY total_spent DESC
-    LIMIT 10;
+         JOIN "order" o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id, c.first_name, c.last_name
+ORDER BY total_spent DESC
+LIMIT 10;
 -- Phân tích actual time, rows, loops: Actual time là thời gian thực thi (khởi động + tổng), rows là số hàng thực tế, loops là số lần lặp.
 -- Đề xuất tối ưu: Tạo index trên customer_id (order) và total_amount để tăng tốc JOIN và ORDER BY.
 
@@ -253,7 +253,7 @@ EXPLAIN ANALYZE
 SELECT o.order_id, o.order_date, c.first_name, c.last_name
 FROM "order" o
          JOIN customer c ON o.customer_id = c.customer_id;
-CREATE INDEX idx_order_customer_id ON "order"(customer_id);
+CREATE INDEX idx_order_customer_id ON "order" (customer_id);
 EXPLAIN ANALYZE
 SELECT o.order_id, o.order_date, c.first_name, c.last_name
 FROM "order" o
@@ -261,7 +261,7 @@ FROM "order" o
 -- Phân tích loại scan: Ban đầu có thể dùng Sequential Scan hoặc Hash Join, sau index trên customer_id, dùng Index Scan cho JOIN, cải thiện hiệu suất.
 
 -- bai 11
-CREATE INDEX idx_product_price ON product(price);
+CREATE INDEX idx_product_price ON product (price);
 SELECT *
 FROM product
 WHERE price = 500;
@@ -288,7 +288,7 @@ SELECT *
 FROM product
 ORDER BY price DESC
 LIMIT 100;
-CREATE INDEX idx_product_price_desc ON product(price DESC);
+CREATE INDEX idx_product_price_desc ON product (price DESC);
 EXPLAIN ANALYZE
 SELECT *
 FROM product
@@ -302,7 +302,7 @@ FROM product;
 EXPLAIN
 SELECT category, price
 FROM product;
-CREATE INDEX idx_product_category_price ON product(category, price);
+CREATE INDEX idx_product_category_price ON product (category, price);
 EXPLAIN
 SELECT category, price
 FROM product;
@@ -318,8 +318,8 @@ SELECT p.category, SUM(oi.total_price) as total_sales
 FROM order_item oi
          JOIN product p ON oi.product_id = p.product_id
 GROUP BY p.category;
-CREATE INDEX idx_order_item_product_id ON order_item(product_id);
-CREATE INDEX idx_product_category ON product(category);
+CREATE INDEX idx_order_item_product_id ON order_item (product_id);
+CREATE INDEX idx_product_category ON product (category);
 EXPLAIN ANALYZE
 SELECT p.category, SUM(oi.total_price) as total_sales
 FROM order_item oi
@@ -330,20 +330,26 @@ GROUP BY p.category;
 -- bai 15
 SELECT *
 FROM "order"
-WHERE status = 'Shipped' AND payment_method = 'Credit Card' AND total_amount > 1000;
+WHERE status = 'Shipped'
+  AND payment_method = 'Credit Card'
+  AND total_amount > 1000;
 EXPLAIN ANALYZE
 SELECT *
 FROM "order"
-WHERE status = 'Shipped' AND payment_method = 'Credit Card' AND total_amount > 1000;
-CREATE INDEX idx_order_complex ON "order"(status, payment_method, total_amount);
+WHERE status = 'Shipped'
+  AND payment_method = 'Credit Card'
+  AND total_amount > 1000;
+CREATE INDEX idx_order_complex ON "order" (status, payment_method, total_amount);
 EXPLAIN ANALYZE
 SELECT *
 FROM "order"
-WHERE status = 'Shipped' AND payment_method = 'Credit Card' AND total_amount > 1000;
+WHERE status = 'Shipped'
+  AND payment_method = 'Credit Card'
+  AND total_amount > 1000;
 -- Phân tích loại scan: Ban đầu dùng Sequential Scan, sau composite index, dùng Index Scan, cải thiện hiệu suất cho điều kiện phức tạp.
 
 -- bai 16
-CREATE INDEX idx_product_category ON product(category);
+CREATE INDEX idx_product_category ON product (category);
 SELECT *
 FROM product
 WHERE category IN ('Electronics', 'Clothing');
@@ -363,7 +369,7 @@ SELECT *
 FROM "order"
 ORDER BY order_date DESC
 LIMIT 20;
-CREATE INDEX idx_order_date_desc ON "order"(order_date DESC);
+CREATE INDEX idx_order_date_desc ON "order" (order_date DESC);
 EXPLAIN ANALYZE
 SELECT *
 FROM "order"
@@ -379,7 +385,7 @@ EXPLAIN ANALYZE
 SELECT c.customer_id, c.first_name, c.last_name
 FROM customer c
 WHERE c.customer_id = (SELECT customer_id FROM "order" WHERE total_amount = (SELECT MAX(total_amount) FROM "order"));
-CREATE INDEX idx_order_total_amount ON "order"(total_amount);
+CREATE INDEX idx_order_total_amount ON "order" (total_amount);
 EXPLAIN ANALYZE
 SELECT c.customer_id, c.first_name, c.last_name
 FROM customer c
