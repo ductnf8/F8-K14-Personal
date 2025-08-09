@@ -48,11 +48,41 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     }, [router])
 
     const logout = () => {
-        Cookies.remove('accessToken')
-        Cookies.remove('refreshToken')
-        setUser(null)
-        toast.success('Đăng xuất thành công')
-        router.push('/login')
+        console.log('Starting logout process...')
+        try {
+            console.log('Removing accessToken...')
+            Cookies.remove('accessToken')
+            console.log('Removing refreshToken...')
+            Cookies.remove('refreshToken')
+            console.log('Setting user to null...')
+            setUser(null)
+            console.log('Showing toast success...')
+            toast.success('Đăng xuất thành công')
+            console.log('Attempting redirect to /login...')
+            try {
+                console.log('Using router.push...')
+                router.push('/login')
+                console.log('Using router.replace...')
+                router.replace('/login')
+                setTimeout(() => {
+                    console.log('Checking current path:', window.location.pathname)
+                    if (window.location.pathname !== '/login') {
+                        console.log('Router push/replace failed, using window.location.href...')
+                        window.location.href = '/login'
+                    } else {
+                        console.log('Redirect to /login successful')
+                    }
+                }, 1500)
+            } catch (redirectError) {
+                console.error('Redirect failed:', redirectError)
+                console.log('Falling back to window.location.href...')
+                window.location.href = '/login'
+            }
+        } catch (error) {
+            console.error('Logout process failed:', error)
+            console.log('Forcing redirect to /login...')
+            window.location.href = '/login'
+        }
     }
 
     return (

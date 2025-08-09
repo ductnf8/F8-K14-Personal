@@ -13,7 +13,7 @@ export default function ClassLayout({children}: { children: ReactNode }) {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header - fixed */}
+            {/* Header - fixed, render cho các route trong /class */}
             <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen}/>
 
             {/* Layout chia ngang: sidebar + nội dung */}

@@ -18,6 +18,7 @@ import Image from 'next/image'
 import {useState, useContext} from 'react'
 import {useRouter} from 'next/navigation'
 import {toast} from 'react-toastify'
+import Cookies from 'js-cookie'
 import {login} from '@/lib/api/authService'
 import {AuthContext} from '@/store/authContext'
 import {UserInfo} from '@/lib/types/auth'
@@ -25,10 +26,11 @@ import {jwtDecode} from 'jwt-decode'
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false)
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState(Cookies.get('rememberedEmail') || '')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [errors, setErrors] = useState<{ [key: string]: string }>({})
+    const [rememberMe, setRememberMe] = useState(!!Cookies.get('rememberedEmail'))
     const router = useRouter()
     const {setUser, logout} = useContext(AuthContext)
 
@@ -61,7 +63,7 @@ export default function LoginForm() {
         }
 
         try {
-            console.log('Login payload:', {email, password})
+            console.log('Starting login attempt with payload:', {email, password})
             const response = await login({email, password})
             console.log('Login response:', response)
 
@@ -73,21 +75,41 @@ export default function LoginForm() {
                     email: decoded.email || email,
                     role: decoded.role || 'student',
                 })
+                if (rememberMe) {
+                    Cookies.set('rememberedEmail', email, {
+                        expires: 30,
+                        secure: true,
+                        sameSite: 'strict',
+                    })
+                } else {
+                    Cookies.remove('rememberedEmail')
+                }
                 toast.success('Đăng nhập thành công!')
                 console.log('Successful login with email:', email)
-                router.push('/class')
+                try {
+                    console.log('Attempting to redirect to / using router.push')
+                    router.push('/class')
+                } catch (error) {
+                    console.error('Router push failed:', error)
+                    console.log('Falling back to window.location.href')
+                    window.location.href = '/'
+                }
             } else {
                 throw new Error('Không nhận được access token')
             }
         } catch (error: any) {
+            console.error('Login attempt failed:', error)
             if (error.response?.status === 401 || error.response?.status === 403) {
+                console.log('Unauthorized or forbidden, triggering logout')
                 logout()
             } else {
-                const errorMessage = error.message || 'Đăng nhập thất bại. Vui lòng kiểm tra email hoặc mật khẩu.'
+                const errorMessage = error.response?.data?.detail || error.message || 'Đăng nhập thất bại. Vui lòng kiểm tra email hoặc mật khẩu.'
                 toast.error(errorMessage)
                 console.error('Login error:', errorMessage)
-                setIsLoading(false)
             }
+        } finally {
+            console.log('Resetting isLoading state')
+            setIsLoading(false)
         }
     }
 
@@ -184,7 +206,7 @@ export default function LoginForm() {
 
                     <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 0}}>
                         <FormControlLabel
-                            control={<Checkbox/>}
+                            control={<Checkbox checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)}/>}
                             label="Ghi nhớ tôi"
                             sx={{'& .MuiTypography-root': {fontSize: '0.75rem'}}}
                         />

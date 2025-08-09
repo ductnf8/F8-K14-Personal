@@ -20,7 +20,6 @@ export default function Header({toggleSidebar}: HeaderProps) {
     const dropdownRefMobile = useRef<HTMLDivElement>(null)
     const {logout} = useAuth()
 
-    // Đóng dropdown khi click ra ngoài (desktop & mobile)
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
@@ -37,11 +36,17 @@ export default function Header({toggleSidebar}: HeaderProps) {
         }
     }, [])
 
+    const handleLogout = (e: React.MouseEvent) => {
+        e.preventDefault()
+        console.log('Logout button clicked')
+        console.log('Calling logout function...')
+        logout()
+        setDropdownOpen(false)
+    }
+
     return (
         <header className="w-full min-h-[65px] px-5 py-2 flex items-center justify-between bg-white relative z-50">
-            {/* Left section */}
             <div className="flex items-center gap-2">
-                {/* Menu icon - only visible on mobile */}
                 <IconButton
                     className="md:!hidden"
                     onClick={toggleSidebar}
@@ -56,7 +61,6 @@ export default function Header({toggleSidebar}: HeaderProps) {
                     <MenuIcon/>
                 </IconButton>
 
-                {/* Logo - only visible on desktop */}
                 <div className="hidden md:flex items-center gap-2">
                     <div className="w-8 h-8 relative">
                         <Image
@@ -67,7 +71,6 @@ export default function Header({toggleSidebar}: HeaderProps) {
                         />
                     </div>
 
-                    {/* BKSTAR + Classroom */}
                     <div className="flex flex-col">
                         <span className="font-bold leading-none text-[clamp(1.1rem,3vw,1.5rem)]">
                             <span className="text-[#113249]">BK</span>
@@ -78,7 +81,6 @@ export default function Header({toggleSidebar}: HeaderProps) {
                 </div>
             </div>
 
-            {/* BKSTAR in the center for mobile */}
             <div className="absolute left-1/2 -translate-x-1/2 md:hidden">
                 <span className="font-bold text-[clamp(1.2rem,4vw,1.8rem)] leading-none">
                     <span className="text-[#113249]">BK</span>
@@ -86,9 +88,7 @@ export default function Header({toggleSidebar}: HeaderProps) {
                 </span>
             </div>
 
-            {/* Right section */}
             <div className="flex items-center gap-4">
-                {/* Buttons - desktop only */}
                 <div className="hidden md:flex gap-4 mr-6">
                     <button
                         className="flex items-center gap-2 border border-sky-500 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
@@ -102,7 +102,6 @@ export default function Header({toggleSidebar}: HeaderProps) {
                     </button>
                 </div>
 
-                {/* Avatar + info with dropdown - desktop only */}
                 <div className="hidden md:block relative" ref={dropdownRefDesktop}>
                     <button
                         onClick={() => setDropdownOpen(prev => !prev)}
@@ -129,14 +128,13 @@ export default function Header({toggleSidebar}: HeaderProps) {
                             <button className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
                                 Thông tin cá nhân
                             </button>
-                            <button onClick={logout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
+                            <button onClick={handleLogout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
                                 Đăng xuất
                             </button>
                         </div>
                     )}
                 </div>
 
-                {/* Avatar + dropdown - mobile only */}
                 <div className="md:hidden relative" ref={dropdownRefMobile}>
                     <button
                         onClick={() => setDropdownOpen(prev => !prev)}
@@ -156,7 +154,7 @@ export default function Header({toggleSidebar}: HeaderProps) {
                             <button className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
                                 Thông tin cá nhân
                             </button>
-                            <button onClick={logout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
+                            <button onClick={handleLogout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
                                 Đăng xuất
                             </button>
                         </div>
