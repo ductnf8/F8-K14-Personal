@@ -3,28 +3,34 @@ export interface LoginCredentials {
     password: string
 }
 
+export interface LoginResponse {
+    access: string
+    refresh: string
+}
+
 export interface RegisterCredentials {
     name: string
     email: string
+    role: string
+    status: string
     password: string
-    confirmPassword: string
 }
 
-export interface User {
-    id: string
+export interface RegisterResponse {
+    message?: string
+
+    [key: string]: any
+}
+
+export interface RefreshTokenResponse {
+    access: string
+    refresh: string
+}
+
+export interface UserInfo {
+    userId: string
     email: string
-    password: string
-}
+    role: string
 
-export interface AuthResponse {
-    token: string
-    user: User
+    [key: string]: any
 }
-
-export interface AuthState {
-    user: User | null
-    token: string | null
-    loading: boolean
-    error: string | null
-}
-

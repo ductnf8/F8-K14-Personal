@@ -1,76 +1,27 @@
-import {postLoginMethod, getPostMethod} from "./utils/api.js";
+// src/main.js
+import {authService} from './services/authService.js';
 
-let token;
+const form = document.querySelector('#form');
+const emailInput = document.querySelector('#email');
+const passwordInput = document.querySelector('#password');
+const errorEl = document.querySelector('#error');
 
-// get account from input
-const username = document.querySelector("input[name='username']");
-const password = document.querySelector("input[name='password']");
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
 
-// const accountInfo = {
-//   email: "admin@gmail.com",
-//   password: "12345678",
-// };
-
-// validate input
-const validateAccount = (accountInfo) => {
-    // Validate email: required, include @ and no space
-    if (
-        !accountInfo.email ||
-        !accountInfo.email.includes("@") ||
-        accountInfo.email.includes(" ")
-    ) {
-        alert("Username is not valid, please try again");
-        return false;
-    }
-
-    // Validate password: required, min 6 letters and no space
-    if (
-        !accountInfo.password ||
-        accountInfo.password.length < 6 ||
-        accountInfo.password.includes(" ")
-    ) {
-        alert("Password is not valid, please try again");
-        return false;
-    }
-
-    return true;
-};
-
-const mainLogIn = async (accountInfo) => {
     try {
-        const response = await postLoginMethod(accountInfo);
-        return response;
-    } catch (error) {
-        console.log(error);
-    }
-};
+        const user = await authService.login({email, password});
 
-const logIn = document.querySelector(".log-in");
-if (logIn) {
-    logIn.addEventListener("click", async () => {
-        const accountInfo = {
-            email: username.value.trim(),
-            password: password.value.trim(),
-        };
-        if (validateAccount(accountInfo)) {
-            try {
-                token = await mainLogIn(accountInfo);
-                if (token.access) {
-                    // save token to local storage
-                    localStorage.setItem("access_token", `${token.access}`);
-                    localStorage.setItem("refresh_token", `${token.refresh}`);
-
-                    console.log(token.access);
-                    // go to home page
-                    document.location.href = `./homepage.html`;
-                }
-            } catch (error) {
-                console.log(error);
-            }
+        // Nếu login thành công, lưu token và chuyển trang
+        if (user.token) {
+            localStorage.setItem('token', user.token); // 👈 Đảm bảo dòng này chạy
+            window.location.href = 'home.html';
         } else {
-            console.log("No validate input");
+            throw new Error('Login failed: no token returned');
         }
-    });
-}
-
-export {token};
+    } catch (err) {
+        errorEl.textContent = err.message || 'Login failed';
+    }
+});

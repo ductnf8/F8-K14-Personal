@@ -1,15 +1,71 @@
-import React from 'react';
-import {Box, Typography} from '@mui/material';
-import Image from 'next/image';
+'use client'
+
+import React, {useState} from 'react'
+import {Box, Typography, Button, TextField, Link} from '@mui/material'
+import Image from 'next/image'
+import {useRouter} from 'next/navigation'
+import {toast} from 'react-toastify'
+import DOMPurify from 'dompurify'
+import {register} from '@/lib/api/authService'
+import {validateRegisterForm} from '@/lib/utils/validation'
 
 const RegisterPage = () => {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [errors, setErrors] = useState<{ [key: string]: string }>({})
+    const router = useRouter()
+
+    const sanitizeInput = (input: string) => {
+        return DOMPurify.sanitize(input).trim()
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setIsLoading(true)
+        setErrors({})
+
+        // Sanitize inputs
+        const sanitizedName = sanitizeInput(name)
+        const sanitizedEmail = sanitizeInput(email)
+        const sanitizedPassword = sanitizeInput(password)
+
+        // Validate form
+        const validationErrors = validateRegisterForm(sanitizedName, sanitizedEmail, sanitizedPassword, confirmPassword)
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors)
+            setIsLoading(false)
+            return
+        }
+
+        try {
+            const payload = {
+                name: sanitizedName,
+                email: sanitizedEmail,
+                role: 'student',
+                status: 'confirming',
+                password: sanitizedPassword,
+            }
+            await register(payload)
+            toast.success('Đăng ký thành công! Vui lòng đăng nhập.')
+            router.push('/login')
+        } catch (error: any) {
+            console.error('Register error:', error.message)
+            toast.error(error.message || 'Đã có lỗi xảy ra. Vui lòng thử lại.')
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
     return (
         <Box
             sx={{
                 minHeight: '100vh',
                 width: '100%',
                 display: 'flex',
-                justifyContent: 'center', // Căn giữa trên mọi kích thước
+                justifyContent: 'center',
                 alignItems: 'center',
                 overflowX: 'hidden',
                 bgcolor: 'gray.100',
@@ -18,30 +74,29 @@ const RegisterPage = () => {
             <Box
                 sx={{
                     width: '100%',
-                    maxWidth: 900, // Giới hạn tối đa 900px trên desktop
+                    maxWidth: 900,
                     display: 'flex',
-                    flexDirection: 'column', // Chỉ dùng column
-                    alignItems: 'center', // Căn giữa nội dung
+                    flexDirection: 'column',
+                    alignItems: 'center',
                 }}
             >
-                {/* Register form */}
                 <Box
                     sx={{
                         width: '100%',
-                        maxWidth: {xs: 450, md: 500}, // Đảm bảo 500px trên desktop
+                        maxWidth: {xs: 450, md: 500},
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        px: {xs: 2, sm: 2, md: 4}, // Padding ngang: 8px, 8px, 16px
-                        py: {xs: 2, md: 3}, // Padding dọc: 8px, 12px
-                        minHeight: {md: 700}, // Tăng chiều cao lên 700px trên desktop
+                        px: {xs: 2, sm: 2, md: 4},
+                        py: {xs: 2, md: 3},
+                        minHeight: {md: 700},
                         bgcolor: '#fff',
                         borderRadius: 2,
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Viền bóng
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
                     }}
                 >
                     <Box sx={{width: '100%', textAlign: 'center'}}>
-                        <Box sx={{mb: 4}}> {/* Tăng khoảng cách dưới logo */}
+                        <Box sx={{mb: 4}}>
                             <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1}}>
                                 <Image src="/assets/logo.png" alt="Logo" width={40} height={40}/>
                                 <Typography
@@ -60,86 +115,158 @@ const RegisterPage = () => {
                                 Tạo tài khoản để bắt đầu sử dụng
                             </Typography>
                         </Box>
-                        <Box component="form" noValidate sx={{width: '100%', p: {xs: 2, md: 2}}}>
-                            <div className="flex flex-col text-left">
-                                <label htmlFor="name"
-                                       className="text-sm text-gray-700 mb-2"> {/* Tăng mb-1 thành mb-2 */}
+                        <Box component="form" noValidate sx={{width: '100%', p: {xs: 2, md: 2}}}
+                             onSubmit={handleSubmit}>
+                            <Box sx={{textAlign: 'left', mb: 2}}>
+                                <Typography variant="body2" color="text.secondary">
                                     Tên của bạn
-                                </label>
-                                <input
-                                    type="text"
+                                </Typography>
+                                <TextField
+                                    fullWidth
                                     id="name"
                                     name="name"
                                     placeholder="Nhập tên"
-                                    required
-                                    className="w-full h-10 px-3 border-2 border-blue-500 rounded-md text-sm outline-none focus:border-blue-600 hover:border-blue-600"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    error={!!errors.name}
+                                    helperText={errors.name}
+                                    sx={{
+                                        mt: 1,
+                                        '& .MuiInputBase-root': {
+                                            padding: '2px',
+                                            height: '48px',
+                                            border: '2px solid #00aaff',
+                                            borderRadius: '4px',
+                                            '&:hover': {borderColor: '#0099ff'},
+                                        },
+                                        '& .MuiInputBase-input': {
+                                            padding: '6px 14px',
+                                            fontSize: '0.9rem',
+                                        },
+                                    }}
                                 />
-                            </div>
-                            <div className="flex flex-col text-left mt-6"> {/* Tăng mt-4 thành mt-6 */}
-                                <label htmlFor="email" className="text-sm text-gray-700 mb-2">
+                            </Box>
+                            <Box sx={{textAlign: 'left', mb: 2}}>
+                                <Typography variant="body2" color="text.secondary">
                                     Email
-                                </label>
-                                <input
-                                    type="email"
+                                </Typography>
+                                <TextField
+                                    fullWidth
                                     id="email"
                                     name="email"
+                                    type="email"
                                     placeholder="Nhập email"
-                                    required
-                                    className="w-full h-10 px-3 border-2 border-blue-500 rounded-md text-sm outline-none focus:border-blue-600 hover:border-blue-600"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    error={!!errors.email}
+                                    helperText={errors.email}
+                                    sx={{
+                                        mt: 1,
+                                        '& .MuiInputBase-root': {
+                                            padding: '2px',
+                                            height: '48px',
+                                            border: '2px solid #00aaff',
+                                            borderRadius: '4px',
+                                            '&:hover': {borderColor: '#0099ff'},
+                                        },
+                                        '& .MuiInputBase-input': {
+                                            padding: '6px 14px',
+                                            fontSize: '0.9rem',
+                                        },
+                                    }}
                                 />
-                            </div>
-                            <div className="flex flex-col text-left mt-6">
-                                <label htmlFor="password" className="text-sm text-gray-700 mb-2">
+                            </Box>
+                            <Box sx={{textAlign: 'left', mb: 2}}>
+                                <Typography variant="body2" color="text.secondary">
                                     Mật khẩu
-                                </label>
-                                <input
-                                    type="password"
+                                </Typography>
+                                <TextField
+                                    fullWidth
                                     id="password"
                                     name="password"
-                                    placeholder="Nhập mật khẩu"
-                                    required
-                                    className="w-full h-10 px-3 border-2 border-blue-500 rounded-md text-sm outline-none focus:border-blue-600 hover:border-blue-600"
-                                />
-                            </div>
-                            <div className="flex flex-col text-left mt-6">
-                                <label htmlFor="confirmPassword" className="text-sm text-gray-700 mb-2">
-                                    Xác nhận mật khẩu
-                                </label>
-                                <input
                                     type="password"
+                                    placeholder="Nhập mật khẩu"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    error={!!errors.password}
+                                    helperText={errors.password}
+                                    sx={{
+                                        mt: 1,
+                                        '& .MuiInputBase-root': {
+                                            padding: '2px',
+                                            height: '48px',
+                                            border: '2px solid #00aaff',
+                                            borderRadius: '4px',
+                                            '&:hover': {borderColor: '#0099ff'},
+                                        },
+                                        '& .MuiInputBase-input': {
+                                            padding: '6px 14px',
+                                            fontSize: '0.9rem',
+                                        },
+                                    }}
+                                />
+                            </Box>
+                            <Box sx={{textAlign: 'left', mb: 2}}>
+                                <Typography variant="body2" color="text.secondary">
+                                    Xác nhận mật khẩu
+                                </Typography>
+                                <TextField
+                                    fullWidth
                                     id="confirmPassword"
                                     name="confirmPassword"
+                                    type="password"
                                     placeholder="Xác nhận mật khẩu"
-                                    required
-                                    className="w-full h-10 px-3 border-2 border-blue-500 rounded-md text-sm outline-none focus:border-blue-600 hover:border-blue-600"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    error={!!errors.confirmPassword}
+                                    helperText={errors.confirmPassword}
+                                    sx={{
+                                        mt: 1,
+                                        '& .MuiInputBase-root': {
+                                            padding: '2px',
+                                            height: '48px',
+                                            border: '2px solid #00aaff',
+                                            borderRadius: '4px',
+                                            '&:hover': {borderColor: '#0099ff'},
+                                        },
+                                        '& .MuiInputBase-input': {
+                                            padding: '6px 14px',
+                                            fontSize: '0.9rem',
+                                        },
+                                    }}
                                 />
-                            </div>
-                            <div className="flex justify-between gap-4 mt-6"> {/* Tăng gap-3 thành gap-4 */}
-                                <button
+                            </Box>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between', gap: 2, mt: 3}}>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
                                     type="submit"
-                                    className="w-full h-10 bg-blue-500 text-white rounded-md text-sm font-bold hover:bg-blue-600"
+                                    disabled={isLoading}
+                                    sx={{fontWeight: 'bold'}}
                                 >
-                                    Đăng Ký
-                                </button>
-                                <button
-                                    type="button"
-                                    className="w-full h-10 bg-gray-300 text-gray-800 rounded-md text-sm font-bold hover:bg-gray-400"
+                                    {isLoading ? 'Đang đăng ký...' : 'Đăng Ký'}
+                                </Button>
+                                <Button
+                                    fullWidth
+                                    variant="outlined"
+                                    onClick={() => router.push('/login')}
+                                    sx={{fontWeight: 'bold'}}
                                 >
                                     Hủy
-                                </button>
-                            </div>
-                            <p className="text-center mt-4"> {/* Tăng mt-3 thành mt-4 */}
+                                </Button>
+                            </Box>
+                            <Typography sx={{textAlign: 'center', mt: 2}}>
                                 Đã có tài khoản?{' '}
-                                <a href="/login" className="text-blue-500 hover:underline">
+                                <Link href="/login" underline="hover">
                                     Đăng nhập
-                                </a>
-                            </p>
+                                </Link>
+                            </Typography>
                         </Box>
                     </Box>
                 </Box>
             </Box>
         </Box>
-    );
-};
+    )
+}
 
-export default RegisterPage;
+export default RegisterPage
