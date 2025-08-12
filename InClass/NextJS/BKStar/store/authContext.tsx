@@ -50,6 +50,8 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const logout = () => {
         console.log('Starting logout process...')
         try {
+            console.log('Checking rememberedEmail...')
+            const rememberedEmail = Cookies.get('rememberedEmail')
             console.log('Removing accessToken...')
             Cookies.remove('accessToken')
             console.log('Removing refreshToken...')
@@ -58,6 +60,14 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
             setUser(null)
             console.log('Showing toast success...')
             toast.success('Đăng xuất thành công')
+            if (rememberedEmail) {
+                console.log('Keeping rememberedEmail:', rememberedEmail)
+                Cookies.set('rememberedEmail', rememberedEmail, {
+                    expires: 30,
+                    secure: true,
+                    sameSite: 'strict',
+                })
+            }
             console.log('Attempting redirect to /login...')
             try {
                 console.log('Using router.push...')

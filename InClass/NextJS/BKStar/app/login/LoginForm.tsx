@@ -23,6 +23,7 @@ import {login} from '@/lib/api/authService'
 import {AuthContext} from '@/store/authContext'
 import {UserInfo} from '@/lib/types/auth'
 import {jwtDecode} from 'jwt-decode'
+import logo from '../assets/logo.png'
 
 export default function LoginForm() {
     const [showPassword, setShowPassword] = useState(false)
@@ -133,7 +134,7 @@ export default function LoginForm() {
             <Container maxWidth="xs" sx={{width: '100%', textAlign: 'center'}}>
                 <Box sx={{mb: 3}}>
                     <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1}}>
-                        <Image src="/assets/logo.png" alt="Logo" width={50} height={50}/>
+                        <Image src={logo} alt="Logo" width={50} height={50}/>
                         <Typography variant="h1" fontWeight={700} sx={{fontSize: {xs: '2rem', md: '3.5rem'}}}>
                             <span style={{color: '#2d3748'}}>BK</span>
                             <span style={{color: '#f59e0b'}}>Star</span>

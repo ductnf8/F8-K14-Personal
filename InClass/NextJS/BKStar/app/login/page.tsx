@@ -3,6 +3,7 @@
 import {Box, Typography} from '@mui/material'
 import Image from 'next/image'
 import LoginForm from './LoginForm'
+import loginImage from "../assets/loginbg.jpg"
 
 export default function LoginPage() {
     return (
@@ -38,7 +39,7 @@ export default function LoginPage() {
                         minHeight: {md: 620},
                     }}
                 >
-                    <Image src="/assets/loginbg.jpg" alt="STEAM" width={350} height={260}/>
+                    <Image src={loginImage} alt="STEAM" width={350} height={260}/>
                     <Box sx={{width: '100%', mt: 4}}>
                         <Typography variant="subtitle1" fontWeight="bold" align="left">
                             GIEO MẦM SÁNG TẠO...
