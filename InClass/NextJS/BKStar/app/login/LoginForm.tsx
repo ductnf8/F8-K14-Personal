@@ -11,6 +11,7 @@ import {
     Link,
     InputAdornment,
     IconButton,
+    FormHelperText,
 } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -158,6 +159,8 @@ export default function LoginForm() {
                         placeholder="Nhập email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        error={!!errors.email}
+                        helperText={errors.email}
                         sx={{
                             '& .MuiInputBase-root': {
                                 padding: '2px',
@@ -181,6 +184,8 @@ export default function LoginForm() {
                         placeholder="Nhập mật khẩu"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        error={!!errors.password}
+                        helperText={errors.password}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -212,7 +217,7 @@ export default function LoginForm() {
                             sx={{'& .MuiTypography-root': {fontSize: '0.75rem'}}}
                         />
                         <Link href="#" underline="hover">
-                            Quên mật khẩu ?
+                            Quên mật khẩu?
                         </Link>
                     </Box>
 
@@ -227,8 +232,8 @@ export default function LoginForm() {
                     </Button>
 
                     <Box mt={2} textAlign="center">
-                        <Link href="#" underline="hover">
-                            Đăng kí
+                        <Link href="/register" underline="hover">
+                            Đăng ký
                         </Link>
                         <span> tài khoản cho học viên </span>
                     </Box>

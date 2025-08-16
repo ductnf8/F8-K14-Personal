@@ -1,3 +1,11 @@
+export interface UserInfo {
+    userId: string
+    email: string
+    role: string
+
+    [key: string]: any
+}
+
 export interface LoginCredentials {
     email: string
     password: string
@@ -9,17 +17,12 @@ export interface LoginResponse {
 }
 
 export interface RegisterCredentials {
-    name: string
     email: string
-    role: string
-    status: string
     password: string
 }
 
 export interface RegisterResponse {
-    message?: string
-
-    [key: string]: any
+    message: string
 }
 
 export interface RefreshTokenResponse {
@@ -27,10 +30,9 @@ export interface RefreshTokenResponse {
     refresh: string
 }
 
-export interface UserInfo {
-    userId: string
-    email: string
-    role: string
-
-    [key: string]: any
+export interface Class {
+    id: string
+    name: string
+    code: string
+    users: number[]
 }

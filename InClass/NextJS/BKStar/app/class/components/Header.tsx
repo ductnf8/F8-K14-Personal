@@ -7,19 +7,20 @@ import AddIcon from '@mui/icons-material/Add'
 import HomeIcon from '@mui/icons-material/Home'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Image from 'next/image'
+import Link from 'next/link'
 import {useAuth} from '@/store/authContext'
-import logo from "../../assets/logo.png"
+import logo from '../../assets/logo.png'
 
 interface HeaderProps {
-    toggleSidebar: () => void;
-    isSidebarOpen: boolean;
+    toggleSidebar: () => void
+    isSidebarOpen: boolean
 }
 
 export default function Header({toggleSidebar}: HeaderProps) {
     const [dropdownOpen, setDropdownOpen] = useState(false)
     const dropdownRefDesktop = useRef<HTMLDivElement>(null)
     const dropdownRefMobile = useRef<HTMLDivElement>(null)
-    const {logout} = useAuth()
+    const {user, logout} = useAuth()
 
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -45,6 +46,10 @@ export default function Header({toggleSidebar}: HeaderProps) {
         setDropdownOpen(false)
     }
 
+    // Use email or userId as username, fallback to 'User' if no user info
+    const username = user?.email || user?.userId || 'User'
+    const userRole = user?.role || 'student'
+
     return (
         <header className="w-full min-h-[65px] px-5 py-2 flex items-center justify-between bg-white relative z-50">
             <div className="flex items-center gap-2">
@@ -64,12 +69,7 @@ export default function Header({toggleSidebar}: HeaderProps) {
 
                 <div className="hidden md:flex items-center gap-2">
                     <div className="w-8 h-8 relative">
-                        <Image
-                            src={logo}
-                            alt="Logo"
-                            fill
-                            style={{objectFit: 'contain'}}
-                        />
+                        <Image src={logo} alt="Logo" fill style={{objectFit: 'contain'}}/>
                     </div>
 
                     <div className="flex flex-col">
@@ -91,27 +91,33 @@ export default function Header({toggleSidebar}: HeaderProps) {
 
             <div className="flex items-center gap-4">
                 <div className="hidden md:flex gap-4 mr-6">
-                    <button
-                        className="flex items-center gap-2 border border-sky-500 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
-                    >
-                        <AddIcon fontSize="small"/> Tạo lớp
-                    </button>
-                    <button
-                        className="flex items-center gap-2 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
-                    >
-                        <HomeIcon fontSize="small"/> Trang chủ
-                    </button>
+                    {userRole === 'teacher' && (
+                        <Link href="/class/add">
+                            <button
+                                className="flex items-center gap-2 border border-sky-500 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
+                            >
+                                <AddIcon fontSize="small"/> Tạo lớp
+                            </button>
+                        </Link>
+                    )}
+                    <Link href="/">
+                        <button
+                            className="flex items-center gap-2 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
+                        >
+                            <HomeIcon fontSize="small"/> Trang chủ
+                        </button>
+                    </Link>
                 </div>
 
                 <div className="hidden md:block relative" ref={dropdownRefDesktop}>
                     <button
-                        onClick={() => setDropdownOpen(prev => !prev)}
+                        onClick={() => setDropdownOpen((prev) => !prev)}
                         className="flex items-center gap-2 p-1 rounded transition cursor-pointer"
                     >
-                        <Avatar alt="Tran Xuan Bang" src="/avatar.jpg"/>
+                        <Avatar alt={username} src="/avatar.jpg"/>
                         <div className="text-left leading-tight">
-                            <p className="text-sm font-semibold">Tran Xuan Bang</p>
-                            <p className="text-xs text-gray-500">Giáo viên</p>
+                            <p className="text-sm font-semibold">{username}</p>
+                            <p className="text-xs text-gray-500">{userRole === 'teacher' ? 'Giáo viên' : 'Học viên'}</p>
                         </div>
                         <KeyboardArrowDownIcon
                             className={`transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}
@@ -126,9 +132,12 @@ export default function Header({toggleSidebar}: HeaderProps) {
                                 transform: dropdownOpen ? 'translateY(0)' : 'translateY(8px)',
                             }}
                         >
-                            <button className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
-                                Thông tin cá nhân
-                            </button>
+                            <Link href="/profile">
+                                <button
+                                    className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
+                                    Thông tin cá nhân
+                                </button>
+                            </Link>
                             <button onClick={handleLogout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
                                 Đăng xuất
                             </button>
@@ -138,10 +147,10 @@ export default function Header({toggleSidebar}: HeaderProps) {
 
                 <div className="md:hidden relative" ref={dropdownRefMobile}>
                     <button
-                        onClick={() => setDropdownOpen(prev => !prev)}
+                        onClick={() => setDropdownOpen((prev) => !prev)}
                         className="p-1 rounded-full transition cursor-pointer"
                     >
-                        <Avatar alt="User" src="/avatar.jpg"/>
+                        <Avatar alt={username} src="/avatar.jpg"/>
                     </button>
 
                     {dropdownOpen && (
@@ -152,9 +161,12 @@ export default function Header({toggleSidebar}: HeaderProps) {
                                 transform: dropdownOpen ? 'translateY(0)' : 'translateY(8px)',
                             }}
                         >
-                            <button className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
-                                Thông tin cá nhân
-                            </button>
+                            <Link href="/profile">
+                                <button
+                                    className="w-full text-left px-4 py-3 hover:bg-gray-100 border-b border-gray-200">
+                                    Thông tin cá nhân
+                                </button>
+                            </Link>
                             <button onClick={handleLogout} className="w-full text-left px-4 py-3 hover:bg-gray-100">
                                 Đăng xuất
                             </button>

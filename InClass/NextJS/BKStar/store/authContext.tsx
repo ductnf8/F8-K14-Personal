@@ -6,6 +6,7 @@ import {jwtDecode} from 'jwt-decode'
 import {useRouter} from 'next/navigation'
 import {toast} from 'react-toastify'
 import {UserInfo} from '@/lib/types/auth'
+import {refreshToken} from '@/lib/api/authService'
 
 interface AuthContextType {
     user: UserInfo | null
@@ -26,25 +27,66 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const router = useRouter()
 
     useEffect(() => {
-        const accessToken = Cookies.get('accessToken')
-        if (accessToken) {
+        const checkToken = async () => {
+            const accessToken = Cookies.get('accessToken')
+            if (!accessToken) {
+                console.log('No access token found, redirecting to /login...')
+                router.push('/login')
+                return
+            }
+
             try {
                 const decoded: any = jwtDecode(accessToken)
                 console.log('Restored user from accessToken:', decoded)
-                setUser({
-                    userId: decoded.id,
-                    email: decoded.email || '',
-                    role: decoded.role || 'student',
-                })
+
+                const currentTime = Math.floor(Date.now() / 1000)
+                if (decoded.exp < currentTime) {
+                    console.log('Access token expired, attempting to refresh...')
+                    try {
+                        const newTokens = await refreshToken()
+                        Cookies.set('accessToken', newTokens.access, {
+                            expires: 15 / (24 * 60), // 15 minutes
+                            secure: true,
+                            sameSite: 'strict',
+                        })
+                        Cookies.set('refreshToken', newTokens.refresh, {
+                            expires: 7, // 7 days
+                            secure: true,
+                            sameSite: 'strict',
+                        })
+                        console.log('Token refreshed successfully:', newTokens)
+                        const newDecoded: any = jwtDecode(newTokens.access)
+                        setUser({
+                            userId: newDecoded.id,
+                            email: newDecoded.email || '',
+                            role: newDecoded.role || 'student',
+                        })
+                    } catch (refreshError) {
+                        console.error('Refresh token failed:', refreshError)
+                        Cookies.remove('accessToken')
+                        Cookies.remove('refreshToken')
+                        setUser(null)
+                        toast.error('Phiên đã hết hạn, vui lòng đăng nhập lại')
+                        router.push('/login')
+                    }
+                } else {
+                    setUser({
+                        userId: decoded.id,
+                        email: decoded.email || '',
+                        role: decoded.role || 'student',
+                    })
+                }
             } catch (error) {
                 console.error('Failed to decode accessToken:', error)
                 Cookies.remove('accessToken')
                 Cookies.remove('refreshToken')
                 setUser(null)
-                toast.error('Phiên đã hết hạn')
+                toast.error('Phiên đã hết hạn, vui lòng đăng nhập lại')
                 router.push('/login')
             }
         }
+
+        checkToken()
     }, [router])
 
     const logout = () => {
@@ -69,25 +111,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
                 })
             }
             console.log('Attempting redirect to /login...')
-            try {
-                console.log('Using router.push...')
-                router.push('/login')
-                console.log('Using router.replace...')
-                router.replace('/login')
-                setTimeout(() => {
-                    console.log('Checking current path:', window.location.pathname)
-                    if (window.location.pathname !== '/login') {
-                        console.log('Router push/replace failed, using window.location.href...')
-                        window.location.href = '/login'
-                    } else {
-                        console.log('Redirect to /login successful')
-                    }
-                }, 1500)
-            } catch (redirectError) {
-                console.error('Redirect failed:', redirectError)
-                console.log('Falling back to window.location.href...')
-                window.location.href = '/login'
-            }
+            router.push('/login')
         } catch (error) {
             console.error('Logout process failed:', error)
             console.log('Forcing redirect to /login...')
