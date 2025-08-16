@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import Image from 'next/image'
 import {useAuth} from '@/store/authContext'
+import logo from "../../assets/logo.png"
 
 interface HeaderProps {
     toggleSidebar: () => void;
@@ -64,7 +65,7 @@ export default function Header({toggleSidebar}: HeaderProps) {
                 <div className="hidden md:flex items-center gap-2">
                     <div className="w-8 h-8 relative">
                         <Image
-                            src="/assets/loginbg.jpg"
+                            src={logo}
                             alt="Logo"
                             fill
                             style={{objectFit: 'contain'}}
