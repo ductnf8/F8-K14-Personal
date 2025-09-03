@@ -100,7 +100,7 @@ export default function Header({toggleSidebar}: HeaderProps) {
                             </button>
                         </Link>
                     )}
-                    <Link href="/">
+                    <Link href="/classes">
                         <button
                             className="flex items-center gap-2 text-sky-500 px-5 py-2 rounded-md hover:bg-[#1976d210] transition font-medium text-base cursor-pointer"
                         >
